@@ -1,0 +1,984 @@
+{
+  "NAV": {
+    "HOME": "Home",
+    "SERVICES": "Services",
+    "ABOUT": "About",
+    "PRICING": "Pricing",
+    "CONTACT": "Contact",
+    "BOOK": "Book Now",
+    "FAQ": "FAQ",
+    "BLOG": "Blog"
+  },
+  "COMMON": {
+    "LOADING": "Loading...",
+    "ERROR": "An error occurred",
+    "SUCCESS": "Success",
+    "CANCEL": "Cancel",
+    "CONFIRM": "Confirm",
+    "SAVE": "Save",
+    "CLOSE": "Close",
+    "YES": "Yes",
+    "NO": "No",
+    "LEARN_MORE": "Learn More",
+    "GET_STARTED": "Get Started",
+    "READ_MORE": "Read More",
+    "VIEW_ALL": "View All",
+    "BACK": "Back"
+  },
+  "HOME": {
+    "HERO": {
+      "BADGE": "Eco-Friendly Cleaning • Montreal",
+      "TITLE": "Excellence in",
+      "TITLE_ACCENT": "eco-friendly cleaning",
+      "SUBTITLE": "Together, let's redefine professional cleaning standards with 100% natural and respectful solutions.",
+      "CTA_BUTTON": "Get started now"
+    },
+    "PRODUCTS": {
+      "TITLE": "Certified natural",
+      "TITLE_ACCENT": "products",
+      "DESCRIPTION": "Every product is selected according to our most rigorous standards. Biodegradable, non-toxic and effective - the perfect alliance for your health and that of the environment.",
+      "FEATURES": {
+        "CERT": "✓ Quebec ecological certification",
+        "FORMULA": "✓ Advanced natural formulas",
+        "ZERO_RESIDUE": "✓ Zero chemical residue"
+      },
+      "BADGE": "100% Natural"
+    },
+    "SERVICES": {
+      "TITLE": "Tailored excellence",
+      "RESIDENTIAL": {
+        "TITLE": "Residential",
+        "DESCRIPTION": "Your home deserves special attention. Our personalized approach transforms your space into a sanctuary of cleanliness.",
+        "FEATURES": {
+          "HYPOALLERGENIC": "Hypoallergenic products",
+          "FLEXIBLE": "Flexible service"
+        }
+      },
+      "COMMERCIAL": {
+        "TITLE": "Commercial",
+        "DESCRIPTION": "Create a professional environment that inspires confidence. Solutions adapted to modern workspaces.",
+        "FEATURES": {
+          "FLEXIBLE_HOURS": "Flexible hours",
+          "ADAPTED_PROTOCOLS": "Adapted protocols"
+        }
+      }
+    },
+    "EXPERIENCE": {
+      "TITLE": "The",
+      "TITLE_ACCENT": "EcoNet experience",
+      "DESCRIPTION": "More than just a service, we create a unique experience that exceeds your expectations. Every detail matters in our holistic approach to cleaning.",
+      "STATS": {
+        "CLIENTS": "Satisfied clients",
+        "ECO": "Eco-friendly",
+        "EXPERTISE": "Of expertise",
+        "REACTIVITY": "Response time"
+      },
+      "TESTIMONIAL": {
+        "TEXT": "A revolution in cleaning. The EcoNet team transformed our office into a wellness space. Natural products, exceptional results.",
+        "AUTHOR_NAME": "Marie Dubois",
+        "AUTHOR_TITLE": "Director, TechStart Montreal"
+      }
+    },
+    "CTA": {
+      "TITLE": "Transform your space",
+      "SUBTITLE": "Join hundreds of satisfied customers who have chosen ecological excellence. Your personalized quote awaits you.",
+      "GET_QUOTE": "Get my quote",
+      "DISCOVER_SERVICES": "Discover our services",
+      "FLOATING_BADGES": {
+        "ECO": "100% Natural",
+        "SERVICE": "Premium Service",
+        "LOCAL": "Montreal"
+      }
+    },
+    "ALT_TEXTS": {
+      "HERO_IMAGE": "Excellence in eco-friendly cleaning",
+      "PRODUCTS_IMAGE": "Premium eco-friendly products",
+      "RESIDENTIAL_IMAGE": "Premium residential cleaning",
+      "COMMERCIAL_IMAGE": "Premium commercial cleaning"
+    }
+  },
+  "SERVICES": {
+    "TITLE": "Our Services",
+    "SUBTITLE": "Complete eco-friendly cleaning solutions",
+    "PAGE": {
+      "HERO": {
+        "BADGE": "Professional Services • Montreal",
+        "TITLE": "Customized cleaning",
+        "TITLE_ACCENT": "solutions",
+        "SUBTITLE": "Professional services tailored to your specific needs, with eco-friendly products and an environmentally respectful approach."
+      },
+      "CATEGORIES": {
+        "TITLE": "Our areas of expertise",
+        "SUBTITLE": "A specialized approach for each type of space",
+        "RESIDENTIAL": {
+          "NAME": "Residential",
+          "DESCRIPTION": "Complete services for your home, adapted to your lifestyle."
+        },
+        "COMMERCIAL": {
+          "NAME": "Commercial",
+          "DESCRIPTION": "Professional solutions for offices, stores, and workspaces."
+        },
+        "CONSTRUCTION": {
+          "NAME": "Post-construction",
+          "DESCRIPTION": "Specialized cleaning after construction and renovation work."
+        }
+      },
+      "DETAILED": {
+        "TITLE": "Detailed services",
+        "SUBTITLE": "Discover our complete range of professional services",
+        "POPULAR_BADGE": "⭐ POPULAR",
+        "PRICE_LABEL": "Starting at",
+        "BUTTONS": {
+          "BOOK": "Book",
+          "QUOTE": "Free quote"
+        }
+      },
+      "WHY": {
+        "TITLE": "Why choose EcoNet?",
+        "FEATURES": {
+          "ECO": {
+            "TITLE": "100% Eco-Friendly",
+            "DESCRIPTION": "Certified and environmentally respectful products"
+          },
+          "EXPERTISE": {
+            "TITLE": "Recognized Expertise",
+            "DESCRIPTION": "Over 5 years of experience and 500+ satisfied clients"
+          },
+          "INSURANCE": {
+            "TITLE": "Complete Insurance",
+            "DESCRIPTION": "$2M coverage for your peace of mind"
+          }
+        },
+        "IMAGE_ALT": "EcoNet professional team"
+      },
+      "CTA": {
+        "TITLE": "Ready to get started?",
+        "SUBTITLE": "Get your personalized quote and schedule your service today",
+        "BOOK_NOW": "Book now",
+        "GET_QUOTE": "Request quote"
+      },
+      "SERVICE_LIST": {
+        "RESIDENTIAL_BASIC": {
+          "TITLE": "Standard Residential Cleaning",
+          "CATEGORY": "Residential",
+          "DESCRIPTION": "Complete service for your home including kitchen, bathrooms, bedrooms, and living areas.",
+          "FEATURES": [
+            "Complete dusting",
+            "Surface cleaning",
+            "Vacuuming and floor washing",
+            "Bathroom cleaning",
+            "Certified eco-friendly products"
+          ],
+          "PRICE": "$89/visit",
+          "DURATION": "2-3 hours"
+        },
+        "RESIDENTIAL_DEEP": {
+          "TITLE": "Deep Residential Cleaning",
+          "CATEGORY": "Residential",
+          "DESCRIPTION": "Deep cleaning ideal for moves or seasonal cleaning.",
+          "FEATURES": [
+            "All standard services",
+            "Interior appliance cleaning",
+            "Interior window washing",
+            "Baseboards and frames cleaning",
+            "Complete disinfection"
+          ],
+          "PRICE": "$159/visit",
+          "DURATION": "4-5 hours"
+        },
+        "COMMERCIAL_OFFICE": {
+          "TITLE": "Office Cleaning",
+          "CATEGORY": "Commercial",
+          "DESCRIPTION": "Customized solutions to maintain a healthy and professional work environment.",
+          "FEATURES": [
+            "Workstation cleaning",
+            "Trash removal",
+            "Common area cleaning",
+            "Surface disinfection",
+            "Flexible service (day/evening)"
+          ],
+          "PRICE": "$45/h",
+          "DURATION": "As needed"
+        },
+        "COMMERCIAL_RETAIL": {
+          "TITLE": "Commercial Cleaning",
+          "CATEGORY": "Commercial",
+          "DESCRIPTION": "Services adapted to stores, restaurants, and commercial spaces.",
+          "FEATURES": [
+            "Customer area cleaning",
+            "Window maintenance",
+            "Commercial floor cleaning",
+            "Sensitive area disinfection",
+            "Flexible hours"
+          ],
+          "PRICE": "$65/h",
+          "DURATION": "Based on area"
+        },
+        "CONSTRUCTION_CLEANUP": {
+          "TITLE": "Post-Construction Cleaning",
+          "CATEGORY": "Construction",
+          "DESCRIPTION": "Complete restoration after construction or major renovation work.",
+          "FEATURES": [
+            "Fine debris removal",
+            "Construction residue cleaning",
+            "Complete surface washing",
+            "Window cleaning",
+            "Move-in preparation"
+          ],
+          "PRICE": "$3.50/sq ft",
+          "DURATION": "1-2 days"
+        },
+        "MAINTENANCE": {
+          "TITLE": "Regular Maintenance",
+          "CATEGORY": "Maintenance",
+          "DESCRIPTION": "Personalized maintenance program to maintain daily cleanliness.",
+          "FEATURES": [
+            "Customizable frequency",
+            "Dedicated team",
+            "Products provided",
+            "Regular quality monitoring",
+            "Preferential rates"
+          ],
+          "PRICE": "Custom",
+          "DURATION": "Variable"
+        }
+      }
+    },
+    "RESIDENTIAL": {
+      "TITLE": "Residential Cleaning",
+      "DESC": "Complete service for homes and apartments",
+      "FEATURES": ["Regular cleaning", "Eco-friendly products", "Trained team", "Full insurance"]
+    },
+    "COMMERCIAL": {
+      "TITLE": "Commercial Cleaning",
+      "DESC": "Professional solutions for businesses",
+      "FEATURES": ["Offices and stores", "Flexible hours", "Professional equipment", "Custom contracts"]
+    },
+    "POST_CONSTRUCTION": {
+      "TITLE": "Post-Construction",
+      "DESC": "Cleaning after construction work",
+      "FEATURES": ["Dust and debris", "Delicate finishes", "Specialized equipment", "Impeccable results"]
+    },
+    "DEEP_CLEANING": {
+      "TITLE": "Deep Cleaning",
+      "DESC": "Complete renewal of your spaces",
+      "FEATURES": ["Intensive cleaning", "Complete disinfection", "Hard-to-reach areas", "Long-lasting results"]
+    },
+    "MAINTENANCE": {
+      "TITLE": "Regular Maintenance",
+      "DESC": "Personalized maintenance programs",
+      "FEATURES": ["Flexible scheduling", "Dedicated team", "Adapted products", "Quality monitoring"]
+    },
+    "CARPET": {
+      "TITLE": "Carpet Cleaning",
+      "DESC": "Textile cleaning expertise",
+      "FEATURES": ["Advanced techniques", "Quick drying", "Stain treatment", "Extends lifespan"]
+    }
+  },
+  "ABOUT": {
+    "TITLE": "About Us",
+    "SUBTITLE": "Over 10 years of experience serving Montreal",
+    "STORY_TITLE": "Our Story",
+    "STORY_TEXT": "Founded in 2014, EcoNet Cleaning was born from the vision of creating a cleaning service that respects both our clients and our environment.",
+    "MISSION_TITLE": "Our Mission",
+    "MISSION_TEXT": "To provide exceptional cleaning services while preserving the health of our clients and our planet.",
+    "VALUES_TITLE": "Our Values",
+    "VALUES": {
+      "ECO": "Environmental commitment",
+      "QUALITY": "Service excellence",
+      "TRUST": "Trust and transparency",
+      "INNOVATION": "Constant innovation"
+    },
+    "TEAM_TITLE": "Our Team",
+    "TEAM_SUBTITLE": "Passionate and certified professionals",
+    "CERTIFICATIONS_TITLE": "Certifications",
+    "AWARDS_TITLE": "Awards",
+    "PAGE": {
+      "HERO": {
+        "BADGE": "About • EcoNet Cleaning",
+        "TITLE": "Our Story, Your Cleanliness",
+        "SUBTITLE": "Your trusted partner for eco-friendly and professional cleaning in Montreal for over 5 years.",
+        "IMAGE_ALT": "Our EcoNet Cleaning team"
+      },
+      "STORY": {
+        "TITLE": "Our Story",
+        "PARAGRAPHS": [
+          "Founded in 2019 by a team passionate about the environment and service quality, EcoNet Cleaning was born from the desire to revolutionize the cleaning industry in Quebec.",
+          "Recognizing the negative impact of traditional chemical products on health and the environment, we decided to create a 100% eco-friendly alternative without compromising effectiveness.",
+          "Today, with over 500 satisfied clients and a team of 15 professionals, we are proud to be the pioneers of eco-friendly cleaning in the Montreal region."
+        ],
+        "IMAGE_ALT": "Eco-friendly cleaning team"
+      },
+      "VALUES": {
+        "TITLE": "Our Values",
+        "SUBTITLE": "The principles that guide each of our actions",
+        "LIST": {
+          "ENVIRONMENT": {
+            "TITLE": "Environmental Respect",
+            "DESCRIPTION": "We exclusively use biodegradable and ecosystem-friendly products to preserve our planet."
+          },
+          "QUALITY": {
+            "TITLE": "Quality & Excellence",
+            "DESCRIPTION": "Every intervention is carried out according to our highest standards to guarantee your satisfaction."
+          },
+          "TRANSPARENCY": {
+            "TITLE": "Transparency",
+            "DESCRIPTION": "We communicate openly about our practices, products, and processes."
+          },
+          "INNOVATION": {
+            "TITLE": "Innovation",
+            "DESCRIPTION": "We constantly invest in new technologies and eco-friendly cleaning methods."
+          },
+          "COMMUNITY": {
+            "TITLE": "Community",
+            "DESCRIPTION": "We actively contribute to the well-being of our local community."
+          },
+          "INTEGRITY": {
+            "TITLE": "Integrity",
+            "DESCRIPTION": "We act with honesty and ethics in all our business relationships."
+          }
+        }
+      },
+      "TEAM": {
+        "TITLE": "Our Team",
+        "SUBTITLE": "Passionate and experienced professionals",
+        "MEMBERS": {
+          "MARIE_CLAUDE": {
+            "NAME": "Marie-Claude Dubois",
+            "POSITION": "Founder & General Manager",
+            "DESCRIPTION": "Passionate about the environment and entrepreneurship, Marie-Claude founded EcoNet Cleaning with the vision of revolutionizing the cleaning industry.",
+            "SPECIALTIES": ["Leadership", "Sustainable Development", "Business Management"]
+          },
+          "JEAN_FRANCOIS": {
+            "NAME": "Jean-François Martin",
+            "POSITION": "Operations Manager",
+            "DESCRIPTION": "With 10 years of experience in commercial cleaning, Jean-François supervises all our operations with exemplary attention to detail.",
+            "SPECIALTIES": ["Team Management", "Quality", "Training"]
+          },
+          "SOPHIE": {
+            "NAME": "Sophie Tremblay",
+            "POSITION": "Eco-friendly Products Specialist",
+            "DESCRIPTION": "A trained chemist, Sophie develops and selects all our eco-friendly products to ensure effectiveness and environmental respect.",
+            "SPECIALTIES": ["Green Chemistry", "R&D", "Certifications"]
+          }
+        }
+      },
+      "MISSION": {
+        "TITLE": "Our Mission",
+        "DESCRIPTION": "To provide exceptional cleaning services that protect our clients' health and preserve the environment for future generations.",
+        "POINTS": {
+          "ENVIRONMENT": {
+            "TITLE": "Environmental Protection",
+            "DESCRIPTION": "Exclusive use of biodegradable and non-toxic products"
+          },
+          "COMMUNITY": {
+            "TITLE": "Community Well-being",
+            "DESCRIPTION": "Creating healthy environments for families and businesses"
+          },
+          "EXCELLENCE": {
+            "TITLE": "Service Excellence",
+            "DESCRIPTION": "Commitment to quality and client satisfaction"
+          }
+        },
+        "STATS": {
+          "CLIENTS": "Satisfied Clients",
+          "EXPERIENCE": "Years of Experience",
+          "EMPLOYEES": "Qualified Employees",
+          "ECO_PRODUCTS": "Eco-friendly Products"
+        }
+      },
+      "CTA": {
+        "TITLE": "Join Our Mission",
+        "SUBTITLE": "Be part of the change towards a cleaner and greener future",
+        "BOOK_NOW": "Book Now",
+        "CONTACT_US": "Contact Us"
+      }
+    }
+  },
+  "PRICING": {
+    "TITLE": "Our Pricing",
+    "SUBTITLE": "Transparency and flexibility for all your needs",
+    "HERO": {
+      "TITLE": "Cleaning Services",
+      "SUBTITLE": "Eco-friendly. Professional. Transparent."
+    },
+    "SERVICES": {
+      "TITLE": "Our Services",
+      "SUBTITLE": "Choose the perfect solution for your needs"
+    },
+    "STARTING_FROM": "starting from",
+    "BOOK": "Book",
+    "LEARN_MORE": "Learn more",
+    "PLANS": {
+      "RESIDENTIAL": {
+        "NAME": "Residential Cleaning",
+        "DESCRIPTION": "Perfect for homes and apartments",
+        "FEATURES": [
+          "Complete cleaning of all rooms",
+          "Kitchen and bathroom disinfected",
+          "Vacuum and mopping",
+          "Surface dusting",
+          "Interior window cleaning",
+          "Trash removal"
+        ]
+      },
+      "COMMERCIAL": {
+        "NAME": "Commercial Cleaning",
+        "DESCRIPTION": "Ideal for offices and businesses",
+        "FEATURES": [
+          "Workspace cleaning",
+          "Restrooms and common areas",
+          "Contact point disinfection",
+          "Trash emptying and replacement",
+          "Glass surface cleaning",
+          "Floor maintenance"
+        ]
+      },
+      "POSTCONSTRUCTION": {
+        "NAME": "Post-Construction",
+        "DESCRIPTION": "After renovation work",
+        "FEATURES": [
+          "Construction dust removal",
+          "Paint residue cleaning",
+          "Industrial vacuuming",
+          "Complete degreasing",
+          "Thorough window cleaning",
+          "Detailed finishing"
+        ]
+      },
+      "DEEPCLEANING": {
+        "NAME": "Deep Cleaning",
+        "DESCRIPTION": "Intensive and detailed service",
+        "FEATURES": [
+          "Complete cleaning each room",
+          "Interior of appliances",
+          "Baseboards and moldings",
+          "Light fixtures and fans",
+          "Complete disinfection",
+          "Stubborn stain treatment"
+        ]
+      }
+    },
+    "FACTORS_TITLE": "Pricing Factors",
+    "FACTORS_SUBTITLE": "Understanding how we calculate our prices",
+    "FACTORS": {
+      "SIZE": "Area to clean",
+      "FREQUENCY": "Service frequency",
+      "TYPE": "Type of cleaning",
+      "LOCATION": "Location",
+      "EXTRAS": "Additional services"
+    },
+    "PLANS_TITLE": "Our Packages",
+    "ESSENTIAL": {
+      "NAME": "Essential",
+      "PRICE": "Starting at $89",
+      "FEATURES": ["Basic cleaning", "Eco-friendly products", "2-3 hours", "Satisfaction guarantee"]
+    },
+    "PREMIUM": {
+      "NAME": "Premium",
+      "PRICE": "Starting at $149",
+      "FEATURES": ["Complete cleaning", "Premium products", "4-5 hours", "Team of 2 people"]
+    },
+    "DELUXE": {
+      "NAME": "Deluxe",
+      "PRICE": "Starting at $219",
+      "FEATURES": ["Full service", "Detailed finishes", "6+ hours", "Specialized team"]
+    },
+    "CUSTOM_TITLE": "Custom Service",
+    "CUSTOM_DESC": "Every space is unique. Contact us for a custom quote.",
+    "CTA_TITLE": "Ready for a cleaner space?",
+    "CTA_DESC": "Get your personalized quote for free",
+    "GET_QUOTE_BTN": "Request Quote",
+    "COMPARISON": {
+      "TITLE": "Service Comparison",
+      "SUBTITLE": "Find the perfect service for your needs",
+      "FEATURES": "Features",
+      "GENERAL_CLEANING": "General cleaning",
+      "DISINFECTION": "Complete disinfection",
+      "INTERIOR_WINDOWS": "Interior window cleaning",
+      "SPECIALIZED_EQUIPMENT": "Specialized equipment",
+      "POST_CONSTRUCTION": "Post-construction cleaning",
+      "APPLIANCE_INTERIOR": "Appliance interior",
+      "SATISFACTION_GUARANTEE": "Satisfaction guarantee"
+    },
+    "CALCULATOR": {
+      "TITLE": "Instant Price Calculator",
+      "SUBTITLE": "Get an immediate estimate based on your specific needs",
+      "FEATURE_1": "Calculation based on area",
+      "FEATURE_2": "Property type taken into account",
+      "FEATURE_3": "Discounts for recurring services",
+      "FEATURE_4": "Instant and free quote",
+      "BUTTON": "🧮 Calculate My Price"
+    },
+    "GUARANTEE": {
+      "TITLE": "Our Price Guarantee",
+      "SUBTITLE": "Your satisfaction is our priority",
+      "TRANSPARENT": {
+        "TITLE": "Transparent Pricing",
+        "DESCRIPTION": "No hidden costs. The agreed price is the final price, guaranteed."
+      },
+      "SATISFACTION": {
+        "TITLE": "100% Satisfaction",
+        "DESCRIPTION": "Not satisfied? We come back free within 24h to correct it."
+      },
+      "BEST_PRICE": {
+        "TITLE": "Best Price",
+        "DESCRIPTION": "Found cheaper elsewhere? We match competitor prices."
+      }
+    },
+    "FAQ": {
+      "TITLE": "Pricing FAQ",
+      "PAYMENT_METHODS": {
+        "QUESTION": "💳 What payment methods do you accept?",
+        "ANSWER": "We accept credit cards, debit, Interac transfer and cash payment."
+      },
+      "ADVANCE_PAYMENT": {
+        "QUESTION": "📅 Do I have to pay in advance?",
+        "ANSWER": "No, payment is made after the service, once you are satisfied with the result."
+      },
+      "EXTRA_FEES": {
+        "QUESTION": "📋 Are there any extra fees?",
+        "ANSWER": "All our prices include products, equipment and travel in the Montreal region."
+      },
+      "MODIFY_BOOKING": {
+        "QUESTION": "🔄 Can I modify my booking?",
+        "ANSWER": "Yes, free modifications up to 24h before service. After that, fees may apply."
+      },
+      "LOCATION_PRICING": {
+        "QUESTION": "🎯 Do prices vary by neighborhood?",
+        "ANSWER": "Our prices are fixed throughout the metropolitan area. No surcharge by neighborhood."
+      },
+      "CUSTOM_QUOTE": {
+        "QUESTION": "📞 How do I get a personalized quote?",
+        "ANSWER": "Contact us by phone or form. We offer free quotes within 24h."
+      }
+    },
+    "FACTORS": {
+      "AREA": {
+        "NAME": "Area",
+        "DESCRIPTION": "The size of your space directly influences the time required",
+        "ITEMS": [
+          "Under 800 sq ft: Base price",
+          "800-1500 sq ft: +25%",
+          "1500-2500 sq ft: +50%",
+          "Over 2500 sq ft: Custom quote"
+        ]
+      },
+      "PROPERTY_TYPE": {
+        "NAME": "Property Type",
+        "DESCRIPTION": "Different spaces require specific approaches",
+        "ITEMS": [
+          "Apartment/Condo: Standard price",
+          "Single family home: +10-20%",
+          "Office/Commercial: Specialized rate",
+          "Post-construction space: +40-60%"
+        ]
+      },
+      "FREQUENCY": {
+        "NAME": "Frequency",
+        "DESCRIPTION": "The more you book regularly, the more you save",
+        "ITEMS": [
+          "One-time: Full price",
+          "Monthly: -5%",
+          "Bi-weekly: -10%",
+          "Weekly: -15%"
+        ]
+      },
+      "ADDITIONAL_SERVICES": {
+        "NAME": "Additional Services",
+        "DESCRIPTION": "Extra options according to your needs",
+        "ITEMS": [
+          "Exterior window cleaning: +$40",
+          "Oven cleaning: +$25",
+          "Refrigerator cleaning: +$35",
+          "Garage/basement: +$50"
+        ]
+      }
+    },
+    "CTA": {
+      "TITLE": "Ready for a cleaner space?",
+      "SUBTITLE": "Start today with a free quote.",
+      "BOOK_NOW": "Book now",
+      "GET_QUOTE": "Get a quote"
+    }
+  },
+  "CONTACT": {
+    "TITLE": "Contact Us",
+    "SUBTITLE": "We're here to answer all your questions and provide exceptional service",
+    "METHODS_TITLE": "Multiple Ways to Reach Us",
+    "METHODS_SUBTITLE": "Choose the communication method that suits you best",
+    "PHONE": "Phone",
+    "EMAIL": "Email",
+    "CHAT": "Live Chat",
+    "PHONE_DESC": "Call us Monday to Friday, 8am to 6pm",
+    "EMAIL_DESC": "We usually respond within 2 hours",
+    "CHAT_DESC": "Instant support Monday to Friday",
+    "PHONE_ACTION": "Call now",
+    "EMAIL_ACTION": "Send email",
+    "CHAT_ACTION": "Start chat",
+    "FORM_TITLE": "Request a Free Quote",
+    "FORM_SUBTITLE": "Fill out this form and we'll contact you within 24 hours",
+    "FIRST_NAME": "First Name",
+    "LAST_NAME": "Last Name",
+    "EMAIL_ADDRESS": "Email Address",
+    "PHONE_NUMBER": "Phone Number",
+    "SERVICE_TYPE": "Service Type",
+    "PROPERTY_SIZE": "Property Size",
+    "MESSAGE": "Message",
+    "MESSAGE_PLACEHOLDER": "Describe your cleaning needs...",
+    "MESSAGE_REQUIRED": "A message is required",
+    "URGENT_REQUEST": "Urgent request (within 48h)",
+    "SEND_REQUEST": "📧 Send Request",
+    "SENDING": "⏳ Sending...",
+    "CUSTOMER_SERVICE_ALT": "ÉcoNet Customer Service",
+    "SERVICE_OPTIONS": {
+      "SELECT": "Select a service",
+      "RESIDENTIAL": "Residential cleaning",
+      "COMMERCIAL": "Commercial cleaning",
+      "POST_CONSTRUCTION": "Post-construction cleaning",
+      "DEEP_CLEANING": "Deep cleaning",
+      "MAINTENANCE": "Regular maintenance",
+      "CARPET": "Carpet cleaning",
+      "OTHER": "Other"
+    },
+    "SIZE_OPTIONS": {
+      "SELECT": "Select size",
+      "SMALL": "Small (under 1000 sq ft)",
+      "MEDIUM": "Medium (1000-2500 sq ft)",
+      "LARGE": "Large (2500-5000 sq ft)",
+      "XLARGE": "Very large (over 5000 sq ft)"
+    },
+    "OFFICES_TITLE": "Our Offices",
+    "OFFICES_SUBTITLE": "Find us in the Montreal area",
+    "MONTREAL_OFFICE": {
+      "NAME": "Main Office - Montreal",
+      "HOURS": [
+        "Monday - Friday: 8:00 AM - 6:00 PM",
+        "Saturday: 9:00 AM - 4:00 PM",
+        "Sunday: Closed"
+      ]
+    },
+    "LAVAL_OFFICE": {
+      "NAME": "Laval Office",
+      "HOURS": [
+        "Monday - Friday: 8:30 AM - 5:30 PM",
+        "Saturday: 9:00 AM - 3:00 PM",
+        "Sunday: Closed"
+      ]
+    },
+    "HOURS_TITLE": "Office Hours:",
+    "FAQ_PREVIEW_TITLE": "Frequently Asked Questions",
+    "FAQ_PREVIEW_SUBTITLE": "Check our FAQ section for quick answers",
+    "FAQ_QUESTIONS": {
+      "PRODUCTS": "❓ What products do you use?",
+      "PRODUCTS_ANSWER": "Exclusively certified eco-friendly products",
+      "TIMING": "⏰ What are your response times?",
+      "TIMING_ANSWER": "Intervention possible within 24-48h",
+      "PRICING": "💰 How do you calculate your rates?",
+      "PRICING_ANSWER": "Based on surface area, service type and frequency"
+    },
+    "VIEW_ALL_FAQ": "📚 View All FAQs"
+  },
+  "FAQ": {
+    "TITLE": "Frequently Asked Questions",
+    "SUBTITLE": "Quickly find answers to your questions",
+    "SEARCH_PLACEHOLDER": "Search in FAQs...",
+    "CATEGORIES": {
+      "ALL": "All",
+      "SERVICES": "Services",
+      "PRICING": "Pricing",
+      "BOOKING": "Booking",
+      "PRODUCTS": "Products",
+      "GENERAL": "General"
+    }
+  },
+  "BLOG": {
+    "TITLE": "Our Blog",
+    "SUBTITLE": "Tips, tricks and news about eco-friendly cleaning",
+    "LATEST_POSTS": "Latest Posts",
+    "READ_MORE": "Read more",
+    "CATEGORIES": {
+      "ALL": "All",
+      "TIPS": "Tips",
+      "ECO": "Ecology",
+      "NEWS": "News",
+      "GUIDES": "Guides"
+    }
+  },
+  "BOOKING": {
+    "TITLE": "Online Booking",
+    "SUBTITLE": "Schedule your cleaning service in a few clicks",
+    "STEP_1": "Choose service",
+    "STEP_2": "Select date",
+    "STEP_3": "Confirm details",
+    "STEP_4": "Payment",
+    "BOOK_NOW": "Book now",
+    "CALENDAR_PLACEHOLDER": "Select a date",
+    "TIME_PLACEHOLDER": "Choose time"
+  },
+  "FOOTER": {
+    "DESCRIPTION": "Professional eco-friendly cleaning service for your home and business in the Montreal area.",
+    "SERVICES_TITLE": "Services",
+    "COMPANY_TITLE": "Company",
+    "AREAS_TITLE": "Service Areas",
+    "CONTACT_TITLE": "Contact",
+    "QUICK_LINKS": "Quick Links",
+    "SERVICE_AREAS": {
+      "MONTREAL": "Montreal",
+      "LAVAL": "Laval",
+      "LONGUEUIL": "Longueuil",
+      "BROSSARD": "Brossard"
+    },
+    "COPYRIGHT": "© 2025 EcoNet Cleaning. All rights reserved.",
+    "PRIVACY": "Privacy",
+    "TERMS": "Terms",
+    "SITEMAP": "Sitemap"
+  },
+  "PRIVACY": {
+    "HERO": {
+      "TITLE": "Privacy Policy",
+      "SUBTITLE": "Your privacy is our priority. Learn how we protect and use your personal information."
+    },
+    "LAST_UPDATED": "Last updated: January 15, 2025",
+    "TOC": {
+      "TITLE": "Table of Contents",
+      "COLLECTION": "Information Collection",
+      "USE": "Information Use",
+      "SHARING": "Information Sharing",
+      "SECURITY": "Data Security",
+      "COOKIES": "Cookies and Technologies",
+      "RIGHTS": "Your Rights",
+      "CHILDREN": "Children's Privacy",
+      "CHANGES": "Policy Changes",
+      "CONTACT": "Contact Us"
+    },
+    "INTRO": {
+      "PARAGRAPH1": "At EcoNet Cleaning, we are committed to protecting your privacy and respecting your personal data. This privacy policy explains how we collect, use, share, and protect your information when you use our eco-friendly cleaning services.",
+      "PARAGRAPH2": "By using our services, you agree to the practices described in this policy. We encourage you to read this document carefully to understand our practices regarding your personal data."
+    },
+    "COLLECTION": {
+      "TITLE": "Information Collection",
+      "PERSONAL": {
+        "TITLE": "Personal Information",
+        "CONTENT": "We collect personal information that you provide directly to us when you:",
+        "ITEMS": {
+          "NAME": "Full name and contact details",
+          "EMAIL": "Email address",
+          "PHONE": "Phone number",
+          "ADDRESS": "Service address",
+          "SERVICE_DETAILS": "Details about requested services"
+        }
+      },
+      "AUTOMATIC": {
+        "TITLE": "Automatically Collected Information",
+        "CONTENT": "We automatically collect certain information when you visit our website:",
+        "ITEMS": {
+          "IP_ADDRESS": "IP address and location information",
+          "BROWSER_INFO": "Browser type and version",
+          "DEVICE_INFO": "Device information",
+          "USAGE_DATA": "Usage and navigation data"
+        }
+      }
+    },
+    "USE": {
+      "TITLE": "Information Use",
+      "INTRO": "We use your personal information to:",
+      "ITEMS": {
+        "PROVIDE_SERVICES": "Provide and maintain our cleaning services",
+        "COMMUNICATE": "Communicate with you about your service",
+        "IMPROVE_SERVICES": "Improve our services and your experience",
+        "MARKETING": "Send you promotional information (with your consent)",
+        "LEGAL_COMPLIANCE": "Comply with our legal obligations"
+      }
+    },
+    "SHARING": {
+      "TITLE": "Information Sharing",
+      "INTRO": "We never sell your personal information. We may share your information in the following cases:",
+      "ITEMS": {
+        "SERVICE_PROVIDERS": "With our trusted service providers",
+        "LEGAL_REQUIREMENTS": "To comply with legal requirements",
+        "BUSINESS_TRANSFER": "In case of business merger or acquisition",
+        "CONSENT": "With your explicit consent"
+      }
+    },
+    "SECURITY": {
+      "TITLE": "Data Security",
+      "CONTENT": "We implement appropriate technical and organizational security measures to protect your personal data against loss, misuse, unauthorized access, disclosure, alteration, and destruction. However, no method of transmission over the Internet is 100% secure."
+    },
+    "COOKIES": {
+      "TITLE": "Cookies and Similar Technologies",
+      "CONTENT": "Our website uses cookies and similar technologies to improve your user experience, analyze traffic, and personalize content. You can manage your cookie preferences through your browser settings."
+    },
+    "RIGHTS": {
+      "TITLE": "Your Rights",
+      "INTRO": "In accordance with applicable data protection laws, you have the right to:",
+      "ITEMS": {
+        "ACCESS": "Access your personal data",
+        "CORRECTION": "Correct inaccurate data",
+        "DELETION": "Request deletion of your data",
+        "PORTABILITY": "Request data portability",
+        "OBJECTION": "Object to data processing"
+      }
+    },
+    "CHILDREN": {
+      "TITLE": "Children's Privacy",
+      "CONTENT": "Our services are not intended for individuals under 18 years of age. We do not knowingly collect personal information from minors. If you are a parent and believe your child has provided us with personal information, please contact us."
+    },
+    "CHANGES": {
+      "TITLE": "Changes to this Policy",
+      "CONTENT": "We may modify this privacy policy at any time. Changes will take effect upon posting on our website. We encourage you to regularly review this page to stay informed about our practices."
+    },
+    "CONTACT": {
+      "TITLE": "Contact Us",
+      "INTRO": "If you have any questions about this privacy policy or our data protection practices, please contact us:",
+      "COMPANY": "Company:",
+      "EMAIL_LABEL": "Email:",
+      "PHONE_LABEL": "Phone:"
+    },
+    "CTA": {
+      "TITLE": "Questions About Privacy?",
+      "SUBTITLE": "Our team is here to help you understand our data protection practices.",
+      "CONTACT_US": "Contact Us",
+      "VIEW_TERMS": "View Terms"
+    }
+  },
+  "TERMS": {
+    "HERO": {
+      "TITLE": "Terms and Conditions",
+      "SUBTITLE": "Please read these terms carefully before using our services. These terms govern your relationship with EcoNet Cleaning."
+    },
+    "LAST_UPDATED": "Last updated: January 15, 2025",
+    "TOC": {
+      "TITLE": "Table of Contents",
+      "ACCEPTANCE": "Acceptance of Terms",
+      "SERVICES": "Services Description",
+      "BOOKING": "Booking and Scheduling",
+      "PAYMENT": "Payment Terms",
+      "CANCELLATION": "Cancellation Policy",
+      "LIABILITY": "Liability and Insurance",
+      "RESPONSIBILITIES": "Client Responsibilities",
+      "INTELLECTUAL_PROPERTY": "Intellectual Property",
+      "TERMINATION": "Termination",
+      "GOVERNING_LAW": "Governing Law",
+      "CHANGES": "Changes to Terms",
+      "CONTACT": "Contact Information"
+    },
+    "INTRO": {
+      "PARAGRAPH1": "Welcome to EcoNet Cleaning. These Terms and Conditions (\"Terms\") govern your use of our eco-friendly cleaning services and website. By booking our services or using our website, you agree to be bound by these Terms.",
+      "PARAGRAPH2": "Please read these Terms carefully before using our services. If you do not agree to these Terms, please do not use our services."
+    },
+    "ACCEPTANCE": {
+      "TITLE": "Acceptance of Terms",
+      "CONTENT": "By accessing our website, booking our services, or engaging with EcoNet Cleaning in any way, you acknowledge that you have read, understood, and agree to be bound by these Terms and our Privacy Policy. These Terms constitute a legally binding agreement between you and EcoNet Cleaning."
+    },
+    "SERVICES": {
+      "TITLE": "Services Description",
+      "INTRO": "EcoNet Cleaning provides professional eco-friendly cleaning services including but not limited to:",
+      "ITEMS": {
+        "RESIDENTIAL": "Residential cleaning services for homes and apartments",
+        "COMMERCIAL": "Commercial cleaning for offices and businesses",
+        "POST_CONSTRUCTION": "Post-construction cleanup services",
+        "DEEP_CLEANING": "Deep cleaning and maintenance services",
+        "SPECIALIZED": "Specialized cleaning services as agreed upon"
+      },
+      "DISCLAIMER": "Service availability may vary by location and is subject to our operational capacity and scheduling constraints."
+    },
+    "BOOKING": {
+      "TITLE": "Booking and Scheduling",
+      "PROCESS": {
+        "TITLE": "Booking Process",
+        "CONTENT": "Services must be booked in advance through our website, phone, or email. All bookings are subject to availability and confirmation by EcoNet Cleaning. We reserve the right to decline service requests at our discretion."
+      },
+      "SCHEDULING": {
+        "TITLE": "Scheduling",
+        "CONTENT": "We will make every effort to arrive at the scheduled time. However, service times are estimates and may be subject to change due to unforeseen circumstances. We will notify you of any significant delays."
+      },
+      "ACCESS": {
+        "TITLE": "Property Access",
+        "CONTENT": "You must provide safe and reasonable access to the areas requiring cleaning. If access is denied or restricted, additional charges may apply for return visits."
+      }
+    },
+    "PAYMENT": {
+      "TITLE": "Payment Terms",
+      "PRICING": {
+        "TITLE": "Pricing",
+        "CONTENT": "Prices are quoted based on the information provided and are subject to change if the actual scope of work differs significantly from the initial assessment. All prices include applicable taxes unless otherwise stated."
+      },
+      "METHODS": {
+        "TITLE": "Payment Methods",
+        "CONTENT": "We accept cash, credit cards, debit cards, and Interac e-transfers. Payment is due upon completion of services unless other arrangements have been made in advance."
+      },
+      "LATE_PAYMENT": {
+        "TITLE": "Late Payment",
+        "CONTENT": "For commercial accounts with approved credit terms, a service charge of 1.5% per month may be applied to overdue accounts."
+      }
+    },
+    "CANCELLATION": {
+      "TITLE": "Cancellation Policy",
+      "CLIENT_CANCELLATION": {
+        "TITLE": "Client Cancellation",
+        "CONTENT": "You may cancel or reschedule your service up to 24 hours before the scheduled time without penalty. Cancellations made with less than 24 hours notice may be subject to a cancellation fee of up to 50% of the service cost."
+      },
+      "COMPANY_CANCELLATION": {
+        "TITLE": "Company Cancellation",
+        "CONTENT": "EcoNet Cleaning reserves the right to cancel services due to weather conditions, safety concerns, or other unforeseen circumstances. In such cases, we will reschedule at no additional cost or provide a full refund."
+      }
+    },
+    "LIABILITY": {
+      "TITLE": "Liability and Insurance",
+      "INSURANCE": {
+        "TITLE": "Insurance Coverage",
+        "CONTENT": "EcoNet Cleaning carries comprehensive liability insurance covering damage to client property during the provision of our services. Our insurance coverage is limited to $2,000,000 per incident."
+      },
+      "LIMITATIONS": {
+        "TITLE": "Limitations of Liability",
+        "CONTENT": "Our liability is limited to the cost of the service provided. We are not responsible for damage to items that are inherently fragile, antique, or of unusual value unless specifically noted in writing prior to service."
+      },
+      "CLAIMS": {
+        "TITLE": "Damage Claims",
+        "CONTENT": "Any damage claims must be reported within 24 hours of service completion. Claims reported after this period may not be eligible for coverage."
+      }
+    },
+    "RESPONSIBILITIES": {
+      "TITLE": "Client Responsibilities",
+      "ITEMS": {
+        "PREPARATION": "Prepare the space by removing fragile or valuable items from cleaning areas",
+        "ACCESS": "Provide safe and unobstructed access to all areas requiring cleaning",
+        "PETS": "Secure pets or inform our team of their presence and temperament",
+        "HAZARDS": "Inform us of any known hazards or special requirements",
+        "VALUABLES": "Secure cash, jewelry, and other valuables before our arrival",
+        "UTILITIES": "Ensure necessary utilities (water, electricity) are available"
+      }
+    },
+    "INTELLECTUAL_PROPERTY": {
+      "TITLE": "Intellectual Property",
+      "CONTENT": "All content on our website, including text, images, logos, and trademarks, is the property of EcoNet Cleaning and is protected by Canadian and international copyright laws. You may not use, reproduce, or distribute any content without our written permission."
+    },
+    "TERMINATION": {
+      "TITLE": "Termination",
+      "CONTENT": "Either party may terminate ongoing service agreements with 30 days written notice. EcoNet Cleaning reserves the right to immediately terminate services for non-payment, unsafe working conditions, or abusive behavior toward our staff."
+    },
+    "GOVERNING_LAW": {
+      "TITLE": "Governing Law",
+      "CONTENT": "These Terms are governed by the laws of Quebec, Canada. Any disputes arising from these Terms or our services will be subject to the exclusive jurisdiction of the courts of Quebec."
+    },
+    "CHANGES": {
+      "TITLE": "Changes to Terms",
+      "CONTENT": "EcoNet Cleaning reserves the right to modify these Terms at any time. Changes will be posted on our website and will take effect immediately upon posting. Continued use of our services after changes are posted constitutes acceptance of the new Terms."
+    },
+    "CONTACT": {
+      "TITLE": "Contact Information",
+      "INTRO": "If you have questions about these Terms and Conditions, please contact us:",
+      "COMPANY": "Company:",
+      "EMAIL_LABEL": "Email:",
+      "PHONE_LABEL": "Phone:",
+      "ADDRESS_LABEL": "Address:"
+    },
+    "CTA": {
+      "TITLE": "Ready to Get Started?",
+      "SUBTITLE": "Now that you understand our terms, let's schedule your eco-friendly cleaning service.",
+      "BOOK_NOW": "Book Now",
+      "CONTACT_US": "Contact Us"
+    }
+  }
+}

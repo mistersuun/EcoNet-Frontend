@@ -1,0 +1,46 @@
+{
+  "name": "econet-frontend",
+  "version": "1.0.0",
+  "description": "Company",
+  "main": "index.js",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mistersuun/EcoNet-Frontend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mistersuun/EcoNet-Frontend/issues"
+  },
+  "homepage": "https://github.com/mistersuun/EcoNet-Frontend#readme",
+  "dependencies": {
+    "@angular/animations": "^20.3.2",
+    "@angular/cli": "^20.3.3",
+    "@angular/common": "^20.3.2",
+    "@angular/core": "^20.3.2",
+    "@angular/forms": "^20.3.2",
+    "@angular/platform-browser": "^20.3.2",
+    "@angular/platform-browser-dynamic": "^20.3.2",
+    "@angular/router": "^20.3.2",
+    "@jsverse/transloco": "^8.0.0",
+    "@ngx-translate/core": "^17.0.0",
+    "@ngx-translate/http-loader": "^17.0.0",
+    "lottie-web": "^5.13.0",
+    "rxjs": "^7.8.2",
+    "zone.js": "^0.15.1"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^20.3.3"
+  }
+}
