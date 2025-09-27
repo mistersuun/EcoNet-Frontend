@@ -1,5 +1,5 @@
 [build]
-  publish = "dist/econet-frontend/browser"
+  publish = "dist/econet-frontend"
   command = "npm run build"
 
 [build.environment]
