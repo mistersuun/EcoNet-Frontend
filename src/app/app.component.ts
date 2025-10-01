@@ -20,6 +20,9 @@ import { filter, delay } from 'rxjs/operators';
         [loadingText]="(loaderService.loadingText$ | async) || 'Chargement...'">
       </app-loader>
 
+      <!-- Mobile Menu Backdrop -->
+      <div class="mobile-menu-backdrop" [class.visible]="mobileMenuOpen" (click)="closeMobileMenu()"></div>
+
       <!-- Sophisticated Header -->
       <header class="header" [class.scrolled]="isScrolled">
         <nav class="navbar">
@@ -32,11 +35,11 @@ import { filter, delay } from 'rxjs/operators';
             </a>
 
             <div class="nav-menu" [class.nav-open]="mobileMenuOpen">
-              <a href="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="navigateWithLoader($event, 'Accueil', '/')">{{ 'NAV.HOME' | transloco }}</a>
-              <a href="/services" class="nav-link" routerLinkActive="active" (click)="navigateWithLoader($event, 'Services', '/services')">{{ 'NAV.SERVICES' | transloco }}</a>
-              <a href="/about" class="nav-link" routerLinkActive="active" (click)="navigateWithLoader($event, 'À propos', '/about')">{{ 'NAV.ABOUT' | transloco }}</a>
-              <a href="/pricing" class="nav-link" routerLinkActive="active" (click)="navigateWithLoader($event, 'Tarifs', '/pricing')">{{ 'NAV.PRICING' | transloco }}</a>
-              <a href="/contact" class="nav-link" routerLinkActive="active" (click)="navigateWithLoader($event, 'Contact', '/contact')">{{ 'NAV.CONTACT' | transloco }}</a>
+              <a routerLink="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="navigateWithLoader($event, 'Accueil', '/')">{{ 'NAV.HOME' | transloco }}</a>
+              <a routerLink="/services" class="nav-link" routerLinkActive="active" (click)="navigateWithLoader($event, 'Services', '/services')">{{ 'NAV.SERVICES' | transloco }}</a>
+              <a routerLink="/about" class="nav-link" routerLinkActive="active" (click)="navigateWithLoader($event, 'À propos', '/about')">{{ 'NAV.ABOUT' | transloco }}</a>
+              <a routerLink="/pricing" class="nav-link" routerLinkActive="active" (click)="navigateWithLoader($event, 'Tarifs', '/pricing')">{{ 'NAV.PRICING' | transloco }}</a>
+              <a routerLink="/contact" class="nav-link" routerLinkActive="active" (click)="navigateWithLoader($event, 'Contact', '/contact')">{{ 'NAV.CONTACT' | transloco }}</a>
 
               <!-- Language Toggle -->
               <div class="language-toggle">
@@ -50,10 +53,10 @@ import { filter, delay } from 'rxjs/operators';
                   (click)="switchLanguage('en')">EN</button>
               </div>
 
-              <a href="/booking" class="btn btn-primary nav-cta" (click)="navigateWithLoader($event, 'Réservation', '/booking')">{{ 'NAV.BOOK' | transloco }}</a>
+              <a routerLink="/booking" class="btn btn-primary nav-cta" (click)="navigateWithLoader($event, 'Réservation', '/booking')">{{ 'NAV.BOOK' | transloco }}</a>
             </div>
 
-            <button class="mobile-menu-toggle" (click)="toggleMobileMenu()" [class.active]="mobileMenuOpen">
+            <button class="mobile-menu-toggle" (click)="toggleMobileMenu()" [class.active]="mobileMenuOpen" aria-label="Menu">
               <span></span>
               <span></span>
               <span></span>
@@ -94,8 +97,11 @@ import { filter, delay } from 'rxjs/operators';
 
             <!-- Services Links -->
             <div class="footer-section">
-              <h4 class="footer-title">{{ 'FOOTER.SERVICES_TITLE' | transloco }}</h4>
-              <ul class="footer-links">
+              <h4 class="footer-title" (click)="toggleFooterSection('services')">
+                {{ 'FOOTER.SERVICES_TITLE' | transloco }}
+                <span class="footer-toggle">{{ footerSectionsExpanded['services'] ? '−' : '+' }}</span>
+              </h4>
+              <ul class="footer-links" [class.expanded]="footerSectionsExpanded['services']">
                 <li><a routerLink="/services">{{ 'SERVICES.RESIDENTIAL.TITLE' | transloco }}</a></li>
                 <li><a routerLink="/services">{{ 'SERVICES.COMMERCIAL.TITLE' | transloco }}</a></li>
                 <li><a routerLink="/services">{{ 'SERVICES.POST_CONSTRUCTION.TITLE' | transloco }}</a></li>
@@ -105,8 +111,11 @@ import { filter, delay } from 'rxjs/operators';
 
             <!-- Company Links -->
             <div class="footer-section">
-              <h4 class="footer-title">{{ 'FOOTER.COMPANY_TITLE' | transloco }}</h4>
-              <ul class="footer-links">
+              <h4 class="footer-title" (click)="toggleFooterSection('company')">
+                {{ 'FOOTER.COMPANY_TITLE' | transloco }}
+                <span class="footer-toggle">{{ footerSectionsExpanded['company'] ? '−' : '+' }}</span>
+              </h4>
+              <ul class="footer-links" [class.expanded]="footerSectionsExpanded['company']">
                 <li><a routerLink="/about">{{ 'NAV.ABOUT' | transloco }}</a></li>
                 <li><a routerLink="/pricing">{{ 'NAV.PRICING' | transloco }}</a></li>
                 <li><a routerLink="/faq">{{ 'NAV.FAQ' | transloco }}</a></li>
@@ -116,8 +125,11 @@ import { filter, delay } from 'rxjs/operators';
 
             <!-- Service Areas -->
             <div class="footer-section">
-              <h4 class="footer-title">{{ 'FOOTER.AREAS_TITLE' | transloco }}</h4>
-              <ul class="footer-links">
+              <h4 class="footer-title" (click)="toggleFooterSection('areas')">
+                {{ 'FOOTER.AREAS_TITLE' | transloco }}
+                <span class="footer-toggle">{{ footerSectionsExpanded['areas'] ? '−' : '+' }}</span>
+              </h4>
+              <ul class="footer-links" [class.expanded]="footerSectionsExpanded['areas']">
                 <li>{{ 'FOOTER.SERVICE_AREAS.MONTREAL' | transloco }}</li>
                 <li>{{ 'FOOTER.SERVICE_AREAS.LAVAL' | transloco }}</li>
                 <li>{{ 'FOOTER.SERVICE_AREAS.LONGUEUIL' | transloco }}</li>
@@ -407,6 +419,19 @@ import { filter, delay } from 'rxjs/operators';
       font-weight: var(--font-weight-semibold);
       margin-bottom: var(--space-lg);
       letter-spacing: 0.01em;
+      position: relative;
+    }
+
+    .footer-toggle {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+      font-weight: var(--font-weight-bold);
+      line-height: 1;
+      transition: transform var(--transition-base);
     }
 
     .footer-links {
@@ -469,81 +494,184 @@ import { filter, delay } from 'rxjs/operators';
       margin-top: 80px;
     }
 
+    /* Mobile Menu Backdrop */
+    .mobile-menu-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition-base);
+      z-index: 998;
+      backdrop-filter: blur(4px);
+    }
+
+    .mobile-menu-backdrop.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
     /* Mobile Responsive */
     @media (max-width: 1024px) {
       .footer-content {
         grid-template-columns: 1fr 1fr;
         gap: var(--space-3xl);
       }
+
+      .nav-menu {
+        gap: var(--space-xl);
+      }
     }
 
     @media (max-width: 768px) {
+      /* iOS Safe Area Support */
+      .header {
+        padding-top: env(safe-area-inset-top);
+        background: rgba(254, 254, 254, 0.98) !important;
+        z-index: 1000 !important;
+      }
+
       .navbar {
         padding: var(--space-md) 0;
       }
 
       .nav-menu {
         position: fixed;
-        top: 100%;
+        top: 0;
         left: 0;
         right: 0;
+        bottom: 0;
         background: var(--pure-white);
         flex-direction: column;
-        padding: var(--space-2xl) var(--space-lg);
-        box-shadow: var(--shadow-large);
-        transform: translateY(-100vh);
-        transition: transform var(--transition-base);
-        gap: var(--space-lg);
-        border-top: 1px solid rgba(26, 26, 26, 0.06);
+        padding: calc(80px + env(safe-area-inset-top)) var(--space-lg) calc(var(--space-2xl) + env(safe-area-inset-bottom));
+        box-shadow: none;
+        transform: translateX(100%);
+        transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+        gap: var(--space-md);
         z-index: 999;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        min-height: 100vh;
+        height: auto;
       }
 
       .nav-menu.nav-open {
-        transform: translateY(0);
+        transform: translateX(0);
       }
 
       .nav-link {
         width: 100%;
         text-align: center;
-        padding: var(--space-md);
+        padding: var(--space-lg) var(--space-md);
+        font-size: 1rem;
+        border-radius: var(--radius-lg);
       }
 
       .nav-cta {
         width: auto;
-        margin: var(--space-md) auto 0;
+        margin: var(--space-lg) auto 0;
         padding: var(--space-lg) var(--space-2xl);
-        font-size: 0.95rem;
+        font-size: 1rem;
+        min-width: 200px;
       }
 
       .language-toggle {
-        margin: var(--space-md) auto;
+        margin: var(--space-lg) auto;
         width: fit-content;
+        padding: 6px;
+      }
+
+      .lang-btn {
+        padding: var(--space-sm) var(--space-lg);
+        font-size: 0.875rem;
+        min-width: 50px;
       }
 
       .mobile-menu-toggle {
         display: flex;
+        z-index: 1001;
+        padding: var(--space-md);
+        min-width: 44px;
+        min-height: 44px;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .mobile-menu-toggle span {
+        width: 24px;
+        height: 3px;
+        border-radius: 2px;
       }
 
       .main-content {
-        margin-top: 70px;
+        margin-top: calc(70px + env(safe-area-inset-top));
       }
 
       .footer {
-        padding: var(--space-3xl) 0 var(--space-lg);
+        padding: var(--space-4xl) 0 calc(var(--space-lg) + env(safe-area-inset-bottom));
       }
 
       .footer-content {
         grid-template-columns: 1fr;
         gap: var(--space-2xl);
-        text-align: center;
+        text-align: left;
       }
 
       .footer-brand {
         max-width: none;
+        margin: 0 auto;
+        text-align: center;
+        margin-bottom: var(--space-xl);
+        padding-bottom: var(--space-xl);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
       }
 
       .footer-contact {
         align-items: center;
+      }
+
+      .footer-section {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: var(--space-md);
+      }
+
+      .footer-title {
+        font-size: 1.125rem;
+        margin-bottom: 0;
+        padding: var(--space-lg) 0;
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .footer-toggle {
+        display: inline-block;
+      }
+
+      .footer-links {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height var(--transition-slow), opacity var(--transition-base);
+        opacity: 0;
+        margin-top: 0;
+      }
+
+      .footer-links.expanded {
+        max-height: 500px;
+        opacity: 1;
+        margin-top: var(--space-md);
+        margin-bottom: var(--space-lg);
+      }
+
+      .footer-links li a,
+      .footer-links li {
+        font-size: 1rem;
+        padding: var(--space-sm) 0;
       }
 
       .footer-meta {
@@ -553,7 +681,34 @@ import { filter, delay } from 'rxjs/operators';
       }
 
       .logo-text {
-        font-size: 1.25rem;
+        font-size: 1.375rem;
+      }
+
+      .contact-item {
+        font-size: 1rem;
+        padding: var(--space-xs) 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-icon {
+        font-size: 1.375rem;
+      }
+
+      .logo-text {
+        font-size: 1.125rem;
+      }
+
+      .navbar {
+        padding: var(--space-sm) 0;
+      }
+
+      .main-content {
+        margin-top: calc(60px + env(safe-area-inset-top));
+      }
+
+      .footer-content {
+        gap: var(--space-2xl);
       }
     }
   `]
@@ -563,6 +718,11 @@ export class AppComponent implements OnInit, OnDestroy {
   mobileMenuOpen = false;
   isScrolled = false;
   currentLang = 'fr';
+  footerSectionsExpanded: { [key: string]: boolean } = {
+    services: false,
+    company: false,
+    areas: false
+  };
   private langSubscription?: Subscription;
   private routerSubscription?: Subscription;
 
@@ -581,8 +741,22 @@ export class AppComponent implements OnInit, OnDestroy {
       // Handle route changes - only hide loader on completion
       this.routerSubscription = this.router.events.subscribe(event => {
         if (event instanceof NavigationEnd) {
-          // Scroll to top after navigation completes
-          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+          // Close mobile menu on navigation
+          this.closeMobileMenu();
+
+          // Force scroll to top with multiple methods for reliability
+          setTimeout(() => {
+            window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+            window.scrollTo(0, 0);
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+
+            // Also try on the main content element
+            const mainContent = document.querySelector('.main-content');
+            if (mainContent) {
+              mainContent.scrollTop = 0;
+            }
+          }, 0);
 
           // Keep loader visible for minimum duration, then hide
           setTimeout(() => {
@@ -618,10 +792,28 @@ export class AppComponent implements OnInit, OnDestroy {
 
   toggleMobileMenu() {
     this.mobileMenuOpen = !this.mobileMenuOpen;
+    this.toggleBodyScroll();
   }
 
   closeMobileMenu() {
-    this.mobileMenuOpen = false;
+    if (this.mobileMenuOpen) {
+      this.mobileMenuOpen = false;
+      this.toggleBodyScroll();
+    }
+  }
+
+  private toggleBodyScroll() {
+    if (isPlatformBrowser(this.platformId)) {
+      if (this.mobileMenuOpen) {
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+      } else {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+      }
+    }
   }
 
   switchLanguage(lang: 'fr' | 'en') {
@@ -646,6 +838,13 @@ export class AppComponent implements OnInit, OnDestroy {
     // Prevent default link behavior
     event.preventDefault();
 
+    // Scroll to top immediately
+    if (isPlatformBrowser(this.platformId)) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+
     // Show loader immediately on click
     this.loaderService.showPageLoad(pageName);
     this.closeMobileMenu();
@@ -654,5 +853,9 @@ export class AppComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.router.navigate([route]);
     }, 300);
+  }
+
+  toggleFooterSection(section: string): void {
+    this.footerSectionsExpanded[section] = !this.footerSectionsExpanded[section];
   }
 }

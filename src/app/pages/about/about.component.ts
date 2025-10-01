@@ -604,13 +604,6 @@ export class AboutComponent implements OnInit, AfterViewInit {
       description: 'Chimiste de formation, Sophie développe et sélectionne tous nos produits écologiques pour garantir efficacité et respect de l\'environnement.',
       image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop&auto=format&q=80',
       specialties: ['Chimie verte', 'R&D', 'Certifications']
-    },
-    {
-      name: 'Alexandre Roy',
-      position: 'Coordinateur Service Client',
-      description: 'Alexandre s\'assure que chaque client reçoive un service exceptionnel et personnalisé selon ses besoins spécifiques.',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&auto=format&q=80',
-      specialties: ['Service client', 'Communication', 'Résolution de problèmes']
     }
   ];
 

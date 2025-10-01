@@ -1049,8 +1049,8 @@ interface TimeSlot {
     }
 
     .service-checkbox input[type="checkbox"]:checked ~ .checkmark {
-      background-color: #007AFF;
-      border-color: #007AFF;
+      background-color: var(--primary-green);
+      border-color: var(--primary-green);
     }
 
     .checkmark:after {
@@ -1214,7 +1214,7 @@ interface TimeSlot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: #007AFF;
+      background: var(--primary-green);
     }
 
     .frequency-option input[type="radio"]:checked ~ .radio-custom:after {
@@ -1305,8 +1305,8 @@ interface TimeSlot {
     }
 
     .checkbox-label input[type="checkbox"]:checked ~ .checkmark {
-      background-color: #007AFF;
-      border-color: #007AFF;
+      background-color: var(--primary-green);
+      border-color: var(--primary-green);
     }
 
     .checkbox-label .checkmark:after {

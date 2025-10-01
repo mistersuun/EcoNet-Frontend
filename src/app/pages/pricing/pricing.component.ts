@@ -178,6 +178,149 @@ interface PricingFactor {
               </tr>
             </tbody>
           </table>
+
+          <!-- Mobile Card-Based Comparison -->
+          <div class="mobile-comparison-cards">
+            <!-- Residential Plan Card -->
+            <div class="mobile-plan-card">
+              <h3 class="mobile-plan-title">{{ 'PRICING.PLANS.RESIDENTIAL.NAME' | transloco }}</h3>
+              <div class="mobile-feature-list">
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.GENERAL_CLEANING' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.DISINFECTION' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.INTERIOR_WINDOWS' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.SPECIALIZED_EQUIPMENT' | transloco }}</span>
+                  <span class="mobile-feature-value">❌</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.POST_CONSTRUCTION' | transloco }}</span>
+                  <span class="mobile-feature-value">❌</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.APPLIANCE_INTERIOR' | transloco }}</span>
+                  <span class="mobile-feature-value">❌</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.SATISFACTION_GUARANTEE' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Commercial Plan Card -->
+            <div class="mobile-plan-card">
+              <h3 class="mobile-plan-title">{{ 'PRICING.PLANS.COMMERCIAL.NAME' | transloco }}</h3>
+              <div class="mobile-feature-list">
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.GENERAL_CLEANING' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.DISINFECTION' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.INTERIOR_WINDOWS' | transloco }}</span>
+                  <span class="mobile-feature-value">❌</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.SPECIALIZED_EQUIPMENT' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.POST_CONSTRUCTION' | transloco }}</span>
+                  <span class="mobile-feature-value">❌</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.APPLIANCE_INTERIOR' | transloco }}</span>
+                  <span class="mobile-feature-value">❌</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.SATISFACTION_GUARANTEE' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Post-Construction Plan Card -->
+            <div class="mobile-plan-card">
+              <h3 class="mobile-plan-title">{{ 'PRICING.PLANS.POSTCONSTRUCTION.NAME' | transloco }}</h3>
+              <div class="mobile-feature-list">
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.GENERAL_CLEANING' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.DISINFECTION' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.INTERIOR_WINDOWS' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.SPECIALIZED_EQUIPMENT' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.POST_CONSTRUCTION' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.APPLIANCE_INTERIOR' | transloco }}</span>
+                  <span class="mobile-feature-value">❌</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.SATISFACTION_GUARANTEE' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Deep Cleaning Plan Card -->
+            <div class="mobile-plan-card">
+              <h3 class="mobile-plan-title">{{ 'PRICING.PLANS.DEEPCLEANING.NAME' | transloco }}</h3>
+              <div class="mobile-feature-list">
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.GENERAL_CLEANING' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.DISINFECTION' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.INTERIOR_WINDOWS' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.SPECIALIZED_EQUIPMENT' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.POST_CONSTRUCTION' | transloco }}</span>
+                  <span class="mobile-feature-value">❌</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.APPLIANCE_INTERIOR' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+                <div class="mobile-feature-item">
+                  <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.SATISFACTION_GUARANTEE' | transloco }}</span>
+                  <span class="mobile-feature-value">✅</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -490,28 +633,28 @@ interface PricingFactor {
     }
 
     .btn-apple.primary {
-      background: #0071e3;
+      background: var(--primary-green);
       color: var(--pure-white);
       border: none;
     }
 
     .btn-apple.primary:hover {
-      background: #0077ed;
+      background: var(--secondary-green);
       transform: translateY(-1px);
-      box-shadow: 0 4px 20px rgba(0, 113, 227, 0.3);
+      box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
     }
 
     .btn-apple.secondary {
       background: transparent;
-      color: #0071e3;
-      border: 1px solid #0071e3;
+      color: var(--primary-green);
+      border: 1px solid var(--primary-green);
     }
 
     .btn-apple.secondary:hover {
-      background: #0071e3;
+      background: var(--primary-green);
       color: var(--pure-white);
       transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(0, 113, 227, 0.25);
+      box-shadow: 0 4px 16px rgba(76, 175, 80, 0.25);
     }
 
     .btn-apple.large {
@@ -671,6 +814,11 @@ interface PricingFactor {
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-medium);
       border: 1px solid rgba(212, 165, 116, 0.1);
+    }
+
+    /* Hide mobile cards on desktop */
+    .mobile-comparison-cards {
+      display: none;
     }
 
     .comparison-table-grid {
@@ -912,9 +1060,94 @@ interface PricingFactor {
       .price-value {
         font-size: 2.2rem;
       }
+
+      /* Table - Make scrollable on tablet */
+      .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .comparison-table-grid {
+        min-width: 650px;
+      }
+
+      .comparison-table-grid th,
+      .comparison-table-grid td {
+        padding: var(--space-sm) var(--space-md);
+        font-size: 0.9rem;
+      }
     }
 
     @media (max-width: 768px) {
+      /* Hide traditional table on mobile */
+      .comparison-table-grid {
+        display: none;
+      }
+
+      .table-container {
+        background: transparent;
+        box-shadow: none;
+        border: none;
+        padding: 0;
+      }
+
+      /* Mobile Card-Based Comparison */
+      .mobile-comparison-cards {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-xl);
+        width: 100%;
+      }
+
+      .mobile-plan-card {
+        background: var(--pure-white);
+        border-radius: 1.5rem;
+        padding: var(--space-xl);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .mobile-plan-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-green);
+        margin-bottom: var(--space-lg);
+        text-align: center;
+        width: 100%;
+      }
+
+      .mobile-feature-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+        width: 100%;
+      }
+
+      .mobile-feature-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--space-md);
+        background: var(--soft-green);
+        border-radius: 0.75rem;
+        width: 100%;
+      }
+
+      .mobile-feature-name {
+        font-size: 0.95rem;
+        color: var(--text-dark);
+        font-weight: 500;
+        flex: 1;
+      }
+
+      .mobile-feature-value {
+        font-size: 1.25rem;
+        margin-left: var(--space-md);
+        flex-shrink: 0;
+      }
       .hero-section {
         padding: 80px 0 60px;
       }

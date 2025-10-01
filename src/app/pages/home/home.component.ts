@@ -228,6 +228,7 @@ interface Stat {
     .hero-section {
       position: relative;
       overflow: hidden;
+      padding: var(--space-5xl) 0;
     }
 
     .hero-section::before {
@@ -456,6 +457,10 @@ interface Stat {
       box-shadow: 0 8px 40px rgba(107, 144, 128, 0.12);
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     .value-card::before {
@@ -545,6 +550,10 @@ interface Stat {
       backdrop-filter: blur(15px);
       border: 1px solid rgba(107, 144, 128, 0.1);
       position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     .service-item:hover {
@@ -565,15 +574,22 @@ interface Stat {
 
     .service-content {
       padding: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
     .service-content h3 {
       margin-bottom: var(--space-sm);
       font-size: 1.25rem;
+      text-align: center;
     }
 
     .service-content p {
       font-size: 0.95rem;
+      text-align: center;
     }
 
     /* Testimonials */
@@ -614,6 +630,10 @@ interface Stat {
       border: 1px solid rgba(107, 144, 128, 0.1);
       box-shadow: 0 8px 40px rgba(107, 144, 128, 0.12);
       position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     .testimonial-item::before {
@@ -926,46 +946,424 @@ interface Stat {
     }
 
     @media (max-width: 768px) {
-      .hero {
-        padding: var(--space-4xl) 0;
+      /* MOBILE LAYOUT - FLEXBOX EVERYWHERE */
+
+      /* All sections - consistent spacing with wave border margins */
+      .scroll-section {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: calc(var(--space-4xl) + 60px) var(--space-lg) calc(var(--space-4xl) + 60px) !important;
+        min-height: auto !important;
+      }
+
+      /* Hero Section - Account for fixed header */
+      .hero-section {
+        padding-top: calc(90px + var(--space-4xl) + 60px) !important;
+        padding-bottom: calc(var(--space-4xl) + 60px) !important;
+      }
+
+      /* Apple Showcase sections */
+      .apple-showcase {
+        padding: calc(var(--space-4xl) + 60px) var(--space-lg) !important;
+      }
+
+      /* Layered Reveal section */
+      .layered-reveal {
+        padding: calc(var(--space-4xl) + 60px) var(--space-lg) !important;
+      }
+
+      /* CTA Section */
+      .cta-section {
+        padding: calc(var(--space-4xl) + 60px) var(--space-lg) !important;
+      }
+
+      /* All showcase grids - stack vertically with flexbox */
+      .showcase-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: var(--space-2xl) !important;
+        min-height: auto !important;
+        width: 100% !important;
+      }
+
+      .showcase-content,
+      .showcase-media {
+        width: 100% !important;
+        max-width: 100% !important;
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        transform: none !important;
+      }
+
+      .showcase-media {
+        order: -1 !important;
+      }
+
+      /* Disable all data-showcase and data-magnetic transforms */
+      [data-showcase],
+      [data-magnetic],
+      .magnetic {
+        transform: none !important;
+      }
+
+      /* Container - ensure proper flexbox and centering */
+      .container {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100% !important;
+      }
+
+      /* Typography */
+      .hero-badge {
+        font-size: 0.8rem;
+        padding: 0.5rem 1rem;
+        margin-bottom: var(--space-lg);
+      }
+
+      .hero-title {
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: var(--space-lg) !important;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem !important;
+        margin-bottom: var(--space-2xl) !important;
       }
 
       .hero-actions {
         justify-content: center;
+        gap: var(--space-md);
       }
 
       .hero-actions .btn {
-        flex: 1;
-        max-width: 250px;
+        width: auto;
+        min-width: 200px;
       }
 
-      .stats-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: var(--space-xl);
+      /* Images */
+      .parallax-container {
+        height: 280px !important;
+        width: 100% !important;
+        border-radius: 1rem;
+        overflow: hidden !important;
+      }
+
+      .parallax-bg {
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        transform: none !important;
+        object-fit: cover !important;
+        object-position: center !important;
+      }
+
+      .parallax-overlay,
+      .parallax-float,
+      .float-badge {
+        display: none !important;
+      }
+
+      .showcase-image {
+        width: 100% !important;
+        height: 280px !important;
+        object-fit: cover !important;
+        object-position: center !important;
+      }
+
+      /* Layered Reveal Section - Force Flexbox and Centering */
+      .layered-reveal {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+
+      .layered-reveal .container {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+
+      .reveal-layer {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        transform: none !important;
+        width: 100% !important;
+      }
+
+      /* Product Cards Section */
+      .section-title {
+        font-size: 2rem !important;
+        margin-bottom: var(--space-2xl) !important;
+        transform: none !important;
+        text-align: center !important;
+      }
+
+      .product-showcase {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: var(--space-2xl) !important;
+        margin-top: 0 !important;
+        width: 100% !important;
+      }
+
+      .product-card {
+        width: 100% !important;
+        transform: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+
+      .product-media {
+        height: 240px !important;
+        width: 100% !important;
+        overflow: hidden !important;
+      }
+
+      .product-media img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center !important;
+      }
+
+      .product-info {
+        padding: var(--space-xl) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: 100% !important;
+      }
+
+      .product-info h3 {
+        font-size: 1.25rem !important;
+        text-align: center !important;
+      }
+
+      .product-info p {
+        text-align: center !important;
+      }
+
+      .product-features {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: var(--space-sm);
+        align-items: center !important;
+        width: 100% !important;
+      }
+
+      .feature {
+        text-align: center !important;
+      }
+
+      /* Stats Section - Centered */
+      .experience-stats {
+        margin-top: var(--space-2xl);
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100% !important;
+      }
+
+      .stat-row {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: var(--space-md);
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+      }
+
+      .stat-item {
+        flex: 1;
+        min-width: 140px;
+        max-width: 140px;
+        height: 140px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: var(--space-lg);
+        border-radius: var(--radius-lg);
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
       }
 
       .stat-number {
-        font-size: 2rem;
+        font-size: 2rem !important;
+        text-align: center !important;
       }
 
-      .services-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-xl);
+      .stat-label {
+        text-align: center !important;
       }
 
-      .testimonials-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-2xl);
+      /* Testimonial - Centered and Fixed */
+      .testimonial-card {
+        padding: var(--space-2xl) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        transform: none !important;
+        width: 100% !important;
+      }
+
+      .testimonial-text {
+        font-size: 1rem !important;
+        line-height: 1.6 !important;
+        text-align: center !important;
+      }
+
+      .testimonial-author {
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+
+      .testimonial-author strong,
+      .testimonial-author span {
+        text-align: center !important;
+      }
+
+      /* CTA Section - Centered and Fixed */
+      .cta-title {
+        font-size: 2rem !important;
+        margin-bottom: var(--space-lg) !important;
+        text-align: center !important;
+        transform: none !important;
+      }
+
+      .cta-subtitle {
+        font-size: 1rem !important;
+        margin-bottom: var(--space-2xl) !important;
+        text-align: center !important;
       }
 
       .cta-actions {
-        flex-direction: column;
-        align-items: center;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: var(--space-md);
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
       }
 
       .cta-actions .btn {
-        width: 100%;
-        max-width: 280px;
+        min-width: 200px;
+        text-align: center !important;
+      }
+
+      /* Floating badges - simplified and centered */
+      .cta-visual {
+        height: auto !important;
+        min-height: 120px !important;
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        transform: none !important;
+      }
+
+      .floating-elements {
+        position: relative !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: var(--space-sm) !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: var(--space-lg) 0 !important;
+        width: 100% !important;
+        transform: none !important;
+      }
+
+      .element {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        animation: none !important;
+        transform: none !important;
+        font-size: 0.85rem;
+        padding: 0.6rem 1.25rem;
+      }
+
+      /* Hide decorative backgrounds */
+      .hero-section::before,
+      .apple-showcase::before,
+      .values-section::before,
+      .cta-section::before {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 1.5rem !important;
+      }
+
+      .section-title {
+        font-size: 1.5rem !important;
+      }
+
+      .cta-title {
+        font-size: 1.5rem !important;
+      }
+
+      .parallax-container,
+      .showcase-image {
+        height: 200px !important;
+      }
+
+      .product-media {
+        height: 180px !important;
+      }
+
+      .stat-number {
+        font-size: 1.75rem !important;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .hero-title {
+        font-size: 1.375rem !important;
+      }
+
+      .hero-subtitle,
+      .cta-subtitle,
+      .product-info p {
+        font-size: 0.875rem !important;
+      }
+
+      .parallax-container,
+      .showcase-image {
+        height: 180px !important;
+      }
+
+      .product-media {
+        height: 160px !important;
+      }
+
+      .hero-actions .btn,
+      .cta-actions .btn {
+        max-width: 100% !important;
+        padding: var(--space-md) var(--space-lg) !important;
       }
     }
   `]
@@ -1029,6 +1427,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   private setupTrueParallax(): void {
+    // Disable parallax on mobile devices
+    if (window.innerWidth <= 768) {
+      return;
+    }
+
     const scrollContainer = document.querySelector('.apple-scroll-container') as HTMLElement;
     if (!scrollContainer) return;
 

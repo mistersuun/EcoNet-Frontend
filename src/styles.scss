@@ -12,6 +12,7 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   overflow-x: hidden;
+  width: 100%;
 }
 
 body {
@@ -22,6 +23,19 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
+}
+
+/* Prevent horizontal overflow globally */
+* {
+  max-width: 100%;
+}
+
+img, video, iframe, embed, object {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Modern Mint-Blue Design System */
@@ -139,6 +153,7 @@ p {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 clamp(1rem, 5vw, 3rem);
+  width: 100%;
 }
 
 .section {
@@ -233,15 +248,15 @@ p {
 }
 
 .grid-2 {
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr));
 }
 
 .grid-3 {
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
 }
 
 .grid-4 {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
 }
 
 /* Elegant Image Handling */
@@ -288,11 +303,21 @@ p {
   }
 
   .grid-2 {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   }
 
   .grid-3 {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  }
+
+  .showcase-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3xl);
+  }
+
+  .product-showcase {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: var(--space-2xl);
   }
 }
 
@@ -315,6 +340,8 @@ p {
   .btn {
     padding: var(--space-md) var(--space-xl);
     font-size: 0.875rem;
+    width: 100%;
+    max-width: 300px;
   }
 
   .btn-lg {
@@ -341,6 +368,110 @@ p {
   .wave-border-top-only {
     padding-top: calc(var(--space-4xl) + 40px);
     padding-bottom: var(--space-4xl);
+  }
+
+  .showcase-grid {
+    gap: var(--space-2xl);
+    min-height: auto;
+  }
+
+  .product-showcase {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+    margin-top: var(--space-4xl);
+  }
+
+  .product-media {
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 var(--space-md);
+  }
+
+  h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  .section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .btn {
+    font-size: 0.875rem;
+  }
+
+  .product-media {
+    height: 180px;
+  }
+
+  /* Ensure grids stack on very small screens */
+  .showcase-grid {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  /* Force full-width cards */
+  .product-card,
+  .service-card,
+  .category-card,
+  .card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto var(--space-lg);
+  }
+}
+
+/* Ultra-small devices (< 360px like iPhone SE) */
+@media (max-width: 360px) {
+  .container {
+    padding: 0 var(--space-sm);
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    line-height: 1.25;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.8rem;
+  }
+
+  /* Reduce spacing on ultra-small devices */
+  .section {
+    padding: var(--space-2xl) 0;
+  }
+
+  .mb-3xl, .mb-4xl {
+    margin-bottom: var(--space-2xl) !important;
+  }
+
+  .mt-3xl, .mt-4xl {
+    margin-top: var(--space-2xl) !important;
   }
 }
 

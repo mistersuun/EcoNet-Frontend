@@ -38,7 +38,15 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/faq/faq.component').then(m => m.FaqComponent)
   },
   {
+    path: '500',
+    loadComponent: () => import('./pages/server-error/server-error.component').then(m => m.ServerErrorComponent)
+  },
+  {
+    path: '404',
+    loadComponent: () => import('./pages/not-found/not-found.component').then(m => m.NotFoundComponent)
+  },
+  {
     path: '**',
-    redirectTo: ''
+    loadComponent: () => import('./pages/not-found/not-found.component').then(m => m.NotFoundComponent)
   }
 ];
