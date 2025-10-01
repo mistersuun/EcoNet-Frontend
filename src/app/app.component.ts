@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser, ViewportScroller } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { LanguageService } from './services/language.service';
@@ -522,7 +522,51 @@ import { filter, delay } from 'rxjs/operators';
       }
 
       .nav-menu {
-        gap: var(--space-xl);
+        gap: var(--space-lg);
+      }
+
+      .nav-link {
+        font-size: 0.85rem;
+        padding: var(--space-xs) var(--space-sm);
+      }
+
+      .btn-primary {
+        padding: var(--space-sm) var(--space-lg);
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      /* Hide desktop nav and show burger menu on tablets */
+      .nav-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--pure-white);
+        flex-direction: column;
+        padding: calc(80px + env(safe-area-inset-top)) var(--space-lg) calc(var(--space-2xl) + env(safe-area-inset-bottom));
+        transform: translateX(100%);
+        transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+        gap: var(--space-md);
+        z-index: 999;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        min-height: 100vh;
+        height: auto;
+      }
+
+      .nav-menu.nav-open {
+        transform: translateX(0);
+      }
+
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
+      .mobile-menu-backdrop {
+        display: block;
       }
     }
 
@@ -731,7 +775,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private languageService: LanguageService,
     private transloco: TranslocoService,
     public loaderService: LoaderService,
-    private router: Router
+    private router: Router,
+    private viewportScroller: ViewportScroller
   ) {}
 
   ngOnInit() {
@@ -744,8 +789,12 @@ export class AppComponent implements OnInit, OnDestroy {
           // Close mobile menu on navigation
           this.closeMobileMenu();
 
-          // Force scroll to top with multiple methods for reliability
-          setTimeout(() => {
+          // Force scroll to top with multiple methods for maximum reliability
+          // Use ViewportScroller first (Angular's recommended way)
+          this.viewportScroller.scrollToPosition([0, 0]);
+
+          // Then apply additional scroll methods with multiple attempts
+          const scrollToTop = () => {
             window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
             window.scrollTo(0, 0);
             document.body.scrollTop = 0;
@@ -756,7 +805,21 @@ export class AppComponent implements OnInit, OnDestroy {
             if (mainContent) {
               mainContent.scrollTop = 0;
             }
-          }, 0);
+
+            // Try on app container
+            const appContainer = document.querySelector('.app-container');
+            if (appContainer) {
+              appContainer.scrollTop = 0;
+            }
+          };
+
+          // Immediate scroll
+          scrollToTop();
+
+          // Scroll again after DOM updates
+          setTimeout(scrollToTop, 0);
+          setTimeout(scrollToTop, 50);
+          setTimeout(scrollToTop, 100);
 
           // Keep loader visible for minimum duration, then hide
           setTimeout(() => {
@@ -838,9 +901,11 @@ export class AppComponent implements OnInit, OnDestroy {
     // Prevent default link behavior
     event.preventDefault();
 
-    // Scroll to top immediately
+    // Scroll to top immediately using all methods
     if (isPlatformBrowser(this.platformId)) {
+      this.viewportScroller.scrollToPosition([0, 0]);
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      window.scrollTo(0, 0);
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     }
