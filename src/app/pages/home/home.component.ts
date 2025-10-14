@@ -3,20 +3,6 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { MagneticButtonDirective } from '../../directives/magnetic-button.directive';
-import { AppleAnimationsService } from '../../services/apple-animations.service';
-
-interface Testimonial {
-  name: string;
-  location: string;
-  rating: number;
-  comment: string;
-  service: string;
-}
-
-interface Stat {
-  number: string;
-  label: string;
-}
 
 @Component({
   selector: 'app-home',
@@ -27,7 +13,7 @@ interface Stat {
     <section class="scroll-section hero-section wave-border-bottom-only" data-reveal>
       <div class="container">
         <div class="showcase-grid">
-          <div class="showcase-content" data-magnetic>
+          <div class="showcase-content">
             <div class="hero-badge">{{ 'HOME.HERO.BADGE' | transloco }}</div>
             <h1 class="hero-title">
               {{ 'HOME.HERO.TITLE' | transloco }}<br>
@@ -42,13 +28,12 @@ interface Stat {
               </a>
             </div>
           </div>
-          <div class="showcase-media" data-showcase="0.3">
-            <div class="parallax-container">
+          <div class="showcase-media">
+            <div class="image-container parallax-wrapper">
               <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=600&fit=crop&auto=format&q=80"
                    [alt]="'HOME.ALT_TEXTS.HERO_IMAGE' | transloco"
-                   class="showcase-image progressive-img parallax-bg"
-                   data-speed="-0.5">
-              <div class="parallax-overlay" data-speed="0.3"></div>
+                   class="showcase-image progressive-img parallax-image"
+                   data-parallax="0.15">
             </div>
           </div>
         </div>
@@ -59,13 +44,13 @@ interface Stat {
     <section class="scroll-section apple-showcase wave-border-both" data-reveal>
       <div class="container">
         <div class="showcase-grid">
-          <div class="showcase-media" data-showcase="0.2">
-            <div class="parallax-container">
+          <div class="showcase-media">
+            <div class="image-container parallax-wrapper">
               <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=800&h=600&fit=crop&auto=format&q=80"
                    [alt]="'HOME.ALT_TEXTS.PRODUCTS_IMAGE' | transloco"
-                   class="showcase-image progressive-img parallax-bg"
-                   data-speed="-0.3">
-              <div class="parallax-float" data-speed="0.8">
+                   class="showcase-image progressive-img parallax-image"
+                   data-parallax="0.15">
+              <div class="image-badge">
                 <div class="float-badge">{{ 'HOME.PRODUCTS.BADGE' | transloco }}</div>
               </div>
             </div>
@@ -89,12 +74,12 @@ interface Stat {
     <section class="scroll-section layered-reveal wave-border-both" data-reveal>
       <div class="container">
         <div class="reveal-layer">
-          <h2 class="section-title text-center" data-magnetic>{{ 'HOME.SERVICES.TITLE' | transloco }}</h2>
+          <h2 class="section-title text-center">{{ 'HOME.SERVICES.TITLE' | transloco }}</h2>
         </div>
 
         <div class="product-showcase">
           <div class="reveal-layer">
-            <div class="product-card" data-showcase="0.1">
+            <div class="product-card">
               <div class="product-media">
                 <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&auto=format&q=80"
                      [alt]="'HOME.ALT_TEXTS.RESIDENTIAL_IMAGE' | transloco" class="progressive-img">
@@ -111,7 +96,7 @@ interface Stat {
           </div>
 
           <div class="reveal-layer">
-            <div class="product-card" data-showcase="0.2">
+            <div class="product-card">
               <div class="product-media">
                 <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop&auto=format&q=80"
                      [alt]="'HOME.ALT_TEXTS.COMMERCIAL_IMAGE' | transloco" class="progressive-img">
@@ -141,29 +126,29 @@ interface Stat {
             </p>
             <div class="experience-stats">
               <div class="stat-row">
-                <div class="stat-item magnetic">
+                <div class="stat-item">
                   <div class="stat-number">500+</div>
                   <div class="stat-label">{{ 'HOME.EXPERIENCE.STATS.CLIENTS' | transloco }}</div>
                 </div>
-                <div class="stat-item magnetic">
+                <div class="stat-item">
                   <div class="stat-number">100%</div>
                   <div class="stat-label">{{ 'HOME.EXPERIENCE.STATS.ECO' | transloco }}</div>
                 </div>
               </div>
               <div class="stat-row">
-                <div class="stat-item magnetic">
+                <div class="stat-item">
                   <div class="stat-number">5 ans</div>
                   <div class="stat-label">{{ 'HOME.EXPERIENCE.STATS.EXPERTISE' | transloco }}</div>
                 </div>
-                <div class="stat-item magnetic">
+                <div class="stat-item">
                   <div class="stat-number">24h</div>
                   <div class="stat-label">{{ 'HOME.EXPERIENCE.STATS.REACTIVITY' | transloco }}</div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="showcase-media" data-showcase="0.4">
-            <div class="testimonial-card magnetic">
+          <div class="showcase-media">
+            <div class="testimonial-card">
               <p class="testimonial-text">
                 "{{ 'HOME.EXPERIENCE.TESTIMONIAL.TEXT' | transloco }}"
               </p>
@@ -182,20 +167,20 @@ interface Stat {
       <div class="container">
         <div class="showcase-grid">
           <div class="showcase-content text-center">
-            <h2 class="cta-title" data-magnetic>{{ 'HOME.CTA.TITLE' | transloco }}</h2>
+            <h2 class="cta-title">{{ 'HOME.CTA.TITLE' | transloco }}</h2>
             <p class="cta-subtitle">
               {{ 'HOME.CTA.SUBTITLE' | transloco }}
             </p>
             <div class="cta-actions">
-              <a routerLink="/contact" class="btn btn-primary btn-lg magnetic" magneticButton>
+              <a routerLink="/contact" class="btn btn-primary btn-lg">
                 {{ 'HOME.CTA.GET_QUOTE' | transloco }}
               </a>
-              <a routerLink="/services" class="btn btn-secondary btn-lg magnetic">
+              <a routerLink="/services" class="btn btn-secondary btn-lg">
                 {{ 'HOME.CTA.DISCOVER_SERVICES' | transloco }}
               </a>
             </div>
           </div>
-          <div class="showcase-media" data-showcase="0.1">
+          <div class="showcase-media">
             <div class="cta-visual">
               <div class="floating-elements">
                 <div class="element eco-badge">{{ 'HOME.CTA.FLOATING_BADGES.ECO' | transloco }}</div>
@@ -229,6 +214,7 @@ interface Stat {
       position: relative;
       overflow: hidden;
       padding: var(--space-5xl) 0;
+      contain: layout style paint;
     }
 
     .hero-section::before {
@@ -257,42 +243,41 @@ interface Stat {
       letter-spacing: 0.025em;
     }
 
-    /* True Parallax Scrolling */
-    .parallax-container {
+    /* Performant Parallax - Apple Style */
+    .parallax-wrapper {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2rem;
+      height: 100%;
+      width: 100%;
+    }
+
+    .parallax-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      will-change: transform;
+      backface-visibility: hidden;
+      display: block;
+    }
+
+    .showcase-media .parallax-image {
+      border-radius: 2rem;
+    }
+
+    .image-container {
       position: relative;
       overflow: hidden;
       border-radius: 1.5rem;
       height: 400px;
     }
 
-    .parallax-bg {
-      position: absolute;
-      top: -20%;
-      left: -10%;
-      width: 120%;
-      height: 140%;
-      object-fit: cover;
-      will-change: transform;
-      transition: transform 0.1s ease-out;
-    }
-
-    .parallax-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(107, 144, 128, 0.2) 0%, rgba(164, 195, 178, 0.1) 100%);
-      will-change: transform;
-      transition: transform 0.1s ease-out;
-    }
-
-    .parallax-float {
+    .image-badge {
       position: absolute;
       top: 20px;
       right: 20px;
-      will-change: transform;
-      transition: transform 0.1s ease-out;
+      z-index: 2;
     }
 
     .float-badge {
@@ -1005,10 +990,10 @@ interface Stat {
         order: -1 !important;
       }
 
-      /* Disable all data-showcase and data-magnetic transforms */
-      [data-showcase],
-      [data-magnetic],
-      .magnetic {
+      /* Clean mobile transforms */
+      .stat-item,
+      .testimonial-card,
+      .product-card {
         transform: none !important;
       }
 
@@ -1049,27 +1034,19 @@ interface Stat {
       }
 
       /* Images */
-      .parallax-container {
+      .parallax-wrapper,
+      .image-container {
         height: 280px !important;
         width: 100% !important;
         border-radius: 1rem;
-        overflow: hidden !important;
       }
 
-      .parallax-bg {
-        position: relative !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
+      .parallax-image {
         height: 100% !important;
         transform: none !important;
-        object-fit: cover !important;
-        object-position: center !important;
       }
 
-      .parallax-overlay,
-      .parallax-float,
-      .float-badge {
+      .image-badge {
         display: none !important;
       }
 
@@ -1326,9 +1303,14 @@ interface Stat {
         font-size: 1.5rem !important;
       }
 
-      .parallax-container,
+      .parallax-wrapper,
+      .image-container,
       .showcase-image {
         height: 200px !important;
+      }
+
+      .parallax-image {
+        height: 100% !important;
       }
 
       .product-media {
@@ -1351,9 +1333,14 @@ interface Stat {
         font-size: 0.875rem !important;
       }
 
-      .parallax-container,
+      .parallax-wrapper,
+      .image-container,
       .showcase-image {
         height: 180px !important;
+      }
+
+      .parallax-image {
+        height: 100% !important;
       }
 
       .product-media {
@@ -1370,15 +1357,12 @@ interface Stat {
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   constructor(
-    private appleAnimations: AppleAnimationsService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      // Initialize fixed viewport scrolling
       setTimeout(() => {
-        this.appleAnimations.initializeFixedViewport();
         this.setupProgressiveImageLoading();
       }, 100);
     }
@@ -1388,7 +1372,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {
         this.initializeInteractiveElements();
-      }, 500);
+      }, 300);
     }
   }
 
@@ -1407,97 +1391,102 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   private initializeInteractiveElements(): void {
-    // Add reveal animations to content sections
-    const revealElements = document.querySelectorAll('[data-reveal]');
-    revealElements.forEach(element => {
-      element.classList.add('reveal-layer');
-    });
-
-    // Add magnetic effect to interactive elements
-    const magneticElements = document.querySelectorAll('.magnetic');
-    magneticElements.forEach((element) => {
-      this.appleAnimations.createMagneticButton(element as HTMLElement);
-    });
-
-    // Initialize true parallax scrolling
-    this.setupTrueParallax();
-
-    // Initialize scroll-triggered visibility
+    // Initialize scroll-triggered visibility (one-time reveals only)
     this.setupScrollTriggers();
-  }
 
-  private setupTrueParallax(): void {
-    // Disable parallax on mobile devices
-    if (window.innerWidth <= 768) {
-      return;
-    }
-
-    const scrollContainer = document.querySelector('.apple-scroll-container') as HTMLElement;
-    if (!scrollContainer) return;
-
-    // Get all parallax elements
-    const parallaxElements = document.querySelectorAll('[data-speed]');
-
-    let ticking = false;
-
-    const updateParallax = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const scrollTop = scrollContainer.scrollTop;
-          const scrollHeight = scrollContainer.scrollHeight;
-          const containerHeight = scrollContainer.clientHeight;
-
-          parallaxElements.forEach((element) => {
-            const htmlElement = element as HTMLElement;
-            const speed = parseFloat(htmlElement.dataset['speed'] || '0');
-
-            // Calculate element position relative to viewport
-            const rect = htmlElement.getBoundingClientRect();
-            const elementTop = htmlElement.offsetTop;
-            const elementCenter = elementTop + rect.height / 2;
-            const viewportCenter = scrollTop + containerHeight / 2;
-
-            // Calculate distance from viewport center
-            const distance = elementCenter - viewportCenter;
-
-            // Apply parallax transform
-            const parallaxOffset = distance * speed * 0.5;
-            htmlElement.style.transform = `translate3d(0, ${parallaxOffset}px, 0)`;
-          });
-
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    scrollContainer.addEventListener('scroll', updateParallax, { passive: true });
+    // Initialize Apple-style performant parallax
+    this.setupPerformantParallax();
   }
 
   private setupScrollTriggers(): void {
+    // Apple-style: trigger animations ONCE when elements enter viewport
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
 
-          // Add staggered animation to child elements
-          const children = entry.target.querySelectorAll('.reveal-layer');
-          children.forEach((child, index: number) => {
-            setTimeout(() => {
-              (child as HTMLElement).classList.add('visible');
-            }, index * 100);
-          });
+          // Unobserve after triggering (one-time reveal)
+          observer.unobserve(entry.target);
         }
       });
     }, {
-      threshold: 0.2,
-      rootMargin: '0px 0px -100px 0px'
+      threshold: 0.15,
+      rootMargin: '0px 0px -80px 0px'
     });
 
-    // Observe all showcase elements
-    const showcaseElements = document.querySelectorAll('.showcase-content, .showcase-media, .reveal-layer');
+    // Observe all showcase elements for one-time reveal
+    const showcaseElements = document.querySelectorAll('.showcase-content, .showcase-media, .reveal-layer, .product-card, .stat-item');
     showcaseElements.forEach(element => {
       observer.observe(element);
     });
+  }
+
+  private setupPerformantParallax(): void {
+    // Skip on mobile for better performance
+    if (window.innerWidth <= 768) {
+      return;
+    }
+
+    const parallaxImages = document.querySelectorAll<HTMLElement>('.parallax-image');
+    if (parallaxImages.length === 0) return;
+
+    let ticking = false;
+    const activeElements = new Set<HTMLElement>();
+
+    // Use Intersection Observer to only animate visible elements
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const element = entry.target as HTMLElement;
+        if (entry.isIntersecting) {
+          activeElements.add(element);
+        } else {
+          activeElements.delete(element);
+        }
+      });
+    }, {
+      rootMargin: '200px 0px 200px 0px'
+    });
+
+    parallaxImages.forEach(img => observer.observe(img));
+
+    // Optimized scroll handler with requestAnimationFrame
+    const updateParallax = () => {
+      activeElements.forEach((element) => {
+        const wrapper = element.closest('.parallax-wrapper');
+        if (!wrapper) return;
+
+        const rect = wrapper.getBoundingClientRect();
+        const speed = parseFloat(element.dataset['parallax'] || '0.5');
+
+        // Apple-style: elements "rise up" as they enter viewport from bottom
+        // When element is below viewport center, it should be lower (positive Y)
+        // When element is above viewport center, it should be higher (negative Y)
+        const windowHeight = window.innerHeight;
+        const elementTop = rect.top;
+        const elementBottom = rect.bottom;
+
+        // Calculate how far the element is from viewport center (0 = center, negative = above, positive = below)
+        const distanceFromCenter = (elementTop + elementBottom) / 2 - windowHeight / 2;
+
+        // Apply parallax: as element comes up from bottom, it moves up slower (creating depth)
+        // Negative value because we want element to lag behind (appear lower when entering from bottom)
+        const offset = -distanceFromCenter * speed;
+
+        element.style.transform = `translate3d(0, ${offset}px, 0) scale(1.1)`;
+      });
+
+      ticking = false;
+    };
+
+    // Throttled scroll listener
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Initial parallax calculation
+    updateParallax();
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, Inject, PLATFORM_ID, HostListener } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -27,11 +27,14 @@ interface OfficeLocation {
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink, TranslocoPipe],
   template: `
-    <section #heroSection class="hero-section" [class.visible]="isHeroVisible">
+    <section class="hero wave-border-bottom-only" #heroSection>
       <div class="container">
-        <div class="hero-content text-center fade-in-up" [class.visible]="isHeroVisible">
-          <h1 class="stagger-1">{{ 'CONTACT.TITLE' | transloco }}</h1>
-          <p class="stagger-2">{{ 'CONTACT.SUBTITLE' | transloco }}</p>
+        <div class="hero-content">
+          <div class="hero-text fade-in-up" [class.visible]="isHeroVisible">
+            <div class="hero-badge">{{ 'CONTACT.HERO.BADGE' | transloco }}</div>
+            <h1 class="hero-title">{{ 'CONTACT.TITLE' | transloco }}</h1>
+            <p class="hero-subtitle">{{ 'CONTACT.SUBTITLE' | transloco }}</p>
+          </div>
         </div>
       </div>
     </section>
@@ -119,28 +122,52 @@ interface OfficeLocation {
               </div>
 
               <div class="form-group">
-                <label for="serviceType">{{ 'CONTACT.SERVICE_TYPE' | transloco }}</label>
-                <select id="serviceType" formControlName="serviceType" class="form-control">
-                  <option value="">{{ 'CONTACT.SERVICE_OPTIONS.SELECT' | transloco }}</option>
-                  <option value="residential">{{ 'CONTACT.SERVICE_OPTIONS.RESIDENTIAL' | transloco }}</option>
-                  <option value="commercial">{{ 'CONTACT.SERVICE_OPTIONS.COMMERCIAL' | transloco }}</option>
-                  <option value="post-construction">{{ 'CONTACT.SERVICE_OPTIONS.POST_CONSTRUCTION' | transloco }}</option>
-                  <option value="deep-cleaning">{{ 'CONTACT.SERVICE_OPTIONS.DEEP_CLEANING' | transloco }}</option>
-                  <option value="maintenance">{{ 'CONTACT.SERVICE_OPTIONS.MAINTENANCE' | transloco }}</option>
-                  <option value="carpet">{{ 'CONTACT.SERVICE_OPTIONS.CARPET' | transloco }}</option>
-                  <option value="other">{{ 'CONTACT.SERVICE_OPTIONS.OTHER' | transloco }}</option>
-                </select>
+                <label>{{ 'CONTACT.SERVICE_TYPE' | transloco }}</label>
+                <div class="custom-dropdown" [class.open]="dropdownStates['serviceType']">
+                  <div class="dropdown-trigger" (click)="toggleDropdown('serviceType')">
+                    <span class="selected-text">{{getSelectedServiceLabel()}}</span>
+                    <svg class="dropdown-icon" [class.rotated]="dropdownStates['serviceType']" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="6,9 12,15 18,9"></polyline>
+                    </svg>
+                  </div>
+                  <div class="dropdown-menu" *ngIf="dropdownStates['serviceType']">
+                    <div class="dropdown-option"
+                         *ngFor="let option of serviceTypeOptions"
+                         [class.selected]="contactForm.get('serviceType')?.value === option.value"
+                         (click)="selectDropdownOption('serviceType', option.value)">
+                      {{option.label | transloco}}
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div class="form-group">
-                <label for="propertySize">{{ 'CONTACT.PROPERTY_SIZE' | transloco }}</label>
-                <select id="propertySize" formControlName="propertySize" class="form-control">
-                  <option value="">{{ 'CONTACT.SIZE_OPTIONS.SELECT' | transloco }}</option>
-                  <option value="small">{{ 'CONTACT.SIZE_OPTIONS.SMALL' | transloco }}</option>
-                  <option value="medium">{{ 'CONTACT.SIZE_OPTIONS.MEDIUM' | transloco }}</option>
-                  <option value="large">{{ 'CONTACT.SIZE_OPTIONS.LARGE' | transloco }}</option>
-                  <option value="xlarge">{{ 'CONTACT.SIZE_OPTIONS.XLARGE' | transloco }}</option>
-                </select>
+                <label>{{ 'CONTACT.PROPERTY_SIZE' | transloco }}</label>
+                <div class="custom-dropdown" [class.open]="dropdownStates['propertySize']">
+                  <div class="dropdown-trigger" (click)="toggleDropdown('propertySize')">
+                    <span class="selected-text">{{getSelectedSizeLabel()}}</span>
+                    <svg class="dropdown-icon" [class.rotated]="dropdownStates['propertySize']" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="6,9 12,15 18,9"></polyline>
+                    </svg>
+                  </div>
+                  <div class="dropdown-menu" *ngIf="dropdownStates['propertySize']">
+                    <div class="dropdown-option"
+                         *ngFor="let option of propertySizeOptions"
+                         [class.selected]="contactForm.get('propertySize')?.value === option.value"
+                         (click)="selectDropdownOption('propertySize', option.value)">
+                      {{option.label | transloco}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="preferredDate">{{ 'CONTACT.PREFERRED_DATE' | transloco }}</label>
+                <input type="date"
+                       formControlName="preferredDate"
+                       id="preferredDate"
+                       class="form-control date-picker"
+                       [min]="getTomorrowDate()">
               </div>
 
               <div class="form-group">
@@ -252,29 +279,44 @@ interface OfficeLocation {
   `,
   styles: [`
     /* Hero Section */
-    .hero-section {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-      color: var(--pure-white);
-      padding: var(--space-5xl) 0;
-      min-height: 50vh;
-      display: flex;
-      align-items: center;
+    .hero {
+      padding: var(--space-6xl) 0 var(--space-4xl);
+      background: linear-gradient(135deg, var(--pure-white) 0%, var(--secondary) 100%);
+      position: relative;
+      overflow: visible;
     }
 
-    .hero-content h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      margin-bottom: var(--space-lg);
-      color: var(--pure-white);
-      font-weight: var(--font-weight-bold);
-      letter-spacing: -0.02em;
-    }
-
-    .hero-content p {
-      font-size: clamp(1.1rem, 2vw, 1.3rem);
-      opacity: 0.95;
-      max-width: 700px;
+    .hero-content {
+      max-width: 800px;
+      text-align: center;
       margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: var(--space-sm) var(--space-lg);
+      background: var(--tertiary);
+      color: var(--neutral-medium);
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+      font-weight: var(--font-weight-medium);
+      letter-spacing: 0.02em;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: var(--space-xl);
+      font-weight: var(--font-weight-bold);
+      line-height: 1.1;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
       line-height: 1.6;
+      color: var(--neutral-medium);
+      max-width: 600px;
+      margin: 0 auto;
     }
 
     /* Section Headers */
@@ -388,36 +430,41 @@ interface OfficeLocation {
 
     .form-group label {
       display: block;
-      margin-bottom: var(--space-sm);
-      font-weight: var(--font-weight-semibold);
+      margin-bottom: 8px;
+      font-weight: 500;
       color: var(--neutral-dark);
-      font-size: 0.95rem;
-      letter-spacing: 0.01em;
+      font-size: 17px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      letter-spacing: -0.022em;
     }
 
     .form-control {
       width: 100%;
-      padding: var(--space-md) var(--space-lg);
-      border: 2px solid rgba(107, 144, 128, 0.15);
-      border-radius: var(--radius-lg);
-      font-family: var(--font-primary);
-      font-size: 1rem;
-      transition: all var(--transition-base);
-      background: var(--pure-white);
-      font-weight: var(--font-weight-medium);
+      padding: 16px 20px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 17px;
+      font-weight: 400;
+      background: rgba(255, 255, 255, 0.8);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       color: var(--neutral-dark);
-      line-height: 1.5;
+      letter-spacing: -0.022em;
+      backdrop-filter: blur(10px);
+      min-height: 54px;
     }
 
     .form-control:focus {
       outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(107, 144, 128, 0.1);
+      border-color: #007AFF;
+      box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
       background: var(--pure-white);
+      transform: translateY(-1px);
     }
 
     .form-control:hover:not(:focus) {
-      border-color: rgba(107, 144, 128, 0.25);
+      background-color: rgba(255, 255, 255, 0.95);
+      border-color: rgba(0, 0, 0, 0.2);
     }
 
     .form-control.error {
@@ -427,69 +474,163 @@ interface OfficeLocation {
     }
 
     .form-control::placeholder {
-      color: var(--neutral-light);
-      opacity: 1;
+      color: rgba(60, 60, 67, 0.6);
+      font-weight: 400;
     }
 
-    /* Custom Select Styling */
-    select.form-control {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background: var(--pure-white) url("data:image/svg+xml;utf8,<svg fill='%236b9080' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10L12 15L17 10H7Z'/></svg>") no-repeat;
-      background-position: right var(--space-md) center;
-      background-size: 20px;
-      padding-right: calc(var(--space-2xl) + 10px);
-      cursor: pointer;
-      min-height: 48px;
+    /* Custom Dropdown Styles - Apple Style */
+    .custom-dropdown {
+      position: relative;
+      width: 100%;
     }
 
-    select.form-control:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(107, 144, 128, 0.1);
-      background: var(--pure-white) url("data:image/svg+xml;utf8,<svg fill='%235a7a6b' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10L12 15L17 10H7Z'/></svg>") no-repeat;
-      background-position: right var(--space-md) center;
-      background-size: 20px;
-    }
-
-    select.form-control:hover:not(:focus) {
-      border-color: rgba(107, 144, 128, 0.25);
-    }
-
-    /* Custom Option Styling */
-    select.form-control option {
-      background: var(--pure-white);
+    .dropdown-trigger {
+      width: 100%;
+      padding: 16px 20px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 17px;
+      font-weight: 400;
+      background: rgba(255, 255, 255, 0.8);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       color: var(--neutral-dark);
-      padding: var(--space-sm) var(--space-md);
-      font-weight: var(--font-weight-medium);
-      border: none;
+      letter-spacing: -0.022em;
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+      min-height: 54px;
     }
 
-    select.form-control option:checked {
-      background: var(--secondary);
-      color: var(--primary);
+    .dropdown-trigger:hover {
+      background-color: rgba(255, 255, 255, 0.95);
+      border-color: rgba(0, 0, 0, 0.2);
     }
 
-    select.form-control option:hover {
-      background: var(--secondary);
-      color: var(--primary);
+    .custom-dropdown.open .dropdown-trigger {
+      border-color: #007AFF;
+      box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
+      background: var(--pure-white);
+      transform: translateY(-1px);
     }
 
-    /* Disabled state */
-    select.form-control:disabled {
-      background-color: var(--neutral-lightest);
-      background-image: url("data:image/svg+xml;utf8,<svg fill='%239a9a9a' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10L12 15L17 10H7Z'/></svg>");
-      color: var(--neutral-light);
-      cursor: not-allowed;
-      opacity: 0.6;
+    .selected-text {
+      flex: 1;
+      text-align: left;
+      color: var(--neutral-dark);
+    }
+
+    .dropdown-icon {
+      color: rgba(60, 60, 67, 0.6);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      flex-shrink: 0;
+      margin-left: 12px;
+    }
+
+    .dropdown-icon.rotated {
+      transform: rotate(180deg);
+      color: #007AFF;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: var(--pure-white);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      backdrop-filter: blur(20px);
+      margin-top: 4px;
+      max-height: 280px;
+      overflow-y: auto;
+      animation: dropdownSlideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes dropdownSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .dropdown-option {
+      padding: 14px 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 17px;
+      color: var(--neutral-dark);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      letter-spacing: -0.022em;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .dropdown-option:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-option:hover {
+      background: rgba(0, 122, 255, 0.05);
+      color: #007AFF;
+    }
+
+    .dropdown-option.selected {
+      background: rgba(0, 122, 255, 0.1);
+      color: #007AFF;
+      font-weight: 500;
+    }
+
+    .dropdown-option.selected::after {
+      content: '✓';
+      float: right;
+      color: #007AFF;
+      font-weight: 600;
+    }
+
+    /* Date Picker Styling */
+    .date-picker {
+      max-width: none;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .date-picker::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      opacity: 0.7;
+      filter: invert(42%) sepia(14%) saturate(1034%) hue-rotate(119deg) brightness(94%) contrast(91%);
+    }
+
+    .date-picker:hover::-webkit-calendar-picker-indicator {
+      opacity: 1;
     }
 
     /* Textarea specific styling */
     textarea.form-control {
       resize: vertical;
       min-height: 120px;
-      line-height: 1.6;
+      line-height: 1.5;
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+
+    /* Input number styling */
+    input.form-control[type="number"] {
+      -moz-appearance: textfield;
+    }
+
+    input.form-control[type="number"]::-webkit-outer-spin-button,
+    input.form-control[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
 
     .error-message {
@@ -507,14 +648,60 @@ interface OfficeLocation {
     .checkbox-label {
       display: flex;
       align-items: center;
+      gap: 12px;
       cursor: pointer;
-      font-weight: normal !important;
+      font-weight: 400 !important;
       margin-bottom: 0 !important;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 17px;
+      letter-spacing: -0.022em;
+      padding: 12px 0;
+      transition: color 0.2s ease;
+    }
+
+    .checkbox-label:hover {
+      color: #007AFF;
     }
 
     .checkbox-label input[type="checkbox"] {
-      margin-right: var(--spacing-sm);
-      transform: scale(1.2);
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    .checkmark {
+      height: 20px;
+      width: 20px;
+      background-color: transparent;
+      border: 2px solid rgba(60, 60, 67, 0.3);
+      border-radius: 6px;
+      position: relative;
+      flex-shrink: 0;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .checkbox-label input[type="checkbox"]:checked ~ .checkmark {
+      background-color: #007AFF;
+      border-color: #007AFF;
+    }
+
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 6px;
+      top: 2px;
+      width: 6px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    .checkbox-label input[type="checkbox"]:checked ~ .checkmark:after {
+      display: block;
     }
 
     .submit-btn {
@@ -700,8 +887,16 @@ interface OfficeLocation {
     }
 
     @media (max-width: 768px) {
-      .hero-section {
-        padding: var(--space-3xl) 0;
+      .hero {
+        padding: var(--space-4xl) 0 var(--space-3xl);
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.1rem;
       }
 
       .contact-grid {
@@ -744,6 +939,25 @@ interface OfficeLocation {
         grid-template-columns: 1fr;
       }
     }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: var(--space-3xl) 0 var(--space-2xl);
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .hero-badge {
+        font-size: 0.75rem;
+        padding: var(--space-xs) var(--space-md);
+      }
+    }
   `]
 })
 export class ContactComponent implements OnInit, OnDestroy, AfterViewInit {
@@ -761,6 +975,32 @@ export class ContactComponent implements OnInit, OnDestroy, AfterViewInit {
   isContactFormVisible = false;
   areOfficeLocationsVisible = false;
   isFaqPreviewVisible = false;
+
+  // Custom dropdown states
+  dropdownStates: {[key: string]: boolean} = {
+    serviceType: false,
+    propertySize: false
+  };
+
+  // Dropdown options
+  serviceTypeOptions = [
+    { value: '', label: 'CONTACT.SERVICE_OPTIONS.SELECT' },
+    { value: 'residential', label: 'CONTACT.SERVICE_OPTIONS.RESIDENTIAL' },
+    { value: 'commercial', label: 'CONTACT.SERVICE_OPTIONS.COMMERCIAL' },
+    { value: 'post-construction', label: 'CONTACT.SERVICE_OPTIONS.POST_CONSTRUCTION' },
+    { value: 'deep-cleaning', label: 'CONTACT.SERVICE_OPTIONS.DEEP_CLEANING' },
+    { value: 'maintenance', label: 'CONTACT.SERVICE_OPTIONS.MAINTENANCE' },
+    { value: 'carpet', label: 'CONTACT.SERVICE_OPTIONS.CARPET' },
+    { value: 'other', label: 'CONTACT.SERVICE_OPTIONS.OTHER' }
+  ];
+
+  propertySizeOptions = [
+    { value: '', label: 'CONTACT.SIZE_OPTIONS.SELECT' },
+    { value: 'small', label: 'CONTACT.SIZE_OPTIONS.SMALL' },
+    { value: 'medium', label: 'CONTACT.SIZE_OPTIONS.MEDIUM' },
+    { value: 'large', label: 'CONTACT.SIZE_OPTIONS.LARGE' },
+    { value: 'xlarge', label: 'CONTACT.SIZE_OPTIONS.XLARGE' }
+  ];
 
   contactMethods: ContactMethod[] = [
     {
@@ -865,6 +1105,7 @@ export class ContactComponent implements OnInit, OnDestroy, AfterViewInit {
       phone: [''],
       serviceType: [''],
       propertySize: [''],
+      preferredDate: [''],
       message: ['', [Validators.required, Validators.minLength(10)]],
       urgentRequest: [false]
     });
@@ -907,5 +1148,54 @@ export class ContactComponent implements OnInit, OnDestroy, AfterViewInit {
   getOfficeHours(officeId: string): string[] {
     const hours = this.transloco.translate(`CONTACT.${officeId.toUpperCase()}_OFFICE.HOURS`);
     return Array.isArray(hours) ? hours : [];
+  }
+
+  // Custom dropdown methods
+  toggleDropdown(dropdownName: string): void {
+    // Close all other dropdowns
+    Object.keys(this.dropdownStates).forEach(key => {
+      if (key !== dropdownName) {
+        this.dropdownStates[key] = false;
+      }
+    });
+    // Toggle the selected dropdown
+    this.dropdownStates[dropdownName] = !this.dropdownStates[dropdownName];
+  }
+
+  selectDropdownOption(dropdownName: string, value: string): void {
+    this.contactForm.patchValue({[dropdownName]: value});
+    this.dropdownStates[dropdownName] = false;
+  }
+
+  getSelectedServiceLabel(): string {
+    const currentValue = this.contactForm.get('serviceType')?.value;
+    const option = this.serviceTypeOptions.find(opt => opt.value === currentValue);
+    return option ? this.transloco.translate(option.label) : this.transloco.translate('CONTACT.SERVICE_OPTIONS.SELECT');
+  }
+
+  getSelectedSizeLabel(): string {
+    const currentValue = this.contactForm.get('propertySize')?.value;
+    const option = this.propertySizeOptions.find(opt => opt.value === currentValue);
+    return option ? this.transloco.translate(option.label) : this.transloco.translate('CONTACT.SIZE_OPTIONS.SELECT');
+  }
+
+  getTomorrowDate(): string {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow.toISOString().split('T')[0];
+  }
+
+  closeAllDropdowns(): void {
+    Object.keys(this.dropdownStates).forEach(key => {
+      this.dropdownStates[key] = false;
+    });
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event): void {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.custom-dropdown')) {
+      this.closeAllDropdowns();
+    }
   }
 }

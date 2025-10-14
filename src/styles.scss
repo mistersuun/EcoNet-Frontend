@@ -10,7 +10,6 @@
 
 html {
   font-size: 16px;
-  scroll-behavior: smooth;
   overflow-x: hidden;
   width: 100%;
 }
@@ -813,30 +812,10 @@ p {
   z-index: 1;
 }
 
-/* Magnetic Elements */
-.magnetic {
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
-}
-
-/* Fixed Viewport Scrolling */
-.apple-scroll-container {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.apple-scroll-container::-webkit-scrollbar {
-  display: none;
-}
-
-/* Apple Store Scroll Snapping */
+/* Smooth Scrolling Sections - No Scroll Snap */
 .scroll-section {
-  scroll-snap-align: start;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  min-height: auto;
+  padding: var(--space-5xl) 0;
 }
 
 /* Progressive Image Loading */

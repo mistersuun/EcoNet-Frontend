@@ -291,6 +291,9 @@ interface ServiceCategory {
       overflow: hidden;
       position: relative;
       transition: all var(--transition-base);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
 
     .service-card:hover {
@@ -352,6 +355,9 @@ interface ServiceCategory {
 
     .service-content {
       padding: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      flex: 1;
     }
 
     .service-content h3 {
@@ -367,6 +373,7 @@ interface ServiceCategory {
     .service-features {
       list-style: none;
       margin-bottom: var(--space-lg);
+      flex: 1;
     }
 
     .service-features li {
@@ -421,6 +428,7 @@ interface ServiceCategory {
     .service-actions {
       display: flex;
       gap: var(--space-sm);
+      margin-top: auto;
     }
 
     .service-actions .btn {

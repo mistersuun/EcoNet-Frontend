@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, Inject, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
@@ -40,7 +40,7 @@ interface PricingFactor {
         </div>
 
         <div class="carousel-container fade-in-up" [class.visible]="arePricingPlansVisible">
-          <div class="carousel-wrapper">
+          <div class="carousel-wrapper" #carouselWrapper>
             <div class="carousel-track" [style.transform]="'translateX(' + (-currentSlide * 100) + '%)'">
               <div class="carousel-slide" *ngFor="let plan of pricingPlans; let i = index">
                 <div class="service-card">
@@ -505,15 +505,41 @@ interface PricingFactor {
       position: relative;
     }
 
+    /* Enable touch scrolling on mobile */
+    @media (max-width: 480px) {
+      .carousel-wrapper {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE/Edge */
+      }
+
+      .carousel-wrapper::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+      }
+    }
+
     .carousel-track {
       display: flex;
       transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Disable transform on mobile for native scroll */
+    @media (max-width: 480px) {
+      .carousel-track {
+        transform: none !important;
+        transition: none;
+      }
     }
 
     .carousel-slide {
       min-width: 100%;
       display: flex;
       justify-content: center;
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
     }
 
     .service-card {
@@ -613,6 +639,7 @@ interface PricingFactor {
       gap: var(--space-lg);
       justify-content: center;
       flex-wrap: wrap;
+      margin-top: var(--space-lg);
     }
 
     /* Apple-style Buttons */
@@ -633,28 +660,29 @@ interface PricingFactor {
     }
 
     .btn-apple.primary {
-      background: var(--primary-green);
+      background: linear-gradient(135deg, var(--viridian) 0%, var(--cambridge-blue) 100%);
       color: var(--pure-white);
       border: none;
     }
 
     .btn-apple.primary:hover {
-      background: var(--secondary-green);
+      background: linear-gradient(135deg, var(--cambridge-blue) 0%, var(--viridian) 100%);
       transform: translateY(-1px);
-      box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
+      box-shadow: 0 4px 20px rgba(107, 144, 128, 0.4);
     }
 
     .btn-apple.secondary {
       background: transparent;
-      color: var(--primary-green);
-      border: 1px solid var(--primary-green);
+      color: var(--viridian);
+      border: 2px solid var(--viridian);
     }
 
     .btn-apple.secondary:hover {
-      background: var(--primary-green);
+      background: linear-gradient(135deg, var(--viridian) 0%, var(--cambridge-blue) 100%);
       color: var(--pure-white);
+      border-color: transparent;
       transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(76, 175, 80, 0.25);
+      box-shadow: 0 4px 16px rgba(107, 144, 128, 0.3);
     }
 
     .btn-apple.large {
@@ -726,19 +754,19 @@ interface PricingFactor {
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: var(--neutral-light);
+      background: rgba(107, 144, 128, 0.3);
       border: none;
       cursor: pointer;
       transition: all 0.3s ease;
     }
 
     .dot.active {
-      background: var(--primary);
+      background: var(--viridian);
       transform: scale(1.2);
     }
 
     .dot:hover {
-      background: var(--primary);
+      background: var(--viridian);
       transform: scale(1.1);
     }
 
@@ -1061,6 +1089,11 @@ interface PricingFactor {
         font-size: 2.2rem;
       }
 
+      /* Calculator Section - Tablet */
+      .calculator-content {
+        gap: var(--space-2xl);
+      }
+
       /* Table - Make scrollable on tablet */
       .table-container {
         overflow-x: auto;
@@ -1189,12 +1222,15 @@ interface PricingFactor {
 
       .service-actions {
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
+        gap: var(--space-md);
+        padding-top: var(--space-md);
       }
 
       .btn-apple {
         width: 100%;
-        max-width: 280px;
+        max-width: 100%;
+        padding: 14px var(--space-lg);
       }
 
       .cta-actions {
@@ -1204,6 +1240,51 @@ interface PricingFactor {
 
       .final-cta {
         padding: 80px 0;
+      }
+
+      /* Calculator Section - Mobile */
+      .calculator-content {
+        grid-template-columns: 1fr;
+        gap: var(--space-2xl);
+      }
+
+      .calculator-text {
+        text-align: center;
+      }
+
+      .calculator-text h2 {
+        font-size: 1.8rem;
+      }
+
+      .calculator-text > p {
+        font-size: 1rem;
+      }
+
+      .calculator-features {
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .calc-feature {
+        justify-content: center;
+      }
+
+      .calculator-text .btn {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .calculator-image {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .calculator-image img {
+        width: 100%;
+        height: auto;
+        max-height: 300px;
+        object-fit: cover;
       }
     }
 
@@ -1243,6 +1324,15 @@ interface PricingFactor {
       .feature-list li {
         font-size: 0.9rem;
       }
+
+      /* Calculator Section - Small Mobile */
+      .calculator-text h2 {
+        font-size: 1.6rem;
+      }
+
+      .calculator-image img {
+        max-height: 250px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -1256,16 +1346,33 @@ interface PricingFactor {
 
       .service-card {
         margin: 0 var(--space-sm);
-        padding: var(--space-lg);
+        padding: var(--space-xl) var(--space-lg);
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .service-header {
+        margin-bottom: var(--space-xl);
+      }
+
+      .service-features {
+        margin-bottom: var(--space-xl);
+        flex: 1;
       }
 
       .service-actions {
-        gap: var(--space-sm);
+        gap: var(--space-md);
+        margin-top: auto;
+        padding-top: var(--space-lg);
+        width: 100%;
       }
 
       .btn-apple {
-        padding: var(--space-md) var(--space-lg);
-        font-size: 0.9rem;
+        padding: 14px var(--space-lg);
+        font-size: 1rem;
+        min-width: 140px;
+        font-weight: 500;
       }
 
       .carousel-dots {
@@ -1275,6 +1382,47 @@ interface PricingFactor {
       .dot {
         width: 10px;
         height: 10px;
+      }
+
+      /* Calculator Section - Extra Small Mobile */
+      .calculator-section {
+        padding: var(--space-4xl) 0;
+      }
+
+      .calculator-content {
+        gap: var(--space-xl);
+      }
+
+      .calculator-text h2 {
+        font-size: 1.4rem;
+        margin-bottom: var(--space-md);
+      }
+
+      .calculator-text > p {
+        font-size: 0.95rem;
+        margin-bottom: var(--space-lg);
+      }
+
+      .calculator-features {
+        gap: var(--space-sm);
+        margin-bottom: var(--space-xl);
+      }
+
+      .calc-feature {
+        font-size: 0.85rem;
+      }
+
+      .calc-icon {
+        font-size: 1.1rem;
+      }
+
+      .calculator-image {
+        border-radius: var(--radius-md);
+      }
+
+      .calculator-image img {
+        max-height: 200px;
+        border-radius: var(--radius-md);
       }
     }
   `]
@@ -1288,6 +1436,7 @@ export class PricingComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('guaranteeSection') guaranteeSection!: ElementRef;
   @ViewChild('faqPricingSection') faqPricingSection!: ElementRef;
   @ViewChild('ctaSection') ctaSection!: ElementRef;
+  @ViewChild('carouselWrapper') carouselWrapper!: ElementRef;
 
   isHeroVisible = false;
   arePricingPlansVisible = false;
@@ -1353,7 +1502,8 @@ export class PricingComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private scrollAnimationService: ScrollAnimationService,
-    private transloco: TranslocoService
+    private transloco: TranslocoService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -1371,6 +1521,7 @@ export class PricingComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.initializeScrollAnimations();
+      this.setupCarouselScrollListener();
     }
   }
 
@@ -1413,6 +1564,32 @@ export class PricingComponent implements OnInit, OnDestroy, AfterViewInit {
     ];
 
     this.scrollAnimationService.initializeAnimations(elements);
+  }
+
+  private setupCarouselScrollListener() {
+    // Only set up scroll listener on mobile devices
+    if (window.innerWidth > 480) {
+      return;
+    }
+
+    const carouselElement = this.carouselWrapper?.nativeElement;
+    if (!carouselElement) {
+      return;
+    }
+
+    // Listen to scroll events on the carousel wrapper
+    carouselElement.addEventListener('scroll', () => {
+      const scrollLeft = carouselElement.scrollLeft;
+      const cardWidth = carouselElement.offsetWidth;
+      const newSlide = Math.round(scrollLeft / cardWidth);
+
+      // Update currentSlide if it changed
+      if (newSlide !== this.currentSlide && newSlide >= 0 && newSlide < this.pricingPlans.length) {
+        this.currentSlide = newSlide;
+        // Trigger change detection to update the dots
+        this.cdr.detectChanges();
+      }
+    }, { passive: true });
   }
 
   toggleFeatures(index: number) {

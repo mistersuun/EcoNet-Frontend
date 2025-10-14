@@ -624,6 +624,7 @@
     "PHONE_NUMBER": "Phone Number",
     "SERVICE_TYPE": "Service Type",
     "PROPERTY_SIZE": "Property Size",
+    "PREFERRED_DATE": "Preferred Date",
     "MESSAGE": "Message",
     "MESSAGE_PLACEHOLDER": "Describe your cleaning needs...",
     "MESSAGE_REQUIRED": "A message is required",
@@ -708,13 +709,182 @@
   "BOOKING": {
     "TITLE": "Online Booking",
     "SUBTITLE": "Schedule your cleaning service in a few clicks",
-    "STEP_1": "Choose service",
-    "STEP_2": "Select date",
-    "STEP_3": "Confirm details",
-    "STEP_4": "Payment",
-    "BOOK_NOW": "Book now",
-    "CALENDAR_PLACEHOLDER": "Select a date",
-    "TIME_PLACEHOLDER": "Choose time"
+    "HERO": {
+      "BADGE": "Online Booking",
+      "TITLE": "Book Your Service",
+      "SUBTITLE": "Schedule your eco-friendly cleaning in just a few clicks"
+    },
+    "STEPS": {
+      "SERVICE": {
+        "TITLE": "Service",
+        "DESCRIPTION": "Choose the service"
+      },
+      "DETAILS": {
+        "TITLE": "Details",
+        "DESCRIPTION": "Property information"
+      },
+      "PLANNING": {
+        "TITLE": "Planning",
+        "DESCRIPTION": "Date and time"
+      },
+      "CONTACT": {
+        "TITLE": "Contact",
+        "DESCRIPTION": "Your information"
+      },
+      "CONFIRMATION": {
+        "TITLE": "Confirmation",
+        "DESCRIPTION": "Finalize"
+      }
+    },
+    "STEP_1": {
+      "TITLE": "Choose Your Service",
+      "SUBTITLE": "Select the type of cleaning you need",
+      "CONTINUE": "Continue to Details"
+    },
+    "STEP_2": {
+      "TITLE": "Property Details",
+      "SUBTITLE": "Help us better understand your needs",
+      "BASIC_INFO": "Basic Information",
+      "PROPERTY_TYPE": "Property type",
+      "PROPERTY_SIZE": "Area (sq ft)",
+      "PROPERTY_SIZE_PLACEHOLDER": "Ex: 1200",
+      "BEDROOMS": "Number of bedrooms",
+      "BATHROOMS": "Number of bathrooms",
+      "ADDITIONAL_SERVICES": "Additional Services",
+      "SPECIAL_INSTRUCTIONS": "Special Instructions",
+      "SPECIAL_INSTRUCTIONS_PLACEHOLDER": "Do you have any particular instructions, areas to avoid, or special requests?",
+      "BACK": "Back",
+      "CONTINUE": "Continue to Planning"
+    },
+    "STEP_3": {
+      "TITLE": "Choose Date and Time",
+      "SUBTITLE": "Select your preferred time slot",
+      "PREFERRED_DATE": "Preferred Date",
+      "AVAILABLE_SLOTS": "Available Slots",
+      "OCCUPIED": "Busy",
+      "SERVICE_FREQUENCY": "Service Frequency",
+      "BACK": "Back",
+      "CONTINUE": "Continue to Information"
+    },
+    "STEP_4": {
+      "TITLE": "Your Information",
+      "SUBTITLE": "Complete your contact details to finalize the booking",
+      "FIRST_NAME": "First Name",
+      "LAST_NAME": "Last Name",
+      "EMAIL": "Email",
+      "PHONE": "Phone",
+      "ADDRESS": "Complete Address",
+      "ADDRESS_PLACEHOLDER": "Address, city, postal code",
+      "COMMUNICATION_PREFERENCES": "Communication Preferences",
+      "SMS_REMINDERS": "Receive SMS reminders",
+      "EMAIL_UPDATES": "Receive email updates",
+      "BACK": "Back",
+      "CONTINUE": "View Summary"
+    },
+    "STEP_5": {
+      "TITLE": "Booking Confirmation",
+      "SUBTITLE": "Review details before confirming",
+      "SELECTED_SERVICE": "Selected Service",
+      "ADDITIONAL_SERVICES": "Additional Services",
+      "DATE_TIME": "Date and Time",
+      "DATE": "Date:",
+      "TIME": "Time:",
+      "FREQUENCY": "Frequency:",
+      "SUBTOTAL": "Subtotal:",
+      "TAXES": "Taxes (GST + QST):",
+      "TOTAL": "Total:",
+      "MODIFY": "Modify",
+      "CONFIRM": "✅ Confirm Booking",
+      "PROCESSING": "⏳ Processing..."
+    },
+    "SERVICES": {
+      "RESIDENTIAL": {
+        "NAME": "Residential Cleaning",
+        "DESCRIPTION": "Complete service for your home",
+        "DURATION": "2-3 hours",
+        "FEATURES": [
+          "All rooms",
+          "Bathroom",
+          "Kitchen",
+          "Vacuum"
+        ]
+      },
+      "COMMERCIAL": {
+        "NAME": "Commercial Cleaning",
+        "DESCRIPTION": "Solutions for businesses",
+        "DURATION": "3-5 hours",
+        "FEATURES": [
+          "Offices",
+          "Restrooms",
+          "Common areas",
+          "Disinfection"
+        ]
+      },
+      "DEEP_CLEANING": {
+        "NAME": "Deep Cleaning",
+        "DESCRIPTION": "Intensive and detailed service",
+        "DURATION": "4-5 hours",
+        "FEATURES": [
+          "Complete cleaning",
+          "Appliance interiors",
+          "Baseboards",
+          "Light fixtures"
+        ]
+      }
+    },
+    "PROPERTY_TYPE_OPTIONS": {
+      "SELECT": "Select",
+      "APARTMENT": "Apartment",
+      "HOUSE": "House",
+      "CONDO": "Condo",
+      "OFFICE": "Office",
+      "COMMERCIAL": "Commercial"
+    },
+    "BEDROOM_OPTIONS": {
+      "SELECT": "Select",
+      "STUDIO": "Studio",
+      "ONE": "1 bedroom",
+      "TWO": "2 bedrooms",
+      "THREE": "3 bedrooms",
+      "FOUR": "4 bedrooms",
+      "FIVE_PLUS": "5+ bedrooms"
+    },
+    "BATHROOM_OPTIONS": {
+      "SELECT": "Select",
+      "ONE": "1 bathroom",
+      "ONE_HALF": "1.5 bathrooms",
+      "TWO": "2 bathrooms",
+      "TWO_HALF": "2.5 bathrooms",
+      "THREE_PLUS": "3+ bathrooms"
+    },
+    "ADDITIONAL_SERVICES_LIST": {
+      "WINDOWS": "Interior window cleaning",
+      "OVEN": "Oven cleaning",
+      "FRIDGE": "Refrigerator cleaning",
+      "BASEMENT": "Basement cleaning",
+      "GARAGE": "Garage cleaning"
+    },
+    "FREQUENCY_OPTIONS": {
+      "ONE_TIME": {
+        "NAME": "One time only",
+        "DISCOUNT": ""
+      },
+      "WEEKLY": {
+        "NAME": "Weekly",
+        "DISCOUNT": "15% discount"
+      },
+      "BI_WEEKLY": {
+        "NAME": "Every two weeks",
+        "DISCOUNT": "10% discount"
+      },
+      "MONTHLY": {
+        "NAME": "Monthly",
+        "DISCOUNT": "5% discount"
+      }
+    },
+    "NOT_SELECTED": "Not selected",
+    "POPULAR": "⭐ POPULAR",
+    "STARTING_FROM": "Starting at"
   },
   "FOOTER": {
     "DESCRIPTION": "Professional eco-friendly cleaning service for your home and business in the Montreal area.",

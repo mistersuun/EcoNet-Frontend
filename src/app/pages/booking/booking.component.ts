@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, Inj
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ScrollAnimationService } from '../../services/scroll-animation.service';
 
 interface BookingStep {
@@ -30,13 +31,16 @@ interface TimeSlot {
 @Component({
   selector: 'app-booking',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, TranslocoPipe],
   template: `
-    <section #bookingHeader class="booking-header" [class.visible]="isHeaderVisible">
+    <section class="hero wave-border-bottom-only" #bookingHeader>
       <div class="container">
-        <div class="header-content text-center fade-in-up" [class.visible]="isHeaderVisible">
-          <h1 class="stagger-1">Réservez Votre Service</h1>
-          <p class="stagger-2">Planifiez votre nettoyage écologique en quelques clics</p>
+        <div class="hero-content">
+          <div class="hero-text fade-in-up" [class.visible]="isHeaderVisible">
+            <div class="hero-badge stagger-1">{{ 'BOOKING.HERO.BADGE' | transloco }}</div>
+            <h1 class="hero-title stagger-1">{{ 'BOOKING.HERO.TITLE' | transloco }}</h1>
+            <p class="hero-subtitle stagger-2">{{ 'BOOKING.HERO.SUBTITLE' | transloco }}</p>
+          </div>
         </div>
 
         <!-- Progress Steps -->
@@ -53,8 +57,8 @@ interface TimeSlot {
                 <span *ngIf="step.completed">✓</span>
               </div>
               <div class="step-info">
-                <div class="step-title">{{step.title}}</div>
-                <div class="step-description">{{step.description}}</div>
+                <div class="step-title">{{ 'BOOKING.STEPS.' + getStepKey(step.id) + '.TITLE' | transloco }}</div>
+                <div class="step-description">{{ 'BOOKING.STEPS.' + getStepKey(step.id) + '.DESCRIPTION' | transloco }}</div>
               </div>
             </div>
           </div>
@@ -69,8 +73,8 @@ interface TimeSlot {
           <!-- Step 1: Service Selection -->
           <div class="form-step" *ngIf="currentStep === 1">
             <div class="step-header stagger-1">
-              <h2>Choisissez Votre Service</h2>
-              <p>Sélectionnez le type de nettoyage dont vous avez besoin</p>
+              <h2>{{ 'BOOKING.STEP_1.TITLE' | transloco }}</h2>
+              <p>{{ 'BOOKING.STEP_1.SUBTITLE' | transloco }}</p>
             </div>
 
             <div class="services-selection">
@@ -91,13 +95,13 @@ interface TimeSlot {
                   </div>
                 </div>
 
-                <h3>{{service.name}}</h3>
-                <p class="service-description">{{service.description}}</p>
+                <h3>{{ service.name }}</h3>
+                <p class="service-description">{{ service.description }}</p>
 
                 <ul class="service-features">
                   <li *ngFor="let feature of service.features">
                     <span class="check-icon">✓</span>
-                    {{feature}}
+                    {{ feature }}
                   </li>
                 </ul>
               </div>
@@ -108,7 +112,7 @@ interface TimeSlot {
                       class="btn btn-primary btn-lg"
                       [disabled]="!selectedService"
                       (click)="nextStep()">
-                Continuer vers les Détails
+                {{ 'BOOKING.STEP_1.CONTINUE' | transloco }}
               </button>
             </div>
           </div>
@@ -116,19 +120,19 @@ interface TimeSlot {
           <!-- Step 2: Property Details -->
           <div class="form-step" *ngIf="currentStep === 2">
             <div class="step-header stagger-1">
-              <h2>Détails de la Propriété</h2>
-              <p>Aidez-nous à mieux comprendre vos besoins</p>
+              <h2>{{ 'BOOKING.STEP_2.TITLE' | transloco }}</h2>
+              <p>{{ 'BOOKING.STEP_2.SUBTITLE' | transloco }}</p>
             </div>
 
             <div class="form-sections">
               <div class="form-section stagger-2 form-section-with-dropdowns">
-                <h3>Informations de Base</h3>
+                <h3>{{ 'BOOKING.STEP_2.BASIC_INFO' | transloco }}</h3>
                 <div class="form-row">
                   <div class="form-group">
-                    <label>Type de propriété</label>
+                    <label>{{ 'BOOKING.STEP_2.PROPERTY_TYPE' | transloco }}</label>
                     <div class="custom-dropdown" [class.open]="dropdownStates['propertyType']">
                       <div class="dropdown-trigger" (click)="toggleDropdown('propertyType')">
-                        <span class="selected-text">{{getSelectedOptionLabel('propertyType', propertyTypeOptions)}}</span>
+                        <span class="selected-text">{{ getSelectedOptionLabel('propertyType', propertyTypeOptions) | transloco }}</span>
                         <svg class="dropdown-icon" [class.rotated]="dropdownStates['propertyType']" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                           <polyline points="6,9 12,15 18,9"></polyline>
                         </svg>
@@ -138,24 +142,24 @@ interface TimeSlot {
                              *ngFor="let option of propertyTypeOptions"
                              [class.selected]="bookingForm.get('propertyType')?.value === option.value"
                              (click)="selectDropdownOption('propertyType', option.value)">
-                          {{option.label}}
+                          {{ option.label | transloco }}
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="propertySize">Superficie (pi²)</label>
+                    <label for="propertySize">{{ 'BOOKING.STEP_2.PROPERTY_SIZE' | transloco }}</label>
                     <input type="number" formControlName="propertySize" id="propertySize"
-                           class="form-control" placeholder="Ex: 1200">
+                           class="form-control" [placeholder]="'BOOKING.STEP_2.PROPERTY_SIZE_PLACEHOLDER' | transloco">
                   </div>
                 </div>
 
                 <div class="form-row">
                   <div class="form-group">
-                    <label>Nombre de chambres</label>
+                    <label>{{ 'BOOKING.STEP_2.BEDROOMS' | transloco }}</label>
                     <div class="custom-dropdown" [class.open]="dropdownStates['bedrooms']">
                       <div class="dropdown-trigger" (click)="toggleDropdown('bedrooms')">
-                        <span class="selected-text">{{getSelectedOptionLabel('bedrooms', bedroomOptions)}}</span>
+                        <span class="selected-text">{{ getSelectedOptionLabel('bedrooms', bedroomOptions) | transloco }}</span>
                         <svg class="dropdown-icon" [class.rotated]="dropdownStates['bedrooms']" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                           <polyline points="6,9 12,15 18,9"></polyline>
                         </svg>
@@ -165,16 +169,16 @@ interface TimeSlot {
                              *ngFor="let option of bedroomOptions"
                              [class.selected]="bookingForm.get('bedrooms')?.value === option.value"
                              (click)="selectDropdownOption('bedrooms', option.value)">
-                          {{option.label}}
+                          {{ option.label | transloco }}
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label>Nombre de salles de bain</label>
+                    <label>{{ 'BOOKING.STEP_2.BATHROOMS' | transloco }}</label>
                     <div class="custom-dropdown" [class.open]="dropdownStates['bathrooms']">
                       <div class="dropdown-trigger" (click)="toggleDropdown('bathrooms')">
-                        <span class="selected-text">{{getSelectedOptionLabel('bathrooms', bathroomOptions)}}</span>
+                        <span class="selected-text">{{ getSelectedOptionLabel('bathrooms', bathroomOptions) | transloco }}</span>
                         <svg class="dropdown-icon" [class.rotated]="dropdownStates['bathrooms']" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                           <polyline points="6,9 12,15 18,9"></polyline>
                         </svg>
@@ -184,7 +188,7 @@ interface TimeSlot {
                              *ngFor="let option of bathroomOptions"
                              [class.selected]="bookingForm.get('bathrooms')?.value === option.value"
                              (click)="selectDropdownOption('bathrooms', option.value)">
-                          {{option.label}}
+                          {{ option.label | transloco }}
                         </div>
                       </div>
                     </div>
@@ -193,7 +197,7 @@ interface TimeSlot {
               </div>
 
               <div class="form-section stagger-3">
-                <h3>Services Additionnels</h3>
+                <h3>{{ 'BOOKING.STEP_2.ADDITIONAL_SERVICES' | transloco }}</h3>
                 <div class="additional-services">
                   <label class="service-checkbox" *ngFor="let addon of additionalServices; let i = index"
                          [class]="'stagger-' + (i + 4)">
@@ -202,7 +206,7 @@ interface TimeSlot {
                            (change)="updateTotalPrice()">
                     <span class="checkmark"></span>
                     <div class="addon-info">
-                      <div class="addon-name">{{addon.name}}</div>
+                      <div class="addon-name">{{ addon.name | transloco }}</div>
                       <div class="addon-price">+{{addon.price}}$</div>
                     </div>
                   </label>
@@ -210,12 +214,12 @@ interface TimeSlot {
               </div>
 
               <div class="form-section stagger-4">
-                <h3>Instructions Spéciales</h3>
+                <h3>{{ 'BOOKING.STEP_2.SPECIAL_INSTRUCTIONS' | transloco }}</h3>
                 <div class="form-group">
                   <textarea formControlName="specialInstructions"
                            class="form-control"
                            rows="4"
-                           placeholder="Avez-vous des instructions particulières, des zones à éviter, ou des demandes spéciales?">
+                           [placeholder]="'BOOKING.STEP_2.SPECIAL_INSTRUCTIONS_PLACEHOLDER' | transloco">
                   </textarea>
                 </div>
               </div>
@@ -223,10 +227,10 @@ interface TimeSlot {
 
             <div class="step-actions">
               <button type="button" class="btn btn-secondary" (click)="previousStep()">
-                Retour
+                {{ 'BOOKING.STEP_2.BACK' | transloco }}
               </button>
               <button type="button" class="btn btn-primary btn-lg" (click)="nextStep()">
-                Continuer vers la Planification
+                {{ 'BOOKING.STEP_2.CONTINUE' | transloco }}
               </button>
             </div>
           </div>
@@ -234,13 +238,13 @@ interface TimeSlot {
           <!-- Step 3: Date & Time -->
           <div class="form-step" *ngIf="currentStep === 3">
             <div class="step-header">
-              <h2>Choisissez Date et Heure</h2>
-              <p>Sélectionnez votre créneau préféré</p>
+              <h2>{{ 'BOOKING.STEP_3.TITLE' | transloco }}</h2>
+              <p>{{ 'BOOKING.STEP_3.SUBTITLE' | transloco }}</p>
             </div>
 
             <div class="datetime-selection">
               <div class="calendar-section">
-                <h3>Date Préférée</h3>
+                <h3>{{ 'BOOKING.STEP_3.PREFERRED_DATE' | transloco }}</h3>
                 <input type="date"
                        formControlName="preferredDate"
                        class="form-control date-picker"
@@ -248,7 +252,7 @@ interface TimeSlot {
               </div>
 
               <div class="time-slots-section">
-                <h3>Créneaux Disponibles</h3>
+                <h3>{{ 'BOOKING.STEP_3.PREFERRED_TIME' | transloco }}</h3>
                 <div class="time-slots">
                   <button type="button"
                           class="time-slot-btn"
@@ -263,7 +267,7 @@ interface TimeSlot {
               </div>
 
               <div class="frequency-section">
-                <h3>Fréquence du Service</h3>
+                <h3>{{ 'BOOKING.STEP_3.FREQUENCY' | transloco }}</h3>
                 <div class="frequency-options">
                   <label class="frequency-option" *ngFor="let freq of frequencyOptions">
                     <input type="radio"
@@ -272,8 +276,8 @@ interface TimeSlot {
                            formControlName="frequency">
                     <span class="radio-custom"></span>
                     <div class="freq-info">
-                      <div class="freq-name">{{freq.name}}</div>
-                      <div class="freq-discount" *ngIf="freq.discount">{{freq.discount}}</div>
+                      <div class="freq-name">{{ freq.name | transloco }}</div>
+                      <div class="freq-discount" *ngIf="freq.discount">{{ freq.discount | transloco }}</div>
                     </div>
                   </label>
                 </div>
@@ -282,13 +286,13 @@ interface TimeSlot {
 
             <div class="step-actions">
               <button type="button" class="btn btn-secondary" (click)="previousStep()">
-                Retour
+                {{ 'BOOKING.STEP_2.BACK' | transloco }}
               </button>
               <button type="button"
                       class="btn btn-primary btn-lg"
                       [disabled]="!selectedTimeSlot"
                       (click)="nextStep()">
-                Continuer vers les Informations
+                {{ 'BOOKING.STEP_3.CONTINUE' | transloco }}
               </button>
             </div>
           </div>
@@ -296,19 +300,19 @@ interface TimeSlot {
           <!-- Step 4: Contact Information -->
           <div class="form-step" *ngIf="currentStep === 4">
             <div class="step-header">
-              <h2>Vos Informations</h2>
-              <p>Complétez vos coordonnées pour finaliser la réservation</p>
+              <h2>{{ 'BOOKING.STEP_4.TITLE' | transloco }}</h2>
+              <p>{{ 'BOOKING.STEP_4.SUBTITLE' | transloco }}</p>
             </div>
 
             <div class="contact-info-section">
               <div class="form-row">
                 <div class="form-group">
-                  <label for="firstName">Prénom *</label>
+                  <label for="firstName">{{ 'BOOKING.STEP_4.FIRST_NAME' | transloco }} *</label>
                   <input type="text" formControlName="firstName" id="firstName"
                          class="form-control" required>
                 </div>
                 <div class="form-group">
-                  <label for="lastName">Nom de famille *</label>
+                  <label for="lastName">{{ 'BOOKING.STEP_4.LAST_NAME' | transloco }} *</label>
                   <input type="text" formControlName="lastName" id="lastName"
                          class="form-control" required>
                 </div>
@@ -316,19 +320,19 @@ interface TimeSlot {
 
               <div class="form-row">
                 <div class="form-group">
-                  <label for="email">Courriel *</label>
+                  <label for="email">{{ 'BOOKING.STEP_4.EMAIL' | transloco }} *</label>
                   <input type="email" formControlName="email" id="email"
                          class="form-control" required>
                 </div>
                 <div class="form-group">
-                  <label for="phone">Téléphone *</label>
+                  <label for="phone">{{ 'BOOKING.STEP_4.PHONE' | transloco }} *</label>
                   <input type="tel" formControlName="phone" id="phone"
                          class="form-control" placeholder="(514) 123-4567" required>
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="address">Adresse complète *</label>
+                <label for="address">{{ 'BOOKING.STEP_4.STREET_ADDRESS' | transloco }} *</label>
                 <textarea formControlName="address" id="address"
                          class="form-control"
                          rows="3"
@@ -338,7 +342,7 @@ interface TimeSlot {
               </div>
 
               <div class="preferences-section">
-                <h3>Préférences de Communication</h3>
+                <h3>{{ 'BOOKING.STEP_4.PREFERENCES' | transloco }}</h3>
                 <div class="checkbox-group">
                   <label class="checkbox-label">
                     <input type="checkbox" formControlName="smsReminders">
@@ -356,10 +360,10 @@ interface TimeSlot {
 
             <div class="step-actions">
               <button type="button" class="btn btn-secondary" (click)="previousStep()">
-                Retour
+                {{ 'BOOKING.STEP_2.BACK' | transloco }}
               </button>
               <button type="button" class="btn btn-primary btn-lg" (click)="nextStep()">
-                Voir le Résumé
+                {{ 'BOOKING.STEP_4.CONTINUE' | transloco }}
               </button>
             </div>
           </div>
@@ -367,13 +371,13 @@ interface TimeSlot {
           <!-- Step 5: Confirmation -->
           <div class="form-step" *ngIf="currentStep === 5">
             <div class="step-header">
-              <h2>Confirmation de Réservation</h2>
-              <p>Vérifiez les détails avant de confirmer</p>
+              <h2>{{ 'BOOKING.STEP_5.TITLE' | transloco }}</h2>
+              <p>{{ 'BOOKING.STEP_5.SUBTITLE' | transloco }}</p>
             </div>
 
             <div class="booking-summary">
               <div class="summary-section">
-                <h3>Service Sélectionné</h3>
+                <h3>{{ 'BOOKING.STEP_5.SERVICE_SUMMARY' | transloco }}</h3>
                 <div class="service-summary">
                   <div class="summary-item">
                     <span class="service-icon">{{selectedService?.icon}}</span>
@@ -387,17 +391,17 @@ interface TimeSlot {
               </div>
 
               <div class="summary-section" *ngIf="getSelectedAddons().length > 0">
-                <h3>Services Additionnels</h3>
+                <h3>{{ 'BOOKING.STEP_2.ADDITIONAL_SERVICES' | transloco }}</h3>
                 <div class="addons-summary">
                   <div class="summary-item" *ngFor="let addon of getSelectedAddons()">
-                    <span>{{addon.name}}</span>
+                    <span>{{ addon.name | transloco }}</span>
                     <span>+{{addon.price}}$</span>
                   </div>
                 </div>
               </div>
 
               <div class="summary-section">
-                <h3>Date et Heure</h3>
+                <h3>{{ 'BOOKING.STEP_5.SCHEDULE_DETAILS' | transloco }}</h3>
                 <div class="datetime-summary">
                   <div class="summary-item">
                     <span>📅 Date:</span>
@@ -432,14 +436,14 @@ interface TimeSlot {
 
             <div class="step-actions">
               <button type="button" class="btn btn-secondary" (click)="previousStep()">
-                Modifier
+                {{ 'BOOKING.STEP_5.EDIT' | transloco }}
               </button>
               <button type="submit"
                       class="btn btn-primary btn-lg"
                       [disabled]="isSubmitting"
                       (click)="confirmBooking()">
-                <span *ngIf="!isSubmitting">✅ Confirmer la Réservation</span>
-                <span *ngIf="isSubmitting">⏳ Traitement...</span>
+                <span *ngIf="!isSubmitting">✅ {{ 'BOOKING.STEP_5.CONFIRM_BOOKING' | transloco }}</span>
+                <span *ngIf="isSubmitting">⏳ {{ 'BOOKING.COMMON.SUBMITTING' | transloco }}</span>
               </button>
             </div>
           </div>
@@ -449,38 +453,57 @@ interface TimeSlot {
     </section>
   `,
   styles: [`
-    /* Booking Header */
-    .booking-header {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-      color: var(--pure-white);
-      padding: var(--space-4xl) 0;
+    /* Hero Section */
+    .hero {
+      padding: var(--space-6xl) 0 var(--space-4xl);
+      background: linear-gradient(135deg, var(--pure-white) 0%, var(--secondary) 100%);
+      position: relative;
+      overflow: visible;
     }
 
-    .header-content h1 {
-      font-size: clamp(2.5rem, 5vw, 3.5rem);
-      margin-bottom: var(--space-lg);
-      color: var(--pure-white);
-      font-weight: var(--font-weight-bold);
-      letter-spacing: -0.02em;
+    .hero-content {
+      max-width: 800px;
+      text-align: center;
+      margin: 0 auto;
+      margin-bottom: var(--space-3xl);
     }
 
-    .header-content p {
-      font-size: clamp(1.1rem, 2vw, 1.3rem);
-      opacity: 0.95;
+    .hero-badge {
+      display: inline-block;
+      padding: var(--space-sm) var(--space-lg);
+      background: var(--tertiary);
+      color: var(--neutral-medium);
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+      font-weight: var(--font-weight-medium);
+      letter-spacing: 0.02em;
       margin-bottom: var(--space-2xl);
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: var(--space-xl);
+      font-weight: var(--font-weight-bold);
+      line-height: 1.1;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      line-height: 1.6;
+      color: var(--neutral-medium);
       max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto;
+      margin-bottom: var(--space-2xl);
     }
 
     /* Progress Steps - Apple Style */
     .booking-progress {
       margin-top: var(--space-3xl);
       padding: var(--space-2xl) 0;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.8);
       border-radius: var(--radius-2xl);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(107, 144, 128, 0.2);
     }
 
     .progress-steps {
@@ -499,7 +522,7 @@ interface TimeSlot {
       left: var(--space-3xl);
       right: var(--space-3xl);
       height: 3px;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(107, 144, 128, 0.2);
       border-radius: var(--radius-full);
       z-index: 1;
     }
@@ -509,7 +532,7 @@ interface TimeSlot {
       top: 22px;
       left: var(--space-3xl);
       height: 3px;
-      background: linear-gradient(90deg, var(--pure-white), rgba(255, 255, 255, 0.8));
+      background: linear-gradient(90deg, var(--viridian), var(--cambridge-blue));
       border-radius: var(--radius-full);
       z-index: 2;
       transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -540,34 +563,34 @@ interface TimeSlot {
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2);
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      background: rgba(107, 144, 128, 0.1);
+      border: 2px solid rgba(107, 144, 128, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 600;
       font-size: 16px;
-      color: rgba(255, 255, 255, 0.8);
+      color: var(--neutral-medium);
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
       backdrop-filter: blur(10px);
       margin-bottom: var(--space-md);
     }
 
     .step.active .step-number {
-      background: var(--pure-white);
-      color: var(--primary);
-      border-color: var(--pure-white);
-      box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
+      background: linear-gradient(135deg, var(--viridian) 0%, var(--cambridge-blue) 100%);
+      color: var(--pure-white);
+      border-color: var(--viridian);
+      box-shadow: 0 4px 20px rgba(107, 144, 128, 0.3);
       transform: scale(1.1);
     }
 
     .step.completed .step-number {
-      background: var(--pure-white);
-      color: var(--primary);
-      border-color: var(--pure-white);
-      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+      background: var(--viridian);
+      color: var(--pure-white);
+      border-color: var(--viridian);
+      box-shadow: 0 2px 10px rgba(107, 144, 128, 0.2);
     }
 
 
@@ -579,14 +602,14 @@ interface TimeSlot {
       font-weight: 600;
       font-size: 15px;
       margin-bottom: 4px;
-      color: var(--pure-white);
+      color: var(--neutral-dark);
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       letter-spacing: -0.01em;
     }
 
     .step-description {
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.8);
+      color: var(--neutral-medium);
       line-height: 1.3;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       letter-spacing: -0.01em;
@@ -594,7 +617,7 @@ interface TimeSlot {
 
     .step:not(.active):not(.completed) .step-title,
     .step:not(.active):not(.completed) .step-description {
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(60, 60, 67, 0.5);
     }
 
     /* Form Steps */
@@ -1049,8 +1072,8 @@ interface TimeSlot {
     }
 
     .service-checkbox input[type="checkbox"]:checked ~ .checkmark {
-      background-color: var(--primary-green);
-      border-color: var(--primary-green);
+      background-color: #007AFF;
+      border-color: #007AFF;
     }
 
     .checkmark:after {
@@ -1134,18 +1157,33 @@ interface TimeSlot {
       cursor: pointer;
       transition: all var(--transition-base);
       font-weight: var(--font-weight-medium);
+      color: var(--neutral-dark);
+      font-size: 1rem;
     }
 
     .time-slot-btn:hover:not(:disabled) {
       border-color: var(--primary);
       background: var(--pure-white);
+      color: var(--neutral-dark);
     }
 
     .time-slot-btn.selected {
-      background: var(--primary);
-      color: var(--pure-white);
-      border-color: var(--primary);
-      box-shadow: var(--shadow-soft);
+      background: linear-gradient(135deg, var(--viridian) 0%, var(--cambridge-blue) 100%) !important;
+      color: #ffffff !important;
+      border-color: var(--viridian) !important;
+      box-shadow: 0 4px 12px rgba(107, 144, 128, 0.3) !important;
+      font-weight: 600;
+    }
+
+    .time-slot-btn.selected .slot-status {
+      color: rgba(255, 255, 255, 0.9) !important;
+    }
+
+    /* Override any conflicting styles */
+    .time-slot-btn.selected,
+    .time-slot-btn.selected:hover {
+      background: linear-gradient(135deg, var(--viridian) 0%, var(--cambridge-blue) 100%) !important;
+      color: #ffffff !important;
     }
 
     .time-slot-btn:disabled {
@@ -1214,7 +1252,7 @@ interface TimeSlot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: var(--primary-green);
+      background: #007AFF;
     }
 
     .frequency-option input[type="radio"]:checked ~ .radio-custom:after {
@@ -1305,8 +1343,8 @@ interface TimeSlot {
     }
 
     .checkbox-label input[type="checkbox"]:checked ~ .checkmark {
-      background-color: var(--primary-green);
-      border-color: var(--primary-green);
+      background-color: #007AFF;
+      border-color: #007AFF;
     }
 
     .checkbox-label .checkmark:after {
@@ -1480,8 +1518,16 @@ interface TimeSlot {
     }
 
     @media (max-width: 768px) {
-      .booking-header {
-        padding: var(--space-3xl) 0;
+      .hero {
+        padding: var(--space-4xl) 0 var(--space-3xl);
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.1rem;
       }
 
       .booking-progress {
@@ -1549,6 +1595,25 @@ interface TimeSlot {
         grid-template-columns: repeat(2, 1fr);
       }
     }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: var(--space-3xl) 0 var(--space-2xl);
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .hero-badge {
+        font-size: 0.75rem;
+        padding: var(--space-xs) var(--space-md);
+      }
+    }
   `]
 })
 export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
@@ -1573,16 +1638,16 @@ export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Dropdown options
   propertyTypeOptions = [
-    { value: '', label: 'Sélectionnez' },
-    { value: 'apartment', label: 'Appartement' },
-    { value: 'house', label: 'Maison' },
-    { value: 'condo', label: 'Condo' },
-    { value: 'office', label: 'Bureau' },
-    { value: 'commercial', label: 'Commercial' }
+    { value: '', label: 'BOOKING.COMMON.SELECT' },
+    { value: 'apartment', label: 'BOOKING.PROPERTY_TYPES.APARTMENT' },
+    { value: 'house', label: 'BOOKING.PROPERTY_TYPES.HOUSE' },
+    { value: 'townhouse', label: 'BOOKING.PROPERTY_TYPES.TOWNHOUSE' },
+    { value: 'office', label: 'BOOKING.PROPERTY_TYPES.OFFICE' },
+    { value: 'retail', label: 'BOOKING.PROPERTY_TYPES.RETAIL' }
   ];
 
   bedroomOptions = [
-    { value: '', label: 'Sélectionnez' },
+    { value: '', label: 'BOOKING.COMMON.SELECT' },
     { value: '0', label: 'Studio' },
     { value: '1', label: '1 chambre' },
     { value: '2', label: '2 chambres' },
@@ -1592,7 +1657,7 @@ export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
   ];
 
   bathroomOptions = [
-    { value: '', label: 'Sélectionnez' },
+    { value: '', label: 'BOOKING.COMMON.SELECT' },
     { value: '1', label: '1 salle de bain' },
     { value: '1.5', label: '1.5 salle de bain' },
     { value: '2', label: '2 salles de bain' },
@@ -1608,43 +1673,14 @@ export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
     { id: 5, title: 'Confirmation', description: 'Finaliser', completed: false }
   ];
 
-  serviceOptions: ServiceOption[] = [
-    {
-      id: 'residential',
-      name: 'Nettoyage Résidentiel',
-      description: 'Service complet pour votre domicile',
-      basePrice: 120,
-      duration: '2-3 heures',
-      icon: '🏠',
-      features: ['Toutes les pièces', 'Salle de bain', 'Cuisine', 'Aspirateur'],
-      popular: true
-    },
-    {
-      id: 'commercial',
-      name: 'Nettoyage Commercial',
-      description: 'Solutions pour entreprises',
-      basePrice: 200,
-      duration: '3-5 heures',
-      icon: '🏢',
-      features: ['Bureaux', 'Sanitaires', 'Espaces communs', 'Désinfection']
-    },
-    {
-      id: 'deep-cleaning',
-      name: 'Nettoyage en Profondeur',
-      description: 'Service intensif et détaillé',
-      basePrice: 280,
-      duration: '4-5 heures',
-      icon: '✨',
-      features: ['Nettoyage complet', 'Intérieur appareils', 'Plinthes', 'Luminaires']
-    }
-  ];
+  serviceOptions: ServiceOption[] = [];
 
   additionalServices = [
-    { id: 'windows', name: 'Nettoyage des vitres intérieures', price: 30 },
-    { id: 'oven', name: 'Nettoyage du four', price: 25 },
-    { id: 'fridge', name: 'Nettoyage du réfrigérateur', price: 35 },
-    { id: 'basement', name: 'Nettoyage du sous-sol', price: 50 },
-    { id: 'garage', name: 'Nettoyage du garage', price: 40 }
+    { id: 'windows', name: 'BOOKING.ADDITIONAL_SERVICES_LIST.WINDOWS', price: 30 },
+    { id: 'oven', name: 'BOOKING.ADDITIONAL_SERVICES_LIST.OVEN', price: 25 },
+    { id: 'fridge', name: 'BOOKING.ADDITIONAL_SERVICES_LIST.FRIDGE', price: 35 },
+    { id: 'basement', name: 'BOOKING.ADDITIONAL_SERVICES_LIST.BASEMENT', price: 50 },
+    { id: 'garage', name: 'BOOKING.ADDITIONAL_SERVICES_LIST.GARAGE', price: 40 }
   ];
 
   timeSlots: TimeSlot[] = [
@@ -1659,26 +1695,67 @@ export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
   ];
 
   frequencyOptions = [
-    { value: 'one-time', name: 'Une fois seulement', discount: '' },
-    { value: 'weekly', name: 'Hebdomadaire', discount: '15% de rabais' },
-    { value: 'bi-weekly', name: 'Aux deux semaines', discount: '10% de rabais' },
-    { value: 'monthly', name: 'Mensuel', discount: '5% de rabais' }
+    { value: 'one-time', name: 'BOOKING.FREQUENCY_OPTIONS.ONE_TIME.NAME', discount: '' },
+    { value: 'weekly', name: 'BOOKING.FREQUENCY_OPTIONS.WEEKLY.NAME', discount: 'BOOKING.FREQUENCY_OPTIONS.WEEKLY.DISCOUNT' },
+    { value: 'bi-weekly', name: 'BOOKING.FREQUENCY_OPTIONS.BI_WEEKLY.NAME', discount: 'BOOKING.FREQUENCY_OPTIONS.BI_WEEKLY.DISCOUNT' },
+    { value: 'monthly', name: 'BOOKING.FREQUENCY_OPTIONS.MONTHLY.NAME', discount: 'BOOKING.FREQUENCY_OPTIONS.MONTHLY.DISCOUNT' }
   ];
 
   constructor(
     private formBuilder: FormBuilder,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private scrollAnimationService: ScrollAnimationService
+    private scrollAnimationService: ScrollAnimationService,
+    private translocoService: TranslocoService
   ) {}
 
   ngOnInit() {
+    this.loadServiceOptions();
     this.initializeForm();
+
+    // Subscribe to language changes to reload service options
+    this.translocoService.langChanges$.subscribe(() => {
+      this.loadServiceOptions();
+    });
+
     if (isPlatformBrowser(this.platformId)) {
       // Initialize header visibility immediately
       setTimeout(() => {
         this.isHeaderVisible = true;
       }, 100);
     }
+  }
+
+  loadServiceOptions() {
+    this.serviceOptions = [
+      {
+        id: 'residential',
+        name: this.translocoService.translate('BOOKING.SERVICES.RESIDENTIAL.NAME'),
+        description: this.translocoService.translate('BOOKING.SERVICES.RESIDENTIAL.DESCRIPTION'),
+        basePrice: 120,
+        duration: this.translocoService.translate('BOOKING.SERVICES.RESIDENTIAL.DURATION'),
+        icon: '🏠',
+        features: this.translocoService.translate('BOOKING.SERVICES.RESIDENTIAL.FEATURES') as string[],
+        popular: true
+      },
+      {
+        id: 'commercial',
+        name: this.translocoService.translate('BOOKING.SERVICES.COMMERCIAL.NAME'),
+        description: this.translocoService.translate('BOOKING.SERVICES.COMMERCIAL.DESCRIPTION'),
+        basePrice: 200,
+        duration: this.translocoService.translate('BOOKING.SERVICES.COMMERCIAL.DURATION'),
+        icon: '🏢',
+        features: this.translocoService.translate('BOOKING.SERVICES.COMMERCIAL.FEATURES') as string[]
+      },
+      {
+        id: 'deep_cleaning',
+        name: this.translocoService.translate('BOOKING.SERVICES.DEEP_CLEANING.NAME'),
+        description: this.translocoService.translate('BOOKING.SERVICES.DEEP_CLEANING.DESCRIPTION'),
+        basePrice: 280,
+        duration: this.translocoService.translate('BOOKING.SERVICES.DEEP_CLEANING.DURATION'),
+        icon: '✨',
+        features: this.translocoService.translate('BOOKING.SERVICES.DEEP_CLEANING.FEATURES') as string[]
+      }
+    ];
   }
 
   ngAfterViewInit() {
@@ -1753,12 +1830,28 @@ export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.currentStep < 5) {
       this.bookingSteps[this.currentStep - 1].completed = true;
       this.currentStep++;
+      this.scrollToTop();
     }
   }
 
   previousStep() {
     if (this.currentStep > 1) {
       this.currentStep--;
+      this.scrollToTop();
+    }
+  }
+
+  private scrollToTop(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      // Scroll to top of the page
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Also try these methods for maximum compatibility
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }, 100);
     }
   }
 
@@ -1884,5 +1977,16 @@ export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
     if (!target.closest('.custom-dropdown')) {
       this.closeAllDropdowns();
     }
+  }
+
+  getStepKey(stepId: number): string {
+    const stepKeys: {[key: number]: string} = {
+      1: 'SERVICE',
+      2: 'DETAILS',
+      3: 'PLANNING',
+      4: 'CONTACT',
+      5: 'CONFIRMATION'
+    };
+    return stepKeys[stepId] || '';
   }
 }

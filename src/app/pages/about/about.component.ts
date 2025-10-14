@@ -3,14 +3,6 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 
-interface TeamMember {
-  name: string;
-  position: string;
-  description: string;
-  image: string;
-  specialties: string[];
-}
-
 interface CompanyValue {
   title: string;
   description: string;
@@ -24,18 +16,15 @@ interface CompanyValue {
   template: `
     <!-- Hero Section -->
     <section class="hero wave-border-bottom-only" #heroSection>
-      <div class="hero-background">
-        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920&h=800&fit=crop&auto=format&q=80"
-             [alt]="'ABOUT.PAGE.HERO.IMAGE_ALT' | transloco" class="hero-bg-image">
-        <div class="hero-overlay"></div>
-      </div>
       <div class="container">
-        <div class="hero-content fade-in-up" [class.visible]="isHeroVisible">
-          <div class="hero-badge">{{ 'ABOUT.PAGE.HERO.BADGE' | transloco }}</div>
-          <h1 class="hero-title">{{ 'ABOUT.PAGE.HERO.TITLE' | transloco }}</h1>
-          <p class="hero-subtitle">
-            {{ 'ABOUT.PAGE.HERO.SUBTITLE' | transloco }}
-          </p>
+        <div class="hero-content">
+          <div class="hero-text fade-in-up" [class.visible]="isHeroVisible">
+            <div class="hero-badge">{{ 'ABOUT.PAGE.HERO.BADGE' | transloco }}</div>
+            <h1 class="hero-title">{{ 'ABOUT.PAGE.HERO.TITLE' | transloco }}</h1>
+            <p class="hero-subtitle">
+              {{ 'ABOUT.PAGE.HERO.SUBTITLE' | transloco }}
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -76,37 +65,6 @@ interface CompanyValue {
             <div class="value-icon">{{getValueIcon(i)}}</div>
             <h3>{{getValueTitle(i)}}</h3>
             <p>{{getValueDescription(i)}}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Team Section -->
-    <section class="section team-section" #teamSection>
-      <div class="container">
-        <div class="section-header fade-in-up" [class.visible]="isTeamVisible">
-          <h2 class="section-title">{{ 'ABOUT.PAGE.TEAM.TITLE' | transloco }}</h2>
-          <p class="section-subtitle">{{ 'ABOUT.PAGE.TEAM.SUBTITLE' | transloco }}</p>
-        </div>
-
-        <div class="team-grid">
-          <div class="team-card fade-in-up"
-               [class.visible]="isTeamVisible"
-               [style.transition-delay]="(i * 0.15) + 's'"
-               *ngFor="let member of teamMembers; index as i">
-            <div class="member-image">
-              <img [src]="member.image" [alt]="member.name" class="img-cover">
-            </div>
-            <div class="member-info">
-              <h3>{{getMemberName(i)}}</h3>
-              <p class="member-position">{{getMemberPosition(i)}}</p>
-              <p class="member-description">{{getMemberDescription(i)}}</p>
-              <div class="member-specialties">
-                <span class="specialty-tag" *ngFor="let specialty of getMemberSpecialties(i); let j = index">
-                  {{specialty}}
-                </span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -190,64 +148,33 @@ interface CompanyValue {
   styles: [`
     /* Hero Section */
     .hero {
+      padding: var(--space-6xl) 0 var(--space-4xl);
+      background: linear-gradient(135deg, var(--pure-white) 0%, var(--secondary) 100%);
       position: relative;
-      min-height: 70vh;
-      display: flex;
-      align-items: center;
-      color: var(--pure-white);
       overflow: visible;
     }
 
-    .hero-background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-    }
-
-    .hero-bg-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .hero-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(107, 144, 128, 0.8) 0%, rgba(164, 195, 178, 0.6) 100%);
-      z-index: -1;
-    }
-
     .hero-content {
-      text-align: center;
       max-width: 800px;
+      text-align: center;
       margin: 0 auto;
     }
 
     .hero-badge {
       display: inline-block;
       padding: var(--space-sm) var(--space-lg);
-      background: rgba(255, 255, 255, 0.2);
-      color: var(--pure-white);
+      background: var(--tertiary);
+      color: var(--neutral-medium);
       border-radius: var(--radius-full);
       font-size: 0.875rem;
       font-weight: var(--font-weight-medium);
       letter-spacing: 0.02em;
       margin-bottom: var(--space-2xl);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     .hero-title {
       font-size: clamp(2.5rem, 5vw, 4rem);
       margin-bottom: var(--space-xl);
-      color: var(--pure-white);
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
       font-weight: var(--font-weight-bold);
       line-height: 1.1;
     }
@@ -255,7 +182,7 @@ interface CompanyValue {
     .hero-subtitle {
       font-size: 1.25rem;
       line-height: 1.6;
-      color: rgba(255, 255, 255, 0.9);
+      color: var(--neutral-medium);
       max-width: 600px;
       margin: 0 auto;
     }
@@ -322,68 +249,6 @@ interface CompanyValue {
     .value-card h3 {
       margin-bottom: var(--space-md);
       color: var(--neutral-dark);
-    }
-
-    /* Team Section */
-    .team-section {
-      background: var(--pure-white);
-    }
-
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: var(--space-2xl);
-      margin-top: var(--space-3xl);
-    }
-
-    .team-card {
-      background: var(--pure-white);
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      box-shadow: var(--shadow-medium);
-      transition: all var(--transition-base);
-    }
-
-    .team-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-xl);
-    }
-
-    .member-image {
-      height: 280px;
-      overflow: hidden;
-    }
-
-    .member-info {
-      padding: var(--space-xl);
-    }
-
-    .member-position {
-      color: var(--primary);
-      font-weight: var(--font-weight-semibold);
-      margin-bottom: var(--space-sm);
-      font-size: 1rem;
-    }
-
-    .member-description {
-      margin-bottom: var(--space-lg);
-      line-height: 1.6;
-      color: var(--neutral-medium);
-    }
-
-    .member-specialties {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-xs);
-    }
-
-    .specialty-tag {
-      background: var(--cambridge-blue);
-      color: var(--pure-white);
-      padding: var(--space-xs) var(--space-sm);
-      border-radius: var(--radius-sm);
-      font-size: 0.875rem;
-      font-weight: var(--font-weight-medium);
     }
 
     /* Mission Section */
@@ -537,12 +402,16 @@ interface CompanyValue {
     }
 
     @media (max-width: 768px) {
+      .hero {
+        padding: var(--space-4xl) 0 var(--space-3xl);
+      }
+
       .hero-title {
         font-size: 2.5rem;
       }
 
-      .team-grid {
-        grid-template-columns: 1fr;
+      .hero-subtitle {
+        font-size: 1.1rem;
       }
 
       .mission-stats {
@@ -563,13 +432,31 @@ interface CompanyValue {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       }
     }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: var(--space-3xl) 0 var(--space-2xl);
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .hero-badge {
+        font-size: 0.75rem;
+        padding: var(--space-xs) var(--space-md);
+      }
+    }
   `]
 })
 export class AboutComponent implements OnInit, AfterViewInit {
   @ViewChild('heroSection') heroSection!: ElementRef;
   @ViewChild('storySection') storySection!: ElementRef;
   @ViewChild('valuesSection') valuesSection!: ElementRef;
-  @ViewChild('teamSection') teamSection!: ElementRef;
   @ViewChild('missionSection') missionSection!: ElementRef;
   @ViewChild('ctaSection') ctaSection!: ElementRef;
 
@@ -577,35 +464,10 @@ export class AboutComponent implements OnInit, AfterViewInit {
   isHeroVisible = false;
   isStoryVisible = false;
   areValuesVisible = false;
-  isTeamVisible = false;
   isMissionVisible = false;
   isCtaVisible = false;
 
   private observer!: IntersectionObserver;
-
-  teamMembers: TeamMember[] = [
-    {
-      name: 'Marie-Claude Dubois',
-      position: 'Fondatrice & Directrice Générale',
-      description: 'Passionnée par l\'environnement et l\'entrepreneuriat, Marie-Claude a fondé ÉcoNet Propreté avec la vision de révolutionner l\'industrie du nettoyage.',
-      image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop&auto=format&q=80',
-      specialties: ['Leadership', 'Développement durable', 'Gestion d\'entreprise']
-    },
-    {
-      name: 'Jean-François Martin',
-      position: 'Responsable des Opérations',
-      description: 'Fort de 10 ans d\'expérience dans le nettoyage commercial, Jean-François supervise toutes nos opérations avec un souci du détail exemplaire.',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&auto=format&q=80',
-      specialties: ['Gestion d\'équipe', 'Qualité', 'Formation']
-    },
-    {
-      name: 'Sophie Tremblay',
-      position: 'Spécialiste Produits Écologiques',
-      description: 'Chimiste de formation, Sophie développe et sélectionne tous nos produits écologiques pour garantir efficacité et respect de l\'environnement.',
-      image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop&auto=format&q=80',
-      specialties: ['Chimie verte', 'R&D', 'Certifications']
-    }
-  ];
 
   companyValues: CompanyValue[] = [
     {
@@ -641,7 +503,6 @@ export class AboutComponent implements OnInit, AfterViewInit {
   ];
 
   private valueKeys = ['ENVIRONMENT', 'QUALITY', 'TRANSPARENCY', 'INNOVATION', 'COMMUNITY', 'INTEGRITY'];
-  private memberKeys = ['MARIE_CLAUDE', 'JEAN_FRANCOIS', 'SOPHIE', 'ALEXANDRE'];
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private transloco: TranslocoService) {}
 
@@ -672,8 +533,6 @@ export class AboutComponent implements OnInit, AfterViewInit {
               this.isStoryVisible = true;
             } else if (element === this.valuesSection?.nativeElement) {
               this.areValuesVisible = true;
-            } else if (element === this.teamSection?.nativeElement) {
-              this.isTeamVisible = true;
             } else if (element === this.missionSection?.nativeElement) {
               this.isMissionVisible = true;
             } else if (element === this.ctaSection?.nativeElement) {
@@ -691,7 +550,6 @@ export class AboutComponent implements OnInit, AfterViewInit {
     // Observe sections
     if (this.storySection) this.observer.observe(this.storySection.nativeElement);
     if (this.valuesSection) this.observer.observe(this.valuesSection.nativeElement);
-    if (this.teamSection) this.observer.observe(this.teamSection.nativeElement);
     if (this.missionSection) this.observer.observe(this.missionSection.nativeElement);
     if (this.ctaSection) this.observer.observe(this.ctaSection.nativeElement);
   }
@@ -708,29 +566,6 @@ export class AboutComponent implements OnInit, AfterViewInit {
   getValueDescription(index: number): string {
     const key = this.valueKeys[index];
     return key ? this.transloco.translate(`ABOUT.PAGE.VALUES.LIST.${key}.DESCRIPTION`) : '';
-  }
-
-  getMemberName(index: number): string {
-    const key = this.memberKeys[index];
-    return key ? this.transloco.translate(`ABOUT.PAGE.TEAM.MEMBERS.${key}.NAME`) : '';
-  }
-
-  getMemberPosition(index: number): string {
-    const key = this.memberKeys[index];
-    return key ? this.transloco.translate(`ABOUT.PAGE.TEAM.MEMBERS.${key}.POSITION`) : '';
-  }
-
-  getMemberDescription(index: number): string {
-    const key = this.memberKeys[index];
-    return key ? this.transloco.translate(`ABOUT.PAGE.TEAM.MEMBERS.${key}.DESCRIPTION`) : '';
-  }
-
-  getMemberSpecialties(index: number): string[] {
-    const key = this.memberKeys[index];
-    if (!key) return [];
-
-    const specialties = this.transloco.translate(`ABOUT.PAGE.TEAM.MEMBERS.${key}.SPECIALTIES`);
-    return Array.isArray(specialties) ? specialties : [];
   }
 
   getStoryParagraphs(): string[] {
