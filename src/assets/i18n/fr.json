@@ -23,7 +23,12 @@
     "GET_STARTED": "Commencer",
     "READ_MORE": "Lire la suite",
     "VIEW_ALL": "Voir tout",
-    "BACK": "Retour"
+    "BACK": "Retour",
+    "SUCCESS_TITLE": "Demande envoyée!",
+    "SUCCESS_MESSAGE": "Votre demande a été envoyée avec succès. Nous vous contacterons bientôt!",
+    "ERROR_MESSAGE": "Une erreur est survenue lors de l'envoi de votre demande. Veuillez réessayer.",
+    "RETURN_HOME": "Retour à l'accueil",
+    "STAY_HERE": "Rester sur la page"
   },
   "HOME": {
     "HERO": {
@@ -767,6 +772,9 @@
     }
   },
   "CONTACT": {
+    "HERO": {
+      "BADGE": "Contact • ÉcoNet Propreté"
+    },
     "TITLE": "Contactez-Nous",
     "SUBTITLE": "Nous sommes là pour répondre à toutes vos questions et vous fournir un service exceptionnel",
     "METHODS_TITLE": "Plusieurs Façons de Nous Joindre",
@@ -842,7 +850,9 @@
       "PRICING": "💰 Comment calculez-vous vos tarifs?",
       "PRICING_ANSWER": "Selon la surface, le type de service et la fréquence"
     },
-    "VIEW_ALL_FAQ": "📚 Voir toutes les FAQ"
+    "VIEW_ALL_FAQ": "📚 Voir toutes les FAQ",
+    "SUCCESS_MESSAGE": "Votre demande a été envoyée avec succès! Nous vous contacterons dans les plus brefs délais.",
+    "ERROR_MESSAGE": "Une erreur est survenue lors de l'envoi. Veuillez réessayer ou nous contacter directement."
   },
   "FAQ": {
     "TITLE": "Questions Fréquemment Posées",
@@ -967,6 +977,42 @@
       "BACK": "Retour"
     },
     "SERVICES": {
+      "RESIDENTIAL": {
+        "NAME": "Nettoyage Résidentiel",
+        "DESCRIPTION": "Service complet pour votre maison incluant cuisine, salles de bain, chambres et espaces de vie",
+        "DURATION": "2-3 heures",
+        "FEATURES": [
+          "Dépoussiérage complet",
+          "Nettoyage des surfaces",
+          "Aspiration et lavage des sols",
+          "Nettoyage des salles de bain",
+          "Nettoyage de la cuisine"
+        ]
+      },
+      "COMMERCIAL": {
+        "NAME": "Nettoyage Commercial",
+        "DESCRIPTION": "Solutions sur mesure pour maintenir un environnement de travail sain et professionnel",
+        "DURATION": "3-5 heures",
+        "FEATURES": [
+          "Nettoyage des postes de travail",
+          "Vidange des corbeilles",
+          "Nettoyage des espaces communs",
+          "Désinfection des surfaces",
+          "Service flexible (jour/soir)"
+        ]
+      },
+      "DEEP_CLEANING": {
+        "NAME": "Nettoyage en Profondeur",
+        "DESCRIPTION": "Service intensif et détaillé pour un nettoyage complet",
+        "DURATION": "4-5 heures",
+        "FEATURES": [
+          "Nettoyage complet de chaque pièce",
+          "Intérieur des électroménagers",
+          "Plinthes et moulures",
+          "Luminaires et ventilateurs",
+          "Désinfection complète"
+        ]
+      },
       "RESIDENTIAL_BASIC": {
         "NAME": "Nettoyage Résidentiel Standard",
         "DESCRIPTION": "Service complet pour votre maison incluant cuisine, salles de bain, chambres et espaces de vie",
@@ -1076,17 +1122,42 @@
       "EVENING": "Soir (17h-20h)"
     },
     "FREQUENCY_OPTIONS": {
-      "ONE_TIME": "Une fois",
-      "WEEKLY": "Hebdomadaire",
-      "BI_WEEKLY": "Aux 2 semaines",
-      "MONTHLY": "Mensuel",
-      "CUSTOM": "Personnalisé"
+      "ONE_TIME": {
+        "NAME": "Une fois seulement",
+        "DISCOUNT": ""
+      },
+      "WEEKLY": {
+        "NAME": "Hebdomadaire",
+        "DISCOUNT": "Rabais de 15%"
+      },
+      "BI_WEEKLY": {
+        "NAME": "Aux 2 semaines",
+        "DISCOUNT": "Rabais de 10%"
+      },
+      "MONTHLY": {
+        "NAME": "Mensuel",
+        "DISCOUNT": "Rabais de 5%"
+      }
     },
     "CONTACT_METHODS": {
       "EMAIL": "Courriel",
       "PHONE": "Téléphone",
       "SMS": "SMS",
       "ANY": "N'importe lequel"
+    },
+    "PROPERTY_TYPES": {
+      "APARTMENT": "Appartement/Condo",
+      "HOUSE": "Maison unifamiliale",
+      "TOWNHOUSE": "Maison en rangée",
+      "OFFICE": "Bureau",
+      "RETAIL": "Commerce de détail"
+    },
+    "ADDITIONAL_SERVICES_LIST": {
+      "WINDOWS": "Nettoyage vitres intérieures",
+      "OVEN": "Nettoyage du four",
+      "FRIDGE": "Nettoyage du réfrigérateur",
+      "BASEMENT": "Nettoyage du sous-sol",
+      "GARAGE": "Nettoyage du garage"
     },
     "COMMON": {
       "REQUIRED": "Requis",
@@ -1097,7 +1168,10 @@
       "SUCCESS": "Réservation confirmée!",
       "ERROR": "Une erreur s'est produite. Veuillez réessayer.",
       "VALIDATION_ERROR": "Veuillez remplir tous les champs requis"
-    }
+    },
+    "SUCCESS_TITLE": "Réservation confirmée!",
+    "SUCCESS_MESSAGE": "Votre réservation a été reçue avec succès. Nous vous contacterons sous peu pour confirmer les détails.",
+    "ERROR_MESSAGE": "Une erreur est survenue lors de l'envoi de votre réservation. Veuillez réessayer."
   },
   "FOOTER": {
     "DESCRIPTION": "Service professionnel de nettoyage écologique pour votre maison et entreprise dans la région de Montréal.",

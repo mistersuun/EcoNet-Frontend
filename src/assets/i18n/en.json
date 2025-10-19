@@ -23,7 +23,12 @@
     "GET_STARTED": "Get Started",
     "READ_MORE": "Read More",
     "VIEW_ALL": "View All",
-    "BACK": "Back"
+    "BACK": "Back",
+    "SUCCESS_TITLE": "Request Sent!",
+    "SUCCESS_MESSAGE": "Your request has been sent successfully. We'll contact you soon!",
+    "ERROR_MESSAGE": "An error occurred while sending your request. Please try again.",
+    "RETURN_HOME": "Return Home",
+    "STAY_HERE": "Stay on Page"
   },
   "HOME": {
     "HERO": {
@@ -603,6 +608,9 @@
     }
   },
   "CONTACT": {
+    "HERO": {
+      "BADGE": "Contact • ÉcoNet Cleaning"
+    },
     "TITLE": "Contact Us",
     "SUBTITLE": "We're here to answer all your questions and provide exceptional service",
     "METHODS_TITLE": "Multiple Ways to Reach Us",
@@ -678,7 +686,9 @@
       "PRICING": "💰 How do you calculate your rates?",
       "PRICING_ANSWER": "Based on surface area, service type and frequency"
     },
-    "VIEW_ALL_FAQ": "📚 View All FAQs"
+    "VIEW_ALL_FAQ": "📚 View All FAQs",
+    "SUCCESS_MESSAGE": "Your request has been sent successfully! We will contact you as soon as possible.",
+    "ERROR_MESSAGE": "An error occurred while sending. Please try again or contact us directly."
   },
   "FAQ": {
     "TITLE": "Frequently Asked Questions",
@@ -800,37 +810,54 @@
     "SERVICES": {
       "RESIDENTIAL": {
         "NAME": "Residential Cleaning",
-        "DESCRIPTION": "Complete service for your home",
+        "DESCRIPTION": "Complete service for your home including kitchen, bathrooms, bedrooms and living areas",
         "DURATION": "2-3 hours",
         "FEATURES": [
-          "All rooms",
-          "Bathroom",
-          "Kitchen",
-          "Vacuum"
+          "Complete dusting",
+          "Surface cleaning",
+          "Vacuuming and floor washing",
+          "Bathroom cleaning",
+          "Kitchen cleaning"
         ]
       },
       "COMMERCIAL": {
         "NAME": "Commercial Cleaning",
-        "DESCRIPTION": "Solutions for businesses",
+        "DESCRIPTION": "Customized solutions to maintain a healthy and professional work environment",
         "DURATION": "3-5 hours",
         "FEATURES": [
-          "Offices",
-          "Restrooms",
-          "Common areas",
-          "Disinfection"
+          "Workstation cleaning",
+          "Trash removal",
+          "Common area cleaning",
+          "Surface disinfection",
+          "Flexible service (day/evening)"
         ]
       },
       "DEEP_CLEANING": {
         "NAME": "Deep Cleaning",
-        "DESCRIPTION": "Intensive and detailed service",
+        "DESCRIPTION": "Intensive and detailed service for complete cleaning",
         "DURATION": "4-5 hours",
         "FEATURES": [
-          "Complete cleaning",
-          "Appliance interiors",
-          "Baseboards",
-          "Light fixtures"
+          "Complete cleaning each room",
+          "Interior of appliances",
+          "Baseboards and moldings",
+          "Light fixtures and fans",
+          "Complete disinfection"
         ]
       }
+    },
+    "PROPERTY_TYPES": {
+      "APARTMENT": "Apartment/Condo",
+      "HOUSE": "Single family home",
+      "TOWNHOUSE": "Townhouse",
+      "OFFICE": "Office",
+      "RETAIL": "Retail store"
+    },
+    "ADDITIONAL_SERVICES_LIST": {
+      "WINDOWS": "Interior window cleaning",
+      "OVEN": "Oven cleaning",
+      "FRIDGE": "Refrigerator cleaning",
+      "BASEMENT": "Basement cleaning",
+      "GARAGE": "Garage cleaning"
     },
     "PROPERTY_TYPE_OPTIONS": {
       "SELECT": "Select",
@@ -884,7 +911,10 @@
     },
     "NOT_SELECTED": "Not selected",
     "POPULAR": "⭐ POPULAR",
-    "STARTING_FROM": "Starting at"
+    "STARTING_FROM": "Starting at",
+    "SUCCESS_TITLE": "Booking Confirmed!",
+    "SUCCESS_MESSAGE": "Your booking has been received successfully. We will contact you shortly to confirm the details.",
+    "ERROR_MESSAGE": "An error occurred while sending your booking. Please try again."
   },
   "FOOTER": {
     "DESCRIPTION": "Professional eco-friendly cleaning service for your home and business in the Montreal area.",

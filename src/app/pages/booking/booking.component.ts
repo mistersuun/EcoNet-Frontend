@@ -4,6 +4,8 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ScrollAnimationService } from '../../services/scroll-animation.service';
+import { EmailService, BookingFormData } from '../../services/email.service';
+import { SuccessModalComponent } from '../../shared/components/success-modal.component';
 
 interface BookingStep {
   id: number;
@@ -31,7 +33,7 @@ interface TimeSlot {
 @Component({
   selector: 'app-booking',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TranslocoPipe],
+  imports: [CommonModule, ReactiveFormsModule, TranslocoPipe, SuccessModalComponent],
   template: `
     <section class="hero wave-border-bottom-only" #bookingHeader>
       <div class="container">
@@ -451,6 +453,28 @@ interface TimeSlot {
         </form>
       </div>
     </section>
+
+    <!-- Success Modal -->
+    <app-success-modal
+      [isVisible]="showSuccessModal"
+      [title]="'BOOKING.SUCCESS_TITLE' | transloco"
+      [message]="'BOOKING.SUCCESS_MESSAGE' | transloco"
+      [primaryButtonText]="'COMMON.RETURN_HOME'"
+      [redirectTo]="'/'"
+      [autoRedirect]="true"
+      [redirectDelay]="5000"
+      (close)="showSuccessModal = false">
+    </app-success-modal>
+
+    <!-- Error Modal -->
+    <app-success-modal
+      *ngIf="showErrorModal"
+      [isVisible]="showErrorModal"
+      [title]="'COMMON.ERROR'"
+      [message]="'BOOKING.ERROR_MESSAGE' | transloco"
+      [primaryButtonText]="'COMMON.CLOSE'"
+      (close)="showErrorModal = false">
+    </app-success-modal>
   `,
   styles: [`
     /* Hero Section */
@@ -1625,6 +1649,8 @@ export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedService: ServiceOption | null = null;
   selectedTimeSlot: string = '';
   isSubmitting = false;
+  showSuccessModal = false;
+  showErrorModal = false;
 
   isHeaderVisible = false;
   isFormVisible = false;
@@ -1683,15 +1709,18 @@ export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
     { id: 'garage', name: 'BOOKING.ADDITIONAL_SERVICES_LIST.GARAGE', price: 40 }
   ];
 
+  // All time slots are available - team will manually confirm availability with customers
   timeSlots: TimeSlot[] = [
     { time: '08:00', available: true },
     { time: '09:00', available: true },
-    { time: '10:00', available: false },
+    { time: '10:00', available: true },
     { time: '11:00', available: true },
+    { time: '12:00', available: true },
     { time: '13:00', available: true },
     { time: '14:00', available: true },
-    { time: '15:00', available: false },
-    { time: '16:00', available: true }
+    { time: '15:00', available: true },
+    { time: '16:00', available: true },
+    { time: '17:00', available: true }
   ];
 
   frequencyOptions = [
@@ -1705,7 +1734,8 @@ export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
     private formBuilder: FormBuilder,
     @Inject(PLATFORM_ID) private platformId: Object,
     private scrollAnimationService: ScrollAnimationService,
-    private translocoService: TranslocoService
+    private translocoService: TranslocoService,
+    private emailService: EmailService
   ) {}
 
   ngOnInit() {
@@ -1924,16 +1954,74 @@ export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  confirmBooking() {
+  async confirmBooking() {
     this.isSubmitting = true;
 
-    // Simulate booking process
-    setTimeout(() => {
-      console.log('Booking confirmed:', this.bookingForm.value);
-      alert('Réservation confirmée! Vous recevrez un courriel de confirmation sous peu.');
+    try {
+      // Prepare booking data for email
+      const bookingData: BookingFormData = {
+        // Service details
+        serviceType: this.selectedService?.id || '',
+        serviceName: this.selectedService?.name || '',
+        servicePrice: this.selectedService?.basePrice || 0,
+
+        // Property details
+        propertyType: this.bookingForm.get('propertyType')?.value,
+        propertySize: this.bookingForm.get('propertySize')?.value,
+        bedrooms: this.bookingForm.get('bedrooms')?.value,
+        bathrooms: this.bookingForm.get('bathrooms')?.value,
+        address: this.bookingForm.get('address')?.value,
+        city: this.bookingForm.get('city')?.value,
+        postalCode: this.bookingForm.get('postalCode')?.value,
+
+        // Scheduling
+        preferredDate: this.bookingForm.get('preferredDate')?.value,
+        preferredTime: this.selectedTimeSlot,
+        frequency: this.bookingForm.get('frequency')?.value,
+
+        // Additional services
+        additionalServices: this.getSelectedAdditionalServices(),
+        specialInstructions: this.bookingForm.get('specialInstructions')?.value,
+
+        // Contact info
+        firstName: this.bookingForm.get('firstName')?.value,
+        lastName: this.bookingForm.get('lastName')?.value,
+        email: this.bookingForm.get('email')?.value,
+        phone: this.bookingForm.get('phone')?.value,
+        contactMethod: this.bookingForm.get('contactMethod')?.value,
+
+        // Totals
+        subtotal: this.calculateSubtotal(),
+        taxes: this.getTaxAmount(),
+        total: this.calculateTotal()
+      };
+
+      // Send email in user's language
+      const currentLang = this.translocoService.getActiveLang() as 'fr' | 'en';
+      const result = await this.emailService.sendBookingForm(bookingData, currentLang);
+
+      if (result.success) {
+        this.showSuccessModal = true;
+        // Modal will auto-redirect to home after 5 seconds
+      } else {
+        this.showErrorModal = true;
+      }
+    } catch (error) {
+      console.error('Error sending booking:', error);
+      this.showErrorModal = true;
+    } finally {
       this.isSubmitting = false;
-      // Redirect to success page or reset form
-    }, 3000);
+    }
+  }
+
+  getSelectedAdditionalServices(): string[] {
+    const selected: string[] = [];
+    this.additionalServices.forEach(service => {
+      if (this.bookingForm.get('additionalServices')?.value?.includes(service.id)) {
+        selected.push(`${this.translocoService.translate(service.name)} (+${service.price}$)`);
+      }
+    });
+    return selected;
   }
 
   getProgressPercentage(): number {

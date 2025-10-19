@@ -46,17 +46,11 @@
       animation: bounce 2s ease-in-out infinite;
     }
 
-    .initial-loader-icon {
-      font-size: 2rem;
+    .initial-loader-logo-img {
+      height: 120px;
+      width: auto;
+      object-fit: contain;
       filter: drop-shadow(2px 2px 4px rgba(107, 144, 128, 0.3));
-    }
-
-    .initial-loader-text {
-      font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #6b9080;
-      letter-spacing: -0.01em;
     }
 
     .initial-loader-dots {
@@ -117,12 +111,8 @@
     }
 
     @media (max-width: 768px) {
-      .initial-loader-icon {
-        font-size: 1.75rem;
-      }
-
-      .initial-loader-text {
-        font-size: 1.25rem;
+      .initial-loader-logo-img {
+        height: 100px;
       }
 
       .initial-loader-logo {
@@ -136,8 +126,7 @@
   <div id="app-initial-loader">
     <div class="initial-loader-content">
       <div class="initial-loader-logo">
-        <span class="initial-loader-icon">🌿</span>
-        <span class="initial-loader-text">ÉcoNet</span>
+        <img src="assets/logo.png" alt="ÉcoNet Propreté" class="initial-loader-logo-img">
       </div>
       <div class="initial-loader-dots">
         <span class="initial-loader-dot"></span>

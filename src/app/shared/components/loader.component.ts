@@ -11,8 +11,7 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
       <div class="loader-container">
         <!-- Bouncing Logo -->
         <div class="logo-bouncer">
-          <span class="logo-icon">🌿</span>
-          <span class="logo-text">ÉcoNet</span>
+          <img src="assets/logo.png" alt="ÉcoNet Propreté" class="loader-logo-img">
         </div>
 
         <!-- Loading Message -->
@@ -85,18 +84,11 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
       }
     }
 
-    .logo-icon {
-      font-size: 2rem;
+    .loader-logo-img {
+      height: 100px;
+      width: auto;
+      object-fit: contain;
       filter: drop-shadow(2px 2px 4px rgba(107, 144, 128, 0.3));
-    }
-
-    .logo-text {
-      font-family: var(--font-primary);
-      font-size: 1.5rem;
-      font-weight: var(--font-weight-bold);
-      color: var(--primary);
-      letter-spacing: -0.01em;
-      text-shadow: 2px 2px 4px rgba(107, 144, 128, 0.2);
     }
 
     .loading-message {
@@ -124,12 +116,8 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
 
     /* Responsive */
     @media (max-width: 768px) {
-      .logo-icon {
-        font-size: 1.75rem;
-      }
-
-      .logo-text {
-        font-size: 1.25rem;
+      .loader-logo-img {
+        height: 80px;
       }
 
       .loading-message p {

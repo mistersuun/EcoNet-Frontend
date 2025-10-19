@@ -4,6 +4,8 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ScrollAnimationService } from '../../services/scroll-animation.service';
+import { EmailService } from '../../services/email.service';
+import { SuccessModalComponent } from '../../shared/components/success-modal.component';
 
 interface ContactMethod {
   icon: string;
@@ -25,7 +27,7 @@ interface OfficeLocation {
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, TranslocoPipe],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, TranslocoPipe, SuccessModalComponent],
   template: `
     <section class="hero wave-border-bottom-only" #heroSection>
       <div class="container">
@@ -185,11 +187,11 @@ interface OfficeLocation {
                 </div>
               </div>
 
-              <div class="form-group checkbox-group">
-                <label class="checkbox-label">
+              <div class="form-group">
+                <label class="checkbox-container">
                   <input type="checkbox" formControlName="urgentRequest">
-                  <span class="checkmark"></span>
-                  {{ 'CONTACT.URGENT_REQUEST' | transloco }}
+                  <span class="checkbox-custom"></span>
+                  <span class="checkbox-text">{{ 'CONTACT.URGENT_REQUEST' | transloco }}</span>
                 </label>
               </div>
 
@@ -276,6 +278,27 @@ interface OfficeLocation {
         </div>
       </div>
     </section>
+
+    <!-- Success Modal -->
+    <app-success-modal
+      [isVisible]="showSuccessModal"
+      [title]="'CONTACT.SUCCESS_MESSAGE' | transloco"
+      [message]="successMessage"
+      [primaryButtonText]="'COMMON.RETURN_HOME'"
+      [secondaryButtonText]="'COMMON.CLOSE'"
+      [redirectTo]="'/'"
+      (close)="showSuccessModal = false">
+    </app-success-modal>
+
+    <!-- Error Modal -->
+    <app-success-modal
+      *ngIf="showErrorModal"
+      [isVisible]="showErrorModal"
+      [title]="'COMMON.ERROR'"
+      [message]="'CONTACT.ERROR_MESSAGE' | transloco"
+      [primaryButtonText]="'COMMON.CLOSE'"
+      (close)="showErrorModal = false">
+    </app-success-modal>
   `,
   styles: [`
     /* Hero Section */
@@ -640,30 +663,19 @@ interface OfficeLocation {
       font-weight: var(--font-weight-medium);
     }
 
-    .checkbox-group {
-      display: flex;
-      align-items: center;
-    }
-
-    .checkbox-label {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .checkbox-container {
+      display: block;
+      position: relative;
+      padding-left: 40px;
       cursor: pointer;
-      font-weight: 400 !important;
-      margin-bottom: 0 !important;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       font-size: 17px;
-      letter-spacing: -0.022em;
-      padding: 12px 0;
-      transition: color 0.2s ease;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--neutral-dark);
+      user-select: none;
+      line-height: 24px;
     }
 
-    .checkbox-label:hover {
-      color: #007AFF;
-    }
-
-    .checkbox-label input[type="checkbox"] {
+    .checkbox-container input {
       position: absolute;
       opacity: 0;
       cursor: pointer;
@@ -671,37 +683,47 @@ interface OfficeLocation {
       width: 0;
     }
 
-    .checkmark {
-      height: 20px;
-      width: 20px;
-      background-color: transparent;
-      border: 2px solid rgba(60, 60, 67, 0.3);
+    .checkbox-custom {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 24px;
+      width: 24px;
+      background-color: #f5f5f7;
+      border: 3px solid #6b9080;
       border-radius: 6px;
-      position: relative;
-      flex-shrink: 0;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.2s ease;
     }
 
-    .checkbox-label input[type="checkbox"]:checked ~ .checkmark {
+    .checkbox-container:hover .checkbox-custom {
+      background-color: #e8f0ed;
+      border-color: #5a7a6a;
+    }
+
+    .checkbox-container input:checked ~ .checkbox-custom {
       background-color: #007AFF;
       border-color: #007AFF;
     }
 
-    .checkmark:after {
+    .checkbox-custom::after {
       content: "";
       position: absolute;
       display: none;
       left: 6px;
       top: 2px;
-      width: 6px;
+      width: 5px;
       height: 10px;
       border: solid white;
-      border-width: 0 2px 2px 0;
+      border-width: 0 2.5px 2.5px 0;
       transform: rotate(45deg);
     }
 
-    .checkbox-label input[type="checkbox"]:checked ~ .checkmark:after {
+    .checkbox-container input:checked ~ .checkbox-custom::after {
       display: block;
+    }
+
+    .checkbox-text {
+      display: inline;
     }
 
     .submit-btn {
@@ -969,6 +991,9 @@ export class ContactComponent implements OnInit, OnDestroy, AfterViewInit {
 
   contactForm!: FormGroup;
   isSubmitting = false;
+  showSuccessModal = false;
+  showErrorModal = false;
+  successMessage = '';
 
   isHeroVisible = false;
   areContactMethodsVisible = false;
@@ -1016,13 +1041,6 @@ export class ContactComponent implements OnInit, OnDestroy, AfterViewInit {
       value: 'info@econet-proprete.ca',
       description: 'CONTACT.EMAIL_DESC',
       action: 'CONTACT.EMAIL_ACTION'
-    },
-    {
-      icon: '💬',
-      title: 'CONTACT.CHAT',
-      value: 'Chat disponible',
-      description: 'CONTACT.CHAT_DESC',
-      action: 'CONTACT.CHAT_ACTION'
     }
   ];
 
@@ -1049,7 +1067,8 @@ export class ContactComponent implements OnInit, OnDestroy, AfterViewInit {
     private formBuilder: FormBuilder,
     @Inject(PLATFORM_ID) private platformId: Object,
     private scrollAnimationService: ScrollAnimationService,
-    private transloco: TranslocoService
+    private transloco: TranslocoService,
+    private emailService: EmailService
   ) {}
 
   ngOnInit() {
@@ -1122,17 +1141,27 @@ export class ContactComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.contactForm.valid) {
       this.isSubmitting = true;
 
-      // Simulate form submission
-      setTimeout(() => {
-        console.log('Form submitted:', this.contactForm.value);
-        alert('Merci pour votre demande! Nous vous contacterons sous peu.');
-        this.contactForm.reset();
+      try {
+        const currentLang = this.transloco.getActiveLang() as 'fr' | 'en';
+        const result = await this.emailService.sendContactForm(this.contactForm.value, currentLang);
+
+        if (result.success) {
+          this.successMessage = this.transloco.translate('CONTACT.SUCCESS_MESSAGE');
+          this.showSuccessModal = true;
+          this.contactForm.reset();
+        } else {
+          this.showErrorModal = true;
+        }
+      } catch (error) {
+        console.error('Error sending email:', error);
+        this.showErrorModal = true;
+      } finally {
         this.isSubmitting = false;
-      }, 2000);
+      }
     } else {
       // Mark all fields as touched to show validation errors
       Object.keys(this.contactForm.controls).forEach(key => {

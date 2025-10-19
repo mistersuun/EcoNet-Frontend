@@ -23,14 +23,13 @@ import { filter, delay } from 'rxjs/operators';
       <!-- Mobile Menu Backdrop -->
       <div class="mobile-menu-backdrop" [class.visible]="mobileMenuOpen" (click)="closeMobileMenu()"></div>
 
-      <!-- Sophisticated Header -->
-      <header class="header" [class.scrolled]="isScrolled">
+      <!-- Sophisticated Header (hidden on admin/login pages) -->
+      <header *ngIf="showHeaderFooter" class="header" [class.scrolled]="isScrolled">
         <nav class="navbar">
           <div class="container">
             <a routerLink="/" class="nav-brand">
               <div class="logo">
-                <span class="logo-icon">🌿</span>
-                <span class="logo-text">ÉcoNet</span>
+                <img src="assets/logo.png" alt="ÉcoNet Propreté" class="logo-img">
               </div>
             </a>
 
@@ -70,15 +69,14 @@ import { filter, delay } from 'rxjs/operators';
         <router-outlet></router-outlet>
       </main>
 
-      <!-- Elegant Footer -->
-      <footer class="footer wave-border-top-only">
+      <!-- Elegant Footer (hidden on admin/login pages) -->
+      <footer *ngIf="showHeaderFooter" class="footer wave-border-top-only">
         <div class="container">
           <div class="footer-content">
             <!-- Brand Section -->
             <div class="footer-brand">
               <div class="footer-logo">
-                <span class="logo-icon">🌿</span>
-                <span class="logo-text">ÉcoNet Propreté</span>
+                <img src="assets/logo.png" alt="ÉcoNet Propreté" class="logo-img">
               </div>
               <p class="footer-description">
                 {{ 'FOOTER.DESCRIPTION' | transloco }}
@@ -203,16 +201,10 @@ import { filter, delay } from 'rxjs/operators';
       gap: var(--space-sm);
     }
 
-    .logo-icon {
-      font-size: 1.5rem;
-    }
-
-    .logo-text {
-      font-family: var(--font-primary);
-      font-size: 1.375rem;
-      font-weight: var(--font-weight-bold);
-      color: var(--primary);
-      letter-spacing: -0.01em;
+    .logo-img {
+      height: 100px;
+      width: auto;
+      object-fit: contain;
     }
 
     .nav-menu {
@@ -364,6 +356,7 @@ import { filter, delay } from 'rxjs/operators';
       grid-template-columns: 2fr 1fr 1fr 1fr;
       gap: var(--space-4xl);
       margin-bottom: var(--space-3xl);
+      align-items: start;
     }
 
     .footer-brand {
@@ -377,9 +370,11 @@ import { filter, delay } from 'rxjs/operators';
       margin-bottom: var(--space-lg);
     }
 
-    .footer-logo .logo-text {
-      color: var(--pure-white);
-      font-size: 1.25rem;
+    .footer-logo .logo-img {
+      height: 90px;
+      width: auto;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
     }
 
     .footer-description {
@@ -413,6 +408,10 @@ import { filter, delay } from 'rxjs/operators';
       font-size: 0.875rem;
     }
 
+    .footer-section {
+      padding-top: 114px;
+    }
+
     .footer-title {
       color: var(--pure-white);
       font-size: 1rem;
@@ -420,6 +419,7 @@ import { filter, delay } from 'rxjs/operators';
       margin-bottom: var(--space-lg);
       letter-spacing: 0.01em;
       position: relative;
+      margin-top: 0;
     }
 
     .footer-toggle {
@@ -579,7 +579,7 @@ import { filter, delay } from 'rxjs/operators';
       }
 
       .navbar {
-        padding: var(--space-md) 0;
+        padding: var(--space-lg) 0;
       }
 
       .nav-menu {
@@ -724,8 +724,8 @@ import { filter, delay } from 'rxjs/operators';
         gap: var(--space-md);
       }
 
-      .logo-text {
-        font-size: 1.375rem;
+      .logo-img {
+        height: 65px;
       }
 
       .contact-item {
@@ -735,12 +735,8 @@ import { filter, delay } from 'rxjs/operators';
     }
 
     @media (max-width: 480px) {
-      .logo-icon {
-        font-size: 1.375rem;
-      }
-
-      .logo-text {
-        font-size: 1.125rem;
+      .logo-img {
+        height: 70px;
       }
 
       .navbar {
@@ -762,6 +758,7 @@ export class AppComponent implements OnInit, OnDestroy {
   mobileMenuOpen = false;
   isScrolled = false;
   currentLang = 'fr';
+  showHeaderFooter = true;
   footerSectionsExpanded: { [key: string]: boolean } = {
     services: false,
     company: false,
@@ -786,6 +783,9 @@ export class AppComponent implements OnInit, OnDestroy {
       // Handle route changes - only hide loader on completion
       this.routerSubscription = this.router.events.subscribe(event => {
         if (event instanceof NavigationEnd) {
+          // Check if we should show header/footer (hide on admin/login pages)
+          this.showHeaderFooter = !event.url.startsWith('/admin') && !event.url.startsWith('/login');
+
           // Close mobile menu on navigation
           this.closeMobileMenu();
 

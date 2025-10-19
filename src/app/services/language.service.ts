@@ -19,13 +19,6 @@ export class LanguageService {
   switchLanguage(lang: 'fr' | 'en') {
     this.transloco.setActiveLang(lang);
     this.saveLanguage(lang);
-
-    // Refresh the page to apply language changes
-    if (typeof window !== 'undefined') {
-      setTimeout(() => {
-        window.location.reload();
-      }, 800); // Wait for loader animation to show
-    }
   }
 
   getCurrentLanguage(): 'fr' | 'en' {

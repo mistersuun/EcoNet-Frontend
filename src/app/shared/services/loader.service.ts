@@ -84,10 +84,10 @@ export class LoaderService {
       : 'Changing language...';
     this.show(text);
 
-    // Hide after a longer delay to allow for translation loading
+    // Hide after brief delay to allow for translation loading
     setTimeout(() => {
       this.hide();
-    }, 1500);
+    }, 600);
   }
 
   /**
