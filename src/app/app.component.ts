@@ -24,7 +24,8 @@ import { filter, delay } from 'rxjs/operators';
       <div class="mobile-menu-backdrop" [class.visible]="mobileMenuOpen" (click)="closeMobileMenu()"></div>
 
       <!-- Sophisticated Header (hidden on admin/login pages) -->
-      <header *ngIf="showHeaderFooter" class="header" [class.scrolled]="isScrolled">
+      @if (showHeaderFooter) {
+      <header class="header" [class.scrolled]="isScrolled">
         <nav class="navbar">
           <div class="container">
             <a routerLink="/" class="nav-brand">
@@ -63,6 +64,7 @@ import { filter, delay } from 'rxjs/operators';
           </div>
         </nav>
       </header>
+      }
 
       <!-- Main Content -->
       <main class="main-content">
@@ -70,7 +72,8 @@ import { filter, delay } from 'rxjs/operators';
       </main>
 
       <!-- Elegant Footer (hidden on admin/login pages) -->
-      <footer *ngIf="showHeaderFooter" class="footer wave-border-top-only">
+      @if (showHeaderFooter) {
+      <footer class="footer wave-border-top-only">
         <div class="container">
           <div class="footer-content">
             <!-- Brand Section -->
@@ -149,6 +152,7 @@ import { filter, delay } from 'rxjs/operators';
           </div>
         </div>
       </footer>
+      }
     </div>
   `,
   styles: [`
