@@ -127,7 +127,7 @@ interface FAQCategory {
             <div class="help-option card scale-in stagger-5" [class.visible]="isHelpVisible">
               <div class="option-icon">📧</div>
               <h4>Écrivez-nous</h4>
-              <p>info@econet-proprete.ca</p>
+              <p>econetentretienmenager@gmail.com</p>
               <p class="option-hours">Réponse sous 2h</p>
             </div>
 
@@ -785,7 +785,7 @@ export class FaqComponent implements OnInit, OnDestroy, AfterViewInit {
                <ul>
                  <li><strong>En ligne:</strong> Formulaire de réservation sur notre site</li>
                  <li><strong>Par téléphone:</strong> (514) 123-4567 - Service 7j/7</li>
-                 <li><strong>Par courriel:</strong> info@econet-proprete.ca</li>
+                 <li><strong>Par courriel:</strong> econetentretienmenager@gmail.com</li>
                  <li><strong>Par WhatsApp:</strong> Message direct et rapide</li>
                </ul>
                <p>Nous confirmons généralement les rendez-vous <strong>dans les 2 heures</strong> et pouvons souvent intervenir le jour même pour les urgences.</p>`

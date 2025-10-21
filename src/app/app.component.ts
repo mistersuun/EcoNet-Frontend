@@ -85,13 +85,13 @@ import { filter, delay } from 'rxjs/operators';
                 {{ 'FOOTER.DESCRIPTION' | transloco }}
               </p>
               <div class="footer-contact">
-                <a href="tel:+15141234567" class="contact-item">
+                <a href="tel:+15149422670" class="contact-item">
                   <span class="contact-icon">📞</span>
                   <span>(514) 123-4567</span>
                 </a>
-                <a href="mailto:info@econet-proprete.ca" class="contact-item">
+                <a href="mailto:econetentretienmenager@gmail.com" class="contact-item">
                   <span class="contact-icon">📧</span>
-                  <span>info@econet-proprete.ca</span>
+                  <span>econetentretienmenager@gmail.com</span>
                 </a>
               </div>
             </div>

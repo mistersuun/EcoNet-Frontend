@@ -208,11 +208,11 @@ import { ScrollAnimationService } from '../../services/scroll-animation.service'
                     </div>
                     <div class="contact-item">
                       <strong>{{ 'TERMS.CONTACT.EMAIL_LABEL' | transloco }}</strong>
-                      <a href="mailto:info@econet-proprete.ca">info@econet-proprete.ca</a>
+                      <a href="mailto:econetentretienmenager@gmail.com">econetentretienmenager@gmail.com</a>
                     </div>
                     <div class="contact-item">
                       <strong>{{ 'TERMS.CONTACT.PHONE_LABEL' | transloco }}</strong>
-                      <a href="tel:+15141234567">(514) 123-4567</a>
+                      <a href="tel:+15149422670">(514) 123-4567</a>
                     </div>
                     <div class="contact-item">
                       <strong>{{ 'TERMS.CONTACT.ADDRESS_LABEL' | transloco }}</strong>

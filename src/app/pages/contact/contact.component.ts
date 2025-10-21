@@ -1038,7 +1038,7 @@ export class ContactComponent implements OnInit, OnDestroy, AfterViewInit {
     {
       icon: '📧',
       title: 'CONTACT.EMAIL',
-      value: 'info@econet-proprete.ca',
+      value: 'econetentretienmenager@gmail.com',
       description: 'CONTACT.EMAIL_DESC',
       action: 'CONTACT.EMAIL_ACTION'
     }
