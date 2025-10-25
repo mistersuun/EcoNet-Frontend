@@ -120,7 +120,7 @@ interface FAQCategory {
             <div class="help-option card scale-in stagger-4" [class.visible]="isHelpVisible">
               <div class="option-icon">📞</div>
               <h4>Appelez-nous</h4>
-              <p>(514) 123-4567</p>
+              <p>(514) 942-2670</p>
               <p class="option-hours">Lun-Ven: 8h-18h</p>
             </div>
 
@@ -784,7 +784,7 @@ export class FaqComponent implements OnInit, OnDestroy, AfterViewInit {
       answer: `<p>Réserver avec nous est simple et flexible:</p>
                <ul>
                  <li><strong>En ligne:</strong> Formulaire de réservation sur notre site</li>
-                 <li><strong>Par téléphone:</strong> (514) 123-4567 - Service 7j/7</li>
+                 <li><strong>Par téléphone:</strong> (514) 942-2670 - Service 7j/7</li>
                  <li><strong>Par courriel:</strong> econetentretienmenager@gmail.com</li>
                  <li><strong>Par WhatsApp:</strong> Message direct et rapide</li>
                </ul>

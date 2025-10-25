@@ -87,7 +87,7 @@ import { filter, delay } from 'rxjs/operators';
               <div class="footer-contact">
                 <a href="tel:+15149422670" class="contact-item">
                   <span class="contact-icon">📞</span>
-                  <span>(514) 123-4567</span>
+                  <span>(514) 942-2670</span>
                 </a>
                 <a href="mailto:econetentretienmenager@gmail.com" class="contact-item">
                   <span class="contact-icon">📧</span>

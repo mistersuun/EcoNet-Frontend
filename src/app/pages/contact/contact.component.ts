@@ -119,7 +119,7 @@ interface OfficeLocation {
                     id="phone"
                     formControlName="phone"
                     class="form-control"
-                    placeholder="(514) 123-4567">
+                    placeholder="(514) 942-2670">
                 </div>
               </div>
 
@@ -1031,7 +1031,7 @@ export class ContactComponent implements OnInit, OnDestroy, AfterViewInit {
     {
       icon: '📞',
       title: 'CONTACT.PHONE',
-      value: '(514) 123-4567',
+      value: '(514) 942-2670',
       description: 'CONTACT.PHONE_DESC',
       action: 'CONTACT.PHONE_ACTION'
     },
@@ -1048,7 +1048,7 @@ export class ContactComponent implements OnInit, OnDestroy, AfterViewInit {
     {
       id: 'montreal',
       address: '1234 Rue Saint-Catherine Ouest, Montréal, QC H3G 1P5',
-      phone: '(514) 123-4567',
+      phone: '(514) 942-2670',
       email: 'montreal@econet-proprete.ca',
       hoursKey: 'MONTREAL_OFFICE',
       image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=500&h=300&fit=crop&auto=format&q=80'

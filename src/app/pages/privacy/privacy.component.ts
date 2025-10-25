@@ -172,7 +172,7 @@ import { ScrollAnimationService } from '../../services/scroll-animation.service'
                     </div>
                     <div class="contact-item">
                       <strong>{{ 'PRIVACY.CONTACT.PHONE_LABEL' | transloco }}</strong>
-                      <a href="tel:+15149422670">(514) 123-4567</a>
+                      <a href="tel:+15149422670">(514) 942-2670</a>
                     </div>
                   </div>
                 </div>

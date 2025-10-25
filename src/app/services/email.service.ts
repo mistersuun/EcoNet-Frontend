@@ -343,14 +343,14 @@ ${formData.message}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Si vous avez des questions urgentes, n'hesitez pas a nous appeler au (514) 123-4567.
+Si vous avez des questions urgentes, n'hesitez pas a nous appeler au (514) 942-2670.
 
 Cordialement,
 L'equipe EcoNet Proprete
 
 ---
 📧 econetentretienmenager@gmail.com
-📞 (514) 123-4567
+📞 (514) 942-2670
 🌐 www.econet-proprete.ca
     `.trim();
   }
@@ -374,14 +374,14 @@ ${formData.message}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-If you have urgent questions, don't hesitate to call us at (514) 123-4567.
+If you have urgent questions, don't hesitate to call us at (514) 942-2670.
 
 Best regards,
 The EcoNet Proprete Team
 
 ---
 📧 econetentretienmenager@gmail.com
-📞 (514) 123-4567
+📞 (514) 942-2670
 🌐 www.econet-proprete.ca
     `.trim();
   }

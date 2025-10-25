@@ -329,7 +329,7 @@ interface TimeSlot {
                 <div class="form-group">
                   <label for="phone">{{ 'BOOKING.STEP_4.PHONE' | transloco }} *</label>
                   <input type="tel" formControlName="phone" id="phone"
-                         class="form-control" placeholder="(514) 123-4567" required>
+                         class="form-control" placeholder="(514) 942-2670" required>
                 </div>
               </div>
 
