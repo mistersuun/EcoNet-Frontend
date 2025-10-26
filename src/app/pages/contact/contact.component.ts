@@ -15,15 +15,6 @@ interface ContactMethod {
   action: string;
 }
 
-interface OfficeLocation {
-  id: string;
-  address: string;
-  phone: string;
-  email: string;
-  hoursKey: string;
-  image: string;
-}
-
 @Component({
   selector: 'app-contact',
   standalone: true,
@@ -208,46 +199,6 @@ interface OfficeLocation {
           <div class="form-image fade-in-right" [class.visible]="isContactFormVisible">
             <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=800&fit=crop&auto=format&q=80"
                  [alt]="'CONTACT.CUSTOMER_SERVICE_ALT' | transloco" class="img-cover stagger-3">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section #officeLocationsSection class="office-locations section">
-      <div class="container">
-        <div class="section-header text-center fade-in-up" [class.visible]="areOfficeLocationsVisible">
-          <h2 class="section-title stagger-1">{{ 'CONTACT.OFFICES_TITLE' | transloco }}</h2>
-          <p class="section-subtitle stagger-2">{{ 'CONTACT.OFFICES_SUBTITLE' | transloco }}</p>
-        </div>
-
-        <div class="locations-grid">
-          <div class="location-card card slide-up" [class.visible]="areOfficeLocationsVisible" *ngFor="let location of officeLocations; let i = index" [class]="'stagger-' + (i + 3)">
-            <div class="location-image">
-              <img [src]="location.image" [alt]="getOfficeName(location.id)" class="img-cover">
-            </div>
-            <div class="location-info">
-              <h3>{{ getOfficeName(location.id) }}</h3>
-              <div class="location-details">
-                <div class="detail-item">
-                  <span class="detail-icon">📍</span>
-                  <span>{{location.address}}</span>
-                </div>
-                <div class="detail-item">
-                  <span class="detail-icon">📞</span>
-                  <span>{{location.phone}}</span>
-                </div>
-                <div class="detail-item">
-                  <span class="detail-icon">📧</span>
-                  <span>{{location.email}}</span>
-                </div>
-              </div>
-              <div class="location-hours">
-                <h4>{{ 'CONTACT.HOURS_TITLE' | transloco }}</h4>
-                <ul>
-                  <li *ngFor="let hour of getOfficeHours(location.id)">{{hour}}</li>
-                </ul>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -747,93 +698,6 @@ interface OfficeLocation {
       transform: scale(1.02);
     }
 
-    /* Office Locations */
-    .locations-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-      gap: var(--space-2xl);
-    }
-
-    .location-card {
-      overflow: hidden;
-      padding: 0;
-      background: var(--pure-white);
-      border: 1px solid rgba(212, 165, 116, 0.1);
-      border-radius: var(--radius-lg);
-      transition: all var(--transition-base);
-    }
-
-    .location-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-large);
-    }
-
-    .location-image {
-      height: 220px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .location-image img {
-      transition: transform var(--transition-slow);
-    }
-
-    .location-card:hover .location-image img {
-      transform: scale(1.05);
-    }
-
-    .location-info {
-      padding: var(--space-xl);
-    }
-
-    .location-info h3 {
-      color: var(--neutral-dark);
-      margin-bottom: var(--space-lg);
-      font-size: 1.25rem;
-    }
-
-    .location-details {
-      margin: var(--space-lg) 0;
-    }
-
-    .detail-item {
-      display: flex;
-      align-items: center;
-      gap: var(--space-sm);
-      margin-bottom: var(--space-sm);
-      color: var(--neutral-medium);
-      font-size: 0.95rem;
-    }
-
-    .detail-icon {
-      font-size: 1.1rem;
-      width: 20px;
-      flex-shrink: 0;
-    }
-
-    .location-hours {
-      margin-top: var(--space-lg);
-      padding-top: var(--space-lg);
-      border-top: 1px solid rgba(212, 165, 116, 0.2);
-    }
-
-    .location-hours h4 {
-      margin-bottom: var(--space-sm);
-      color: var(--primary);
-      font-size: 1rem;
-    }
-
-    .location-hours ul {
-      list-style: none;
-    }
-
-    .location-hours li {
-      padding: var(--space-xs) 0;
-      color: var(--neutral-medium);
-      font-size: 0.9rem;
-      line-height: 1.4;
-    }
-
     /* FAQ Preview */
     .faq-preview {
       background: var(--pure-white);
@@ -902,10 +766,6 @@ interface OfficeLocation {
         height: 350px;
         order: -1;
       }
-
-      .locations-grid {
-        grid-template-columns: 1fr;
-      }
     }
 
     @media (max-width: 768px) {
@@ -935,10 +795,6 @@ interface OfficeLocation {
         grid-template-columns: 1fr;
       }
 
-      .locations-grid {
-        grid-template-columns: 1fr;
-      }
-
       .contact-form {
         padding: var(--space-lg);
       }
@@ -954,10 +810,6 @@ interface OfficeLocation {
       }
 
       .faq-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .locations-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -986,7 +838,6 @@ export class ContactComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('heroSection') heroSection!: ElementRef;
   @ViewChild('contactMethodsSection') contactMethodsSection!: ElementRef;
   @ViewChild('contactFormSection') contactFormSection!: ElementRef;
-  @ViewChild('officeLocationsSection') officeLocationsSection!: ElementRef;
   @ViewChild('faqPreviewSection') faqPreviewSection!: ElementRef;
 
   contactForm!: FormGroup;
@@ -998,7 +849,6 @@ export class ContactComponent implements OnInit, OnDestroy, AfterViewInit {
   isHeroVisible = false;
   areContactMethodsVisible = false;
   isContactFormVisible = false;
-  areOfficeLocationsVisible = false;
   isFaqPreviewVisible = false;
 
   // Custom dropdown states
@@ -1044,25 +894,6 @@ export class ContactComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   ];
 
-  officeLocations: OfficeLocation[] = [
-    {
-      id: 'montreal',
-      address: '1234 Rue Saint-Catherine Ouest, Montréal, QC H3G 1P5',
-      phone: '(514) 942-2670',
-      email: 'montreal@econet-proprete.ca',
-      hoursKey: 'MONTREAL_OFFICE',
-      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=500&h=300&fit=crop&auto=format&q=80'
-    },
-    {
-      id: 'laval',
-      address: '5678 Boulevard Saint-Martin Ouest, Laval, QC H7T 2R5',
-      phone: '(450) 123-4567',
-      email: 'laval@econet-proprete.ca',
-      hoursKey: 'LAVAL_OFFICE',
-      image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=500&h=300&fit=crop&auto=format&q=80'
-    }
-  ];
-
   constructor(
     private formBuilder: FormBuilder,
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -1102,10 +933,6 @@ export class ContactComponent implements OnInit, OnDestroy, AfterViewInit {
       {
         element: this.contactFormSection.nativeElement,
         callback: () => { this.isContactFormVisible = true; }
-      },
-      {
-        element: this.officeLocationsSection.nativeElement,
-        callback: () => { this.areOfficeLocationsVisible = true; }
       },
       {
         element: this.faqPreviewSection.nativeElement,
@@ -1168,15 +995,6 @@ export class ContactComponent implements OnInit, OnDestroy, AfterViewInit {
         this.contactForm.get(key)?.markAsTouched();
       });
     }
-  }
-
-  getOfficeName(officeId: string): string {
-    return this.transloco.translate(`CONTACT.${officeId.toUpperCase()}_OFFICE.NAME`);
-  }
-
-  getOfficeHours(officeId: string): string[] {
-    const hours = this.transloco.translate(`CONTACT.${officeId.toUpperCase()}_OFFICE.HOURS`);
-    return Array.isArray(hours) ? hours : [];
   }
 
   // Custom dropdown methods
