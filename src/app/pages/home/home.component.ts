@@ -127,18 +127,8 @@ import { MagneticButtonDirective } from '../../directives/magnetic-button.direct
             <div class="experience-stats">
               <div class="stat-row">
                 <div class="stat-item">
-                  <div class="stat-number">500+</div>
+                  <div class="stat-number">100+</div>
                   <div class="stat-label">{{ 'HOME.EXPERIENCE.STATS.CLIENTS' | transloco }}</div>
-                </div>
-                <div class="stat-item">
-                  <div class="stat-number">100%</div>
-                  <div class="stat-label">{{ 'HOME.EXPERIENCE.STATS.ECO' | transloco }}</div>
-                </div>
-              </div>
-              <div class="stat-row">
-                <div class="stat-item">
-                  <div class="stat-number">5 ans</div>
-                  <div class="stat-label">{{ 'HOME.EXPERIENCE.STATS.EXPERTISE' | transloco }}</div>
                 </div>
                 <div class="stat-item">
                   <div class="stat-number">24h</div>
