@@ -115,10 +115,10 @@
     "SUBTITLE": "Complete eco-friendly cleaning solutions",
     "PAGE": {
       "HERO": {
-        "BADGE": "Professional Services • Montreal",
-        "TITLE": "Customized cleaning",
-        "TITLE_ACCENT": "solutions",
-        "SUBTITLE": "Professional services tailored to your specific needs, with eco-friendly products and an environmentally respectful approach."
+        "BADGE": "Services",
+        "TITLE": "A service for",
+        "TITLE_ACCENT": "every space.",
+        "SUBTITLE": "Residential, commercial or post-renovation: the same attention to detail, with biodegradable, non-toxic products."
       },
       "CATEGORIES": {
         "TITLE": "Our areas of expertise",
@@ -165,10 +165,10 @@
         "IMAGE_ALT": "EcoNet professional team"
       },
       "CTA": {
-        "TITLE": "Ready to get started?",
-        "SUBTITLE": "Get your personalized quote and schedule your service today",
-        "BOOK_NOW": "Book now",
-        "GET_QUOTE": "Request quote"
+        "TITLE": "Let's find the right service for you.",
+        "SUBTITLE": "Book online in two minutes, or write to us for a custom quote.",
+        "BOOK_NOW": "Book a cleaning",
+        "GET_QUOTE": "Request a quote"
       },
       "SERVICE_LIST": {
         "RESIDENTIAL_BASIC": {
@@ -182,7 +182,6 @@
             "Bathroom cleaning",
             "Eco-friendly products"
           ],
-          "PRICE": "$89/visit",
           "DURATION": "2-3 hours"
         },
         "RESIDENTIAL_DEEP": {
@@ -196,7 +195,6 @@
             "Baseboards and frames cleaning",
             "Complete disinfection"
           ],
-          "PRICE": "$159/visit",
           "DURATION": "4-5 hours"
         },
         "COMMERCIAL_OFFICE": {
@@ -210,7 +208,6 @@
             "Surface disinfection",
             "Flexible service (day/evening)"
           ],
-          "PRICE": "$45/h",
           "DURATION": "As needed"
         },
         "COMMERCIAL_RETAIL": {
@@ -224,7 +221,6 @@
             "Sensitive area disinfection",
             "Flexible hours"
           ],
-          "PRICE": "$65/h",
           "DURATION": "Based on area"
         },
         "CONSTRUCTION_CLEANUP": {
@@ -238,7 +234,6 @@
             "Window cleaning",
             "Move-in preparation"
           ],
-          "PRICE": "$3.50/sq ft",
           "DURATION": "1-2 days"
         },
         "MAINTENANCE": {
@@ -252,8 +247,43 @@
             "Regular quality monitoring",
             "Preferential rates"
           ],
-          "PRICE": "Custom",
           "DURATION": "Variable"
+        }
+      },
+      "NAV_LABEL": "Jump to section",
+      "LABELS": {
+        "FROM": "From",
+        "BOOK": "Book",
+        "QUOTE": "Request a quote",
+        "SEE_PRICING": "See all pricing",
+        "TAXES": "plus taxes",
+        "OFF": "off",
+        "INCLUDED": "Included"
+      },
+      "CHAPTERS": {
+        "RESIDENTIAL": {
+          "NAV": "Residential",
+          "TITLE": "Your home,",
+          "TITLE_ACCENT": "spotless.",
+          "DESCRIPTION": "Houses, condos and apartments. Choose a standard clean or a thorough deep clean."
+        },
+        "COMMERCIAL": {
+          "NAV": "Commercial",
+          "TITLE": "A workplace",
+          "TITLE_ACCENT": "that inspires.",
+          "DESCRIPTION": "Offices, shops and restaurants, cleaned outside your business hours."
+        },
+        "CONSTRUCTION": {
+          "NAV": "Post-construction",
+          "TITLE": "After the work,",
+          "TITLE_ACCENT": "move right in.",
+          "DESCRIPTION": "Fine dust, paint residue and debris: we get your space ready to live in."
+        },
+        "MAINTENANCE": {
+          "NAV": "Regular service",
+          "TITLE": "Always clean.",
+          "TITLE_ACCENT": "Always for less.",
+          "DESCRIPTION": "Schedule a regular visit and the discount applies automatically every time."
         }
       }
     },
@@ -422,8 +452,10 @@
     "TITLE": "Our Pricing",
     "SUBTITLE": "Transparency and flexibility for all your needs",
     "HERO": {
-      "TITLE": "Cleaning Services",
-      "SUBTITLE": "Eco-friendly. Professional. Transparent."
+      "TITLE": "Clear prices.",
+      "SUBTITLE": "See your price before you book. Discounts on regular service apply automatically.",
+      "BADGE": "Pricing",
+      "TITLE_ACCENT": "No surprises."
     },
     "SERVICES": {
       "TITLE": "Our Services",
@@ -526,44 +558,11 @@
         ]
       }
     },
-    "PLANS_TITLE": "Our Packages",
-    "ESSENTIAL": {
-      "NAME": "Essential",
-      "PRICE": "Starting at $89",
-      "FEATURES": [
-        "Basic cleaning",
-        "Eco-friendly products",
-        "2-3 hours",
-        "Satisfaction guarantee"
-      ]
-    },
-    "PREMIUM": {
-      "NAME": "Premium",
-      "PRICE": "Starting at $149",
-      "FEATURES": [
-        "Complete cleaning",
-        "Premium products",
-        "4-5 hours",
-        "Team of 2 people"
-      ]
-    },
-    "DELUXE": {
-      "NAME": "Deluxe",
-      "PRICE": "Starting at $219",
-      "FEATURES": [
-        "Full service",
-        "Detailed finishes",
-        "6+ hours",
-        "Specialized team"
-      ]
-    },
-    "CUSTOM_TITLE": "Custom Service",
-    "CUSTOM_DESC": "Every space is unique. Contact us for a custom quote.",
     "CTA_TITLE": "Ready for a cleaner space?",
     "CTA_DESC": "Get your personalized quote for free",
     "GET_QUOTE_BTN": "Request Quote",
     "COMPARISON": {
-      "TITLE": "Service Comparison",
+      "TITLE": "What's included.",
       "SUBTITLE": "Find the perfect service for your needs",
       "FEATURES": "Features",
       "GENERAL_CLEANING": "General cleaning",
@@ -572,16 +571,10 @@
       "SPECIALIZED_EQUIPMENT": "Specialized equipment",
       "POST_CONSTRUCTION": "Post-construction cleaning",
       "APPLIANCE_INTERIOR": "Appliance interior",
-      "SATISFACTION_GUARANTEE": "Satisfaction guarantee"
-    },
-    "CALCULATOR": {
-      "TITLE": "Instant Price Calculator",
-      "SUBTITLE": "Get an immediate estimate based on your specific needs",
-      "FEATURE_1": "Calculation based on area",
-      "FEATURE_2": "Property type taken into account",
-      "FEATURE_3": "Discounts for recurring services",
-      "FEATURE_4": "Instant and free quote",
-      "BUTTON": "Calculate My Price"
+      "SATISFACTION_GUARANTEE": "Satisfaction guarantee",
+      "EYEBROW": "Compare",
+      "YES": "Included",
+      "NO": "Not included"
     },
     "GUARANTEE": {
       "TITLE": "Our Price Guarantee",
@@ -600,7 +593,7 @@
       }
     },
     "FAQ": {
-      "TITLE": "Pricing FAQ",
+      "TITLE": "Pricing questions",
       "PAYMENT_METHODS": {
         "QUESTION": "What payment methods do you accept?",
         "ANSWER": "We accept credit cards, debit, Interac transfer and cash payment."
@@ -627,10 +620,31 @@
       }
     },
     "CTA": {
-      "TITLE": "Ready for a cleaner space?",
-      "SUBTITLE": "Start today with a free quote.",
-      "BOOK_NOW": "Book now",
-      "GET_QUOTE": "Get a quote"
+      "TITLE": "Your price in two minutes.",
+      "SUBTITLE": "Pick your service, add-ons and frequency. The total shows before you send.",
+      "BOOK_NOW": "Calculate and book",
+      "GET_QUOTE": "Request a quote"
+    },
+    "POPULAR": "Most popular",
+    "QUOTE": "Request a quote",
+    "TAXES_NOTE": "Starting prices before taxes (GST + QST).",
+    "PLANS_HEAD": {
+      "EYEBROW": "Plans",
+      "TITLE": "Choose your service."
+    },
+    "DISCOUNTS": {
+      "EYEBROW": "Regular service",
+      "TITLE": "The more often,",
+      "TITLE_ACCENT": "the less you pay.",
+      "SUBTITLE": "The discount applies to every visit, add-ons included."
+    },
+    "ADDONS": {
+      "TITLE": "Add-ons",
+      "SUBTITLE": "Add them when you book."
+    },
+    "ADJUST": {
+      "TITLE": "What can adjust your price",
+      "SUBTITLE": "For large spaces or special cases, we confirm the price with you before the service."
     }
   },
   "CONTACT": {

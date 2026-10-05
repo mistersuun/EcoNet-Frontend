@@ -1,917 +1,376 @@
-import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestroy, PLATFORM_ID, QueryList, ViewChild, ViewChildren, inject, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { IconComponent } from '../../shared/components/icon.component';
+import { ScrollFxDirective } from '../../shared/scroll-fx.directive';
+import { FREQUENCY_DISCOUNTS, SERVICE_PRICES } from '../../shared/pricing';
 
-interface Service {
-  id: string;
-  title: string;
-  category: string;
-  description: string;
-  features: string[];
-  image: string;
-  price: string;
-  duration: string;
-  popular?: boolean;
+const IMG = (id: string, w: number, h: number) =>
+  `https://images.unsplash.com/photo-${id}?w=${w}&h=${h}&fit=crop&auto=format&q=80`;
+
+interface ServiceOption {
+  /** Key under SERVICES.PAGE.SERVICE_LIST */
+  key: string;
+  from: number;
+  bookable: boolean;
 }
 
-interface ServiceCategory {
+interface Chapter {
   id: string;
-  name: string;
-  description: string;
+  /** Key under SERVICES.PAGE.CHAPTERS */
+  key: string;
   icon: string;
+  image: string;
+  options: ServiceOption[];
 }
+
+const option = (key: string, price: { from: number; bookable: boolean }): ServiceOption =>
+  ({ key, from: price.from, bookable: price.bookable });
 
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [CommonModule, RouterLink, TranslocoPipe, IconComponent],
+  imports: [RouterLink, TranslocoPipe, IconComponent, ScrollFxDirective],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <!-- Sophisticated Hero Section -->
-    <section class="hero wave-border-bottom-only" #heroSection>
-      <div class="container">
-        <div class="hero-content">
-          <div class="hero-text fade-in-up" [class.visible]="isHeroVisible">
-            <div class="hero-badge">
-              {{ 'SERVICES.PAGE.HERO.BADGE' | transloco }}
-            </div>
-            <h1 class="hero-title">
-              {{ 'SERVICES.PAGE.HERO.TITLE' | transloco }}
-              <span class="accent-text">{{ 'SERVICES.PAGE.HERO.TITLE_ACCENT' | transloco }}</span>
-            </h1>
-            <p class="hero-subtitle">
-              {{ 'SERVICES.PAGE.HERO.SUBTITLE' | transloco }}
-            </p>
-          </div>
-        </div>
+    <section class="ui-hero">
+      <div class="ui-hero-inner">
+        <p class="ui-eyebrow">{{ 'SERVICES.PAGE.HERO.BADGE' | transloco }}</p>
+        <h1 class="ui-hero-title">
+          {{ 'SERVICES.PAGE.HERO.TITLE' | transloco }}
+          <span class="accent">{{ 'SERVICES.PAGE.HERO.TITLE_ACCENT' | transloco }}</span>
+        </h1>
+        <p class="ui-hero-subtitle">{{ 'SERVICES.PAGE.HERO.SUBTITLE' | transloco }}</p>
       </div>
     </section>
 
-    <!-- Service Categories -->
-    <section class="section categories-section" #categoriesSection>
-      <div class="container">
-        <div class="section-header fade-in-up" [class.visible]="isCategoriesVisible">
-          <h2 class="section-title">{{ 'SERVICES.PAGE.CATEGORIES.TITLE' | transloco }}</h2>
-          <p class="section-subtitle">
-            {{ 'SERVICES.PAGE.CATEGORIES.SUBTITLE' | transloco }}
-          </p>
-        </div>
+    <!-- Sticky chapter navigation -->
+    <nav class="chapter-nav" [attr.aria-label]="'SERVICES.PAGE.NAV_LABEL' | transloco">
+      <div class="chapter-nav-track" #navTrack>
+        @for (chapter of chapters; track chapter.id) {
+          <a [href]="'#' + chapter.id" class="chapter-tab" [attr.data-id]="chapter.id" [class.active]="active() === chapter.id"
+             [attr.aria-current]="active() === chapter.id ? 'true' : null"
+             (click)="goTo($event, chapter.id)">
+            <app-icon [name]="chapter.icon" [size]="16" />
+            {{ 'SERVICES.PAGE.CHAPTERS.' + chapter.key + '.NAV' | transloco }}
+          </a>
+        }
+      </div>
+    </nav>
 
-        <div class="categories-grid">
-          <div class="category-card fade-in-up"
-               [class.visible]="isCategoriesVisible"
-               [class]="'stagger-' + (i + 1)"
-               *ngFor="let category of categories; index as i">
-            <div class="category-icon"><app-icon [name]="category.icon" [size]="30" /></div>
-            <h3>{{ 'SERVICES.PAGE.CATEGORIES.' + category.id.toUpperCase() + '.NAME' | transloco }}</h3>
-            <p>{{ 'SERVICES.PAGE.CATEGORIES.' + category.id.toUpperCase() + '.DESCRIPTION' | transloco }}</p>
+    @for (chapter of chapters; track chapter.id; let odd = $odd) {
+      <section class="chapter" [id]="chapter.id" [class.alt]="odd" #chapterEl>
+        <div class="ui-wrap">
+          <div class="chapter-head" [class.flip]="odd">
+            <div class="chapter-media parallax" scrollFx>
+              <img [src]="chapter.image" [alt]="'SERVICES.PAGE.CHAPTERS.' + chapter.key + '.NAV' | transloco" loading="lazy">
+            </div>
+            <div class="chapter-copy ui-reveal" scrollFx>
+              <p class="ui-eyebrow eyebrow-icon">
+                <span class="ui-chip"><app-icon [name]="chapter.icon" /></span>
+                {{ 'SERVICES.PAGE.CHAPTERS.' + chapter.key + '.NAV' | transloco }}
+              </p>
+              <h2 class="ui-title">
+                {{ 'SERVICES.PAGE.CHAPTERS.' + chapter.key + '.TITLE' | transloco }}
+                <span class="muted">{{ 'SERVICES.PAGE.CHAPTERS.' + chapter.key + '.TITLE_ACCENT' | transloco }}</span>
+              </h2>
+              <p class="ui-lead">{{ 'SERVICES.PAGE.CHAPTERS.' + chapter.key + '.DESCRIPTION' | transloco }}</p>
+            </div>
           </div>
+
+          @if (chapter.options.length) {
+            <div class="options" [class.single]="chapter.options.length === 1">
+              @for (opt of chapter.options; track opt.key; let i = $index) {
+                <article class="option ui-reveal" scrollFx [style.--delay]="(i * 100) + 'ms'">
+                  <header class="option-head">
+                    <h3>{{ 'SERVICES.PAGE.SERVICE_LIST.' + opt.key + '.TITLE' | transloco }}</h3>
+                    <p class="option-desc">{{ 'SERVICES.PAGE.SERVICE_LIST.' + opt.key + '.DESCRIPTION' | transloco }}</p>
+                  </header>
+                  <div class="option-price">
+                    <span class="from">{{ 'SERVICES.PAGE.LABELS.FROM' | transloco }}</span>
+                    <span class="amount">{{ opt.from }}&nbsp;$</span>
+                    <span class="meta"><app-icon name="clock" [size]="14" /> {{ 'SERVICES.PAGE.SERVICE_LIST.' + opt.key + '.DURATION' | transloco }}</span>
+                  </div>
+                  <ul class="checks">
+                    @for (feature of features(opt.key); track $index) {
+                      <li><app-icon name="check" [size]="16" [stroke]="2.25" />{{ feature }}</li>
+                    }
+                  </ul>
+                  <div class="option-actions">
+                    @if (opt.bookable) {
+                      <a routerLink="/booking" class="ui-pill sm">{{ 'SERVICES.PAGE.LABELS.BOOK' | transloco }}</a>
+                    } @else {
+                      <a routerLink="/contact" class="ui-pill sm">{{ 'SERVICES.PAGE.LABELS.QUOTE' | transloco }}</a>
+                    }
+                  </div>
+                </article>
+              }
+            </div>
+          } @else {
+            <!-- Regular maintenance: frequency discounts -->
+            <div class="discounts">
+              @for (d of discounts; track d.key; let i = $index) {
+                <a routerLink="/booking" class="discount ui-reveal" scrollFx [style.--delay]="(i * 100) + 'ms'">
+                  <span class="discount-value">{{ d.percent }}&nbsp;%</span>
+                  <span class="discount-off">{{ 'SERVICES.PAGE.LABELS.OFF' | transloco }}</span>
+                  <span class="discount-name">{{ 'BOOKING.FREQUENCY_OPTIONS.' + d.key + '.NAME' | transloco }}</span>
+                </a>
+              }
+            </div>
+            <ul class="checks inline ui-reveal" scrollFx>
+              @for (feature of features('MAINTENANCE'); track $index) {
+                <li><app-icon name="check" [size]="16" [stroke]="2.25" />{{ feature }}</li>
+              }
+            </ul>
+          }
         </div>
+      </section>
+    }
+
+    <!-- Why EcoNet -->
+    <section class="ui-section why">
+      <div class="ui-wrap">
+        <header class="ui-head ui-reveal" scrollFx>
+          <h2 class="ui-title">{{ 'SERVICES.PAGE.WHY.TITLE' | transloco }}</h2>
+        </header>
+        <div class="why-grid">
+          @for (item of why; track item.key; let i = $index) {
+            <div class="why-item ui-reveal" scrollFx [style.--delay]="(i * 100) + 'ms'">
+              <span class="ui-chip lg"><app-icon [name]="item.icon" [size]="24" /></span>
+              <h3>{{ 'SERVICES.PAGE.WHY.FEATURES.' + item.key + '.TITLE' | transloco }}</h3>
+              <p>{{ 'SERVICES.PAGE.WHY.FEATURES.' + item.key + '.DESCRIPTION' | transloco }}</p>
+            </div>
+          }
+        </div>
+        <p class="pricing-link ui-reveal" scrollFx>
+          <a routerLink="/pricing" class="ui-link">
+            {{ 'SERVICES.PAGE.LABELS.SEE_PRICING' | transloco }} <app-icon name="chevron-right" [size]="16" [stroke]="2.25" />
+          </a>
+        </p>
       </div>
     </section>
 
-    <!-- Detailed Services -->
-    <section class="section services-section" #servicesSection>
-      <div class="container">
-        <div class="section-header fade-in-up" [class.visible]="isServicesVisible">
-          <h2 class="section-title">{{ 'SERVICES.PAGE.DETAILED.TITLE' | transloco }}</h2>
-          <p class="section-subtitle">
-            {{ 'SERVICES.PAGE.DETAILED.SUBTITLE' | transloco }}
-          </p>
-        </div>
-
-        <div class="services-grid">
-          <div class="service-card fade-in-up"
-               [class.visible]="isServicesVisible"
-               [class.popular]="service.popular"
-               [style.transition-delay]="(i * 0.1) + 's'"
-               *ngFor="let service of services; index as i">
-
-            <div class="service-badge" *ngIf="service.popular">
-              {{ 'SERVICES.PAGE.DETAILED.POPULAR_BADGE' | transloco }}
-            </div>
-
-            <div class="service-image">
-              <img [src]="service.image" [alt]="service.title" class="img-cover">
-              <div class="service-overlay">
-                <div class="service-category">{{ 'SERVICES.PAGE.SERVICE_LIST.' + service.id.toUpperCase() + '.CATEGORY' | transloco }}</div>
-              </div>
-            </div>
-
-            <div class="service-content">
-              <h3>{{ 'SERVICES.PAGE.SERVICE_LIST.' + service.id.toUpperCase() + '.TITLE' | transloco }}</h3>
-              <p>{{ 'SERVICES.PAGE.SERVICE_LIST.' + service.id.toUpperCase() + '.DESCRIPTION' | transloco }}</p>
-
-              <ul class="service-features">
-                <li *ngFor="let feature of getServiceFeatures(service.id); let i = index">
-                  <span class="check-icon"><app-icon name="check" [size]="16" [stroke]="2.25" /></span>
-                  {{feature}}
-                </li>
-              </ul>
-
-              <div class="service-meta">
-                <div class="service-price">
-                  <span class="price-label">{{ 'SERVICES.PAGE.DETAILED.PRICE_LABEL' | transloco }}</span>
-                  <span class="price-value">{{ 'SERVICES.PAGE.SERVICE_LIST.' + service.id.toUpperCase() + '.PRICE' | transloco }}</span>
-                </div>
-                <div class="service-duration">
-                  <app-icon class="duration-icon" name="clock" [size]="16" />
-                  {{ 'SERVICES.PAGE.SERVICE_LIST.' + service.id.toUpperCase() + '.DURATION' | transloco }}
-                </div>
-              </div>
-
-              <div class="service-actions">
-                <a routerLink="/booking" class="btn btn-primary">{{ 'SERVICES.PAGE.DETAILED.BUTTONS.BOOK' | transloco }}</a>
-                <a routerLink="/contact" class="btn btn-secondary">{{ 'SERVICES.PAGE.DETAILED.BUTTONS.QUOTE' | transloco }}</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Why Choose Us -->
-    <section class="section why-section" #whySection>
-      <div class="container">
-        <div class="why-content">
-          <div class="why-text fade-in-left" [class.visible]="isWhyVisible">
-            <h2 class="section-title">{{ 'SERVICES.PAGE.WHY.TITLE' | transloco }}</h2>
-            <div class="why-features">
-              <div class="why-feature">
-                <div class="feature-icon"><app-icon name="leaf" [size]="24" /></div>
-                <div>
-                  <h4>{{ 'SERVICES.PAGE.WHY.FEATURES.ECO.TITLE' | transloco }}</h4>
-                  <p>{{ 'SERVICES.PAGE.WHY.FEATURES.ECO.DESCRIPTION' | transloco }}</p>
-                </div>
-              </div>
-              <div class="why-feature">
-                <div class="feature-icon"><app-icon name="award" [size]="24" /></div>
-                <div>
-                  <h4>{{ 'SERVICES.PAGE.WHY.FEATURES.EXPERTISE.TITLE' | transloco }}</h4>
-                  <p>{{ 'SERVICES.PAGE.WHY.FEATURES.EXPERTISE.DESCRIPTION' | transloco }}</p>
-                </div>
-              </div>
-              <div class="why-feature">
-                <div class="feature-icon"><app-icon name="shield-check" [size]="24" /></div>
-                <div>
-                  <h4>{{ 'SERVICES.PAGE.WHY.FEATURES.INSURANCE.TITLE' | transloco }}</h4>
-                  <p>{{ 'SERVICES.PAGE.WHY.FEATURES.INSURANCE.DESCRIPTION' | transloco }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="why-visual fade-in-right" [class.visible]="isWhyVisible">
-            <div class="why-image">
-              <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&h=400&fit=crop&auto=format&q=80"
-                   [alt]="'SERVICES.PAGE.WHY.IMAGE_ALT' | transloco"
-                   class="img-cover">
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="section cta-section wave-border-bottom-only" #ctaSection>
-      <div class="container">
-        <div class="cta-content fade-in-up" [class.visible]="isCtaVisible">
-          <h2 class="cta-title">{{ 'SERVICES.PAGE.CTA.TITLE' | transloco }}</h2>
-          <p class="cta-subtitle">
-            {{ 'SERVICES.PAGE.CTA.SUBTITLE' | transloco }}
-          </p>
-          <div class="cta-actions">
-            <a routerLink="/booking" class="btn btn-primary btn-lg">
-              {{ 'SERVICES.PAGE.CTA.BOOK_NOW' | transloco }}
-            </a>
-            <a routerLink="/contact" class="btn btn-secondary btn-lg">
-              {{ 'SERVICES.PAGE.CTA.GET_QUOTE' | transloco }}
-            </a>
-          </div>
+    <section class="ui-cta" scrollFx>
+      <div class="ui-wrap ui-cta-inner">
+        <app-icon name="leaf" [size]="40" [stroke]="1.5" class="ui-cta-mark" />
+        <h2 class="ui-cta-title">{{ 'SERVICES.PAGE.CTA.TITLE' | transloco }}</h2>
+        <p class="ui-cta-subtitle">{{ 'SERVICES.PAGE.CTA.SUBTITLE' | transloco }}</p>
+        <div class="ui-actions center">
+          <a routerLink="/booking" class="ui-pill light">{{ 'SERVICES.PAGE.CTA.BOOK_NOW' | transloco }}</a>
+          <a routerLink="/contact" class="ui-link light">
+            {{ 'SERVICES.PAGE.CTA.GET_QUOTE' | transloco }} <app-icon name="chevron-right" [size]="16" [stroke]="2.25" />
+          </a>
         </div>
       </div>
     </section>
   `,
   styles: [`
-    /* Hero Section */
-    .hero {
-      padding: var(--space-6xl) 0 var(--space-4xl);
-      background: linear-gradient(135deg, var(--pure-white) 0%, var(--secondary) 100%);
-      position: relative;
-      overflow: visible;
+    :host { display: block; background: #fff; color: var(--ui-ink); }
+
+    /* ---------- sticky chapter nav ---------- */
+    .chapter-nav {
+      position: sticky; top: var(--header-h, 76px); z-index: 50;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--ui-line);
     }
-
-    .hero-content {
-      max-width: 800px;
-      text-align: center;
-      margin: 0 auto;
+    .chapter-nav-track {
+      position: relative; /* offsetParent for tab positions */
+      display: flex; justify-content: center; gap: 8px; padding: 12px 24px;
+      overflow-x: auto; scrollbar-width: none;
     }
-
-    .hero-badge {
-      display: inline-block;
-      padding: var(--space-sm) var(--space-lg);
-      background: var(--tertiary);
-      color: var(--neutral-medium);
-      border-radius: var(--radius-full);
-      font-size: 0.875rem;
-      font-weight: var(--font-weight-medium);
-      letter-spacing: 0.02em;
-      margin-bottom: var(--space-2xl);
+    .chapter-nav-track::-webkit-scrollbar { display: none; }
+    .chapter-tab {
+      display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0;
+      padding: 8px 16px; border-radius: 980px;
+      font-size: 0.9375rem; font-weight: 500; color: var(--ui-muted); text-decoration: none;
+      transition: background-color 0.3s var(--ui-ease), color 0.3s var(--ui-ease);
     }
+    .chapter-tab:hover { color: var(--ui-ink); }
+    .chapter-tab.active { background: var(--ui-green-ink); color: #fff; }
+    .chapter-tab:focus-visible { outline: 3px solid var(--ui-green); outline-offset: 2px; }
 
-    .hero-title {
-      margin-bottom: var(--space-xl);
+    /* ---------- chapters ---------- */
+    .chapter {
+      padding: clamp(80px, 11vw, 140px) 0;
+      scroll-margin-top: calc(var(--header-h, 76px) + 56px);
     }
-
-    .accent-text {
-      color: var(--accent-dark);
+    .chapter.alt { background: var(--ui-surface); }
+    .chapter-head {
+      display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(40px, 7vw, 96px); align-items: center;
+      margin-bottom: clamp(48px, 7vw, 80px);
     }
-
-    .hero-subtitle {
-      font-size: 1.25rem;
-      line-height: 1.6;
-      color: var(--neutral-medium);
-      max-width: 600px;
-      margin: 0 auto;
+    .chapter-head.flip .chapter-media { order: 2; }
+    .chapter-media {
+      position: relative; aspect-ratio: 5 / 4; border-radius: 28px; overflow: hidden; background: var(--ui-mint);
     }
-
-    /* Categories Section */
-    .categories-section {
-      background: var(--pure-white);
-      position: relative;
-      overflow: visible;
+    .parallax img {
+      width: 100%; height: 118%; object-fit: cover; display: block;
+      transform: translate3d(0, calc((var(--progress, 0.5) - 0.5) * -14%), 0);
+      will-change: transform;
     }
+    .eyebrow-icon { display: inline-flex; align-items: center; gap: 12px; }
 
-    .categories-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: var(--space-2xl);
-      margin-top: var(--space-3xl);
+    /* ---------- option cards ---------- */
+    .options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .options.single { grid-template-columns: minmax(0, 640px); justify-content: center; }
+    .option {
+      display: flex; flex-direction: column;
+      background: #fff; border-radius: 28px; padding: clamp(28px, 4vw, 40px);
+      box-shadow: inset 0 0 0 1px var(--ui-line);
     }
-
-    .category-card {
-      text-align: center;
-      padding: var(--space-2xl);
-      border: 1px solid rgba(212, 165, 116, 0.1);
-      transition: all var(--transition-base);
+    .chapter.alt .option { box-shadow: none; }
+    .option-head h3 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin: 0 0 8px; color: var(--ui-ink); }
+    .option-desc { color: var(--ui-muted); line-height: 1.55; margin: 0; }
+    .option-price {
+      display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px;
+      margin: 24px 0; padding: 20px 0; border-top: 1px solid var(--ui-line); border-bottom: 1px solid var(--ui-line);
     }
-
-    .category-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-medium);
-      border-color: var(--primary);
+    .option-price .from { font-size: 0.875rem; color: var(--ui-muted); }
+    .option-price .amount { font-size: 2.25rem; font-weight: 600; letter-spacing: -0.03em; color: var(--ui-ink); }
+    .option-price .meta {
+      margin-left: auto; display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.875rem; color: var(--ui-muted);
     }
-
-    .category-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: rgba(107, 144, 128, 0.12);
-      color: var(--viridian);
-      margin-bottom: var(--space-lg);
+    .checks { list-style: none; margin: 0 0 28px; padding: 0; display: grid; gap: 12px; }
+    .checks li { display: flex; align-items: flex-start; gap: 12px; line-height: 1.45; color: var(--ui-ink); }
+    .checks app-icon { color: var(--ui-green-deep); margin-top: 3px; }
+    .checks.inline {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin: 40px auto 0; max-width: 900px;
     }
+    .option-actions { margin-top: auto; }
 
-    .category-card h3 {
-      margin-bottom: var(--space-md);
-      color: var(--neutral-dark);
+    /* ---------- maintenance discounts ---------- */
+    .discounts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .discount {
+      display: flex; flex-direction: column; align-items: flex-start;
+      padding: 32px; border-radius: 28px; text-decoration: none;
+      background: var(--ui-green-ink); color: #fff;
+      transition: transform 0.6s var(--ui-ease), opacity 0.9s var(--ui-ease) var(--delay, 0ms);
     }
+    .discount:nth-child(2) { background: var(--ui-green-deep); }
+    .discount:nth-child(3) { background: #fff; color: var(--ui-ink); box-shadow: inset 0 0 0 1px var(--ui-line); }
+    .discount.ui-reveal.is-visible:hover { transform: translateY(-4px); }
+    .discount-value { font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 600; letter-spacing: -0.04em; line-height: 1; }
+    .discount-off { font-size: 1rem; opacity: 0.75; margin: 4px 0 24px; }
+    .discount-name { font-size: 1.125rem; font-weight: 600; }
 
-    /* Services Section */
-    .services-section {
-      background: var(--neutral-lightest);
-      position: relative;
-      overflow: visible;
+    /* ---------- why ---------- */
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .why-item { text-align: center; }
+    .why-item .ui-chip { margin-bottom: 20px; }
+    .why-item h3 { font-size: 1.375rem; font-weight: 600; letter-spacing: -0.015em; margin: 0 0 8px; color: var(--ui-ink); }
+    .why-item p { color: var(--ui-muted); line-height: 1.55; margin: 0 auto; max-width: 300px; }
+    .pricing-link { text-align: center; margin: 56px 0 0; }
+
+    @media (max-width: 900px) {
+      .chapter-head { grid-template-columns: 1fr; }
+      .chapter-head.flip .chapter-media { order: 0; }
+      .chapter-media { aspect-ratio: 4 / 3; }
+      .options, .discounts, .why-grid { grid-template-columns: 1fr; }
     }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-      gap: var(--space-2xl);
-      margin-top: var(--space-3xl);
-    }
-
-    .service-card {
-      background: var(--pure-white);
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      position: relative;
-      transition: all var(--transition-base);
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
-    .service-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-large);
-    }
-
-    .service-card.popular {
-      border: 2px solid var(--accent);
-    }
-
-    .service-badge {
-      position: absolute;
-      top: var(--space-lg);
-      right: var(--space-lg);
-      background: var(--accent);
-      color: var(--pure-white);
-      padding: var(--space-xs) var(--space-sm);
-      border-radius: var(--radius-sm);
-      font-size: 0.75rem;
-      font-weight: var(--font-weight-bold);
-      z-index: 2;
-    }
-
-    .service-image {
-      height: 240px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .service-image img {
-      transition: transform var(--transition-slow);
-    }
-
-    .service-card:hover .service-image img {
-      transform: scale(1.05);
-    }
-
-    .service-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 100%);
-      display: flex;
-      align-items: flex-end;
-      padding: var(--space-lg);
-    }
-
-    .service-category {
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--neutral-dark);
-      padding: var(--space-xs) var(--space-sm);
-      border-radius: var(--radius-sm);
-      font-size: 0.875rem;
-      font-weight: var(--font-weight-medium);
-    }
-
-    .service-content {
-      padding: var(--space-xl);
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    .service-content h3 {
-      margin-bottom: var(--space-sm);
-      color: var(--neutral-dark);
-    }
-
-    .service-content p {
-      margin-bottom: var(--space-lg);
-      line-height: 1.6;
-    }
-
-    .service-features {
-      list-style: none;
-      margin-bottom: var(--space-lg);
-      flex: 1;
-    }
-
-    .service-features li {
-      display: flex;
-      align-items: center;
-      gap: var(--space-sm);
-      margin-bottom: var(--space-sm);
-      font-size: 0.9rem;
-    }
-
-    .check-icon {
-      display: inline-flex;
-      flex-shrink: 0;
-      color: var(--viridian);
-    }
-
-    .service-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: var(--space-lg);
-      padding: var(--space-md) 0;
-      border-top: 1px solid var(--neutral-lightest);
-    }
-
-    .service-price {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .price-label {
-      font-size: 0.75rem;
-      color: var(--neutral-medium);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .price-value {
-      font-size: 1.25rem;
-      font-weight: var(--font-weight-bold);
-      color: var(--primary-dark);
-    }
-
-    .service-duration {
-      display: flex;
-      align-items: center;
-      gap: var(--space-xs);
-      color: var(--neutral-medium);
-      font-size: 0.875rem;
-    }
-
-    .service-actions {
-      display: flex;
-      gap: var(--space-sm);
-      margin-top: auto;
-    }
-
-    .service-actions .btn {
-      flex: 1;
-      font-size: 0.875rem;
-      padding: var(--space-md) var(--space-lg);
-    }
-
-    /* Why Choose Us */
-    .why-section {
-      background: var(--pure-white);
-      position: relative;
-      overflow: visible;
-    }
-
-    .why-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-4xl);
-      align-items: center;
-    }
-
-    .why-features {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-xl);
-      margin-top: var(--space-2xl);
-    }
-
-    .why-feature {
-      display: flex;
-      gap: var(--space-lg);
-      align-items: flex-start;
-    }
-
-    .feature-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: rgba(107, 144, 128, 0.12);
-      color: var(--viridian);
-      flex-shrink: 0;
-    }
-
-    .why-feature h4 {
-      margin-bottom: var(--space-sm);
-      color: var(--neutral-dark);
-    }
-
-    .why-image {
-      width: 100%;
-      height: 400px;
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      box-shadow: var(--shadow-large);
-    }
-
-    /* CTA Section */
-    .cta-section {
-      background: var(--primary);
-      color: var(--pure-white);
-      position: relative;
-      overflow: visible;
-    }
-
-    .cta-content {
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .cta-title {
-      color: var(--pure-white);
-      margin-bottom: var(--space-lg);
-    }
-
-    .cta-subtitle {
-      font-size: 1.125rem;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: var(--space-3xl);
-    }
-
-    .cta-actions {
-      display: flex;
-      gap: var(--space-md);
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .cta-section .btn-primary {
-      background: var(--pure-white);
-      color: var(--primary);
-    }
-
-    .cta-section .btn-primary:hover {
-      background: var(--secondary);
-    }
-
-    .cta-section .btn-secondary {
-      background: transparent;
-      color: var(--pure-white);
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .cta-section .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: var(--pure-white);
-    }
-
-    /* Responsive */
-    @media (max-width: 1024px) {
-      .why-content {
-        grid-template-columns: 1fr;
-        gap: var(--space-3xl);
-        text-align: center;
-      }
-
-      .categories-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      }
-
-      .services-grid {
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      }
-    }
-
-    @media (max-width: 768px) {
-      /* Hero Section - Mobile */
-      .hero {
-        padding: var(--space-3xl) 0 var(--space-2xl) !important;
-      }
-
-      .hero-content {
-        text-align: center;
-      }
-
-      .hero-title {
-        font-size: 1.75rem !important;
-        line-height: 1.2 !important;
-      }
-
-      .hero-subtitle {
-        font-size: 1rem !important;
-      }
-
-      /* Categories Grid - Mobile */
-      .categories-grid {
-        grid-template-columns: 1fr !important;
-        gap: var(--space-lg) !important;
-      }
-
-      .category-card {
-        text-align: center;
-        padding: var(--space-xl) !important;
-      }
-
-      .category-icon {
-        width: 56px !important;
-        height: 56px !important;
-      }
-
-      /* Services Grid - Mobile */
-      .services-grid {
-        grid-template-columns: 1fr !important;
-        gap: var(--space-xl) !important;
-      }
-
-      .service-card {
-        width: 100% !important;
-        max-width: 100% !important;
-      }
-
-      .service-image {
-        height: 200px !important;
-      }
-
-      .service-content {
-        padding: var(--space-lg) !important;
-      }
-
-      .service-content h3 {
-        font-size: 1.25rem !important;
-      }
-
-      .service-content p {
-        font-size: 0.9rem !important;
-      }
-
-      .service-features {
-        font-size: 0.875rem !important;
-      }
-
-      .service-actions {
-        flex-direction: column;
-        gap: var(--space-sm);
-      }
-
-      .service-actions .btn {
-        width: 100%;
-      }
-
-      .service-meta {
-        flex-direction: column;
-        gap: var(--space-md);
-        align-items: flex-start;
-      }
-
-      /* Why Section - Mobile */
-      .why-content {
-        flex-direction: column !important;
-        gap: var(--space-2xl) !important;
-      }
-
-      .why-text,
-      .why-visual {
-        width: 100% !important;
-      }
-
-      .why-features {
-        gap: var(--space-lg) !important;
-      }
-
-      .why-feature {
-        flex-direction: column !important;
-        text-align: center !important;
-        gap: var(--space-sm) !important;
-      }
-
-      .feature-icon {
-        align-self: center !important;
-      }
-
-      /* CTA Section - Mobile */
-      .cta-section {
-        padding: var(--space-3xl) 0 !important;
-      }
-
-      .cta-title {
-        font-size: 1.75rem !important;
-      }
-
-      .cta-subtitle {
-        font-size: 1rem !important;
-      }
-
-      .cta-actions {
-        flex-direction: column;
-        align-items: center;
-        gap: var(--space-md);
-      }
-
-      .cta-actions .btn {
-        width: 100%;
-        max-width: 280px;
-      }
-
-      /* Section Headers - Mobile */
-      .section-header {
-        margin-bottom: var(--space-2xl) !important;
-      }
-
-      .section-title {
-        font-size: 1.75rem !important;
-      }
-
-      .section-subtitle {
-        font-size: 1rem !important;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero-title {
-        font-size: 1.5rem !important;
-      }
-
-      .section-title {
-        font-size: 1.5rem !important;
-      }
-
-      .cta-title {
-        font-size: 1.5rem !important;
-      }
-
-      .service-image {
-        height: 180px !important;
-      }
-
-      .category-icon {
-        width: 52px !important;
-        height: 52px !important;
-      }
-    }
-
-    @media (max-width: 360px) {
-      .hero-title,
-      .section-title,
-      .cta-title {
-        font-size: 1.375rem !important;
-      }
-
-      .hero-subtitle,
-      .section-subtitle,
-      .cta-subtitle {
-        font-size: 0.875rem !important;
-      }
-
-      .service-image {
-        height: 160px !important;
-      }
-
-      .cta-actions .btn,
-      .service-actions .btn {
-        max-width: 100% !important;
-      }
+    @media (max-width: 600px) {
+      .chapter-nav-track { justify-content: flex-start; }
+      .option, .discount { border-radius: 24px; }
+      .option-price .meta { margin-left: 0; width: 100%; }
     }
   `]
 })
-export class ServicesComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('heroSection') heroSection!: ElementRef;
-  @ViewChild('categoriesSection') categoriesSection!: ElementRef;
-  @ViewChild('servicesSection') servicesSection!: ElementRef;
-  @ViewChild('whySection') whySection!: ElementRef;
-  @ViewChild('ctaSection') ctaSection!: ElementRef;
+export class ServicesComponent implements AfterViewInit, OnDestroy {
+  private transloco = inject(TranslocoService);
+  private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  private observer?: IntersectionObserver;
+  private headerObserver?: ResizeObserver;
+  private host = inject(ElementRef<HTMLElement>);
 
-  // Animation states
-  isHeroVisible = false;
-  isCategoriesVisible = false;
-  isServicesVisible = false;
-  isWhyVisible = false;
-  isCtaVisible = false;
+  @ViewChildren('chapterEl') private chapterEls!: QueryList<ElementRef<HTMLElement>>;
+  @ViewChild('navTrack') private navTrack?: ElementRef<HTMLElement>;
 
-  private observer!: IntersectionObserver;
+  readonly active = signal('residential');
 
-  categories: ServiceCategory[] = [
+  readonly chapters: Chapter[] = [
     {
-      id: 'residential',
-      name: '',
-      description: '',
-      icon: 'home'
+      id: 'residential', key: 'RESIDENTIAL', icon: 'home',
+      image: IMG('1558618666-fcd25c85cd64', 1100, 880),
+      options: [
+        option('RESIDENTIAL_BASIC', SERVICE_PRICES.residential),
+        option('RESIDENTIAL_DEEP', SERVICE_PRICES.deep_cleaning),
+      ],
     },
     {
-      id: 'commercial',
-      name: '',
-      description: '',
-      icon: 'building'
+      id: 'commercial', key: 'COMMERCIAL', icon: 'building',
+      image: IMG('1497366216548-37526070297c', 1100, 880),
+      options: [
+        option('COMMERCIAL_OFFICE', SERVICE_PRICES.commercial),
+        option('COMMERCIAL_RETAIL', SERVICE_PRICES.commercial),
+      ],
     },
     {
-      id: 'construction',
-      name: '',
-      description: '',
-      icon: 'hammer'
-    }
+      id: 'construction', key: 'CONSTRUCTION', icon: 'hammer',
+      image: IMG('1504307651254-35680f356dfd', 1100, 880),
+      options: [option('CONSTRUCTION_CLEANUP', SERVICE_PRICES.post_construction)],
+    },
+    {
+      id: 'maintenance', key: 'MAINTENANCE', icon: 'refresh',
+      image: IMG('1581578731548-c64695cc6952', 1100, 880),
+      options: [],
+    },
   ];
 
-  services: Service[] = [
-    {
-      id: 'residential_basic',
-      title: '',
-      category: '',
-      description: '',
-      features: ['', '', '', '', ''],
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop&auto=format&q=80',
-      price: '',
-      duration: '',
-      popular: true
-    },
-    {
-      id: 'residential_deep',
-      title: '',
-      category: '',
-      description: '',
-      features: ['', '', '', '', ''],
-      image: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=400&h=300&fit=crop&auto=format&q=80',
-      price: '',
-      duration: ''
-    },
-    {
-      id: 'commercial_office',
-      title: '',
-      category: '',
-      description: '',
-      features: ['', '', '', '', ''],
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop&auto=format&q=80',
-      price: '',
-      duration: ''
-    },
-    {
-      id: 'commercial_retail',
-      title: '',
-      category: '',
-      description: '',
-      features: ['', '', '', '', ''],
-      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop&auto=format&q=80',
-      price: '',
-      duration: ''
-    },
-    {
-      id: 'construction_cleanup',
-      title: '',
-      category: '',
-      description: '',
-      features: ['', '', '', '', ''],
-      image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=300&fit=crop&auto=format&q=80',
-      price: '',
-      duration: ''
-    },
-    {
-      id: 'maintenance',
-      title: '',
-      category: '',
-      description: '',
-      features: ['', '', '', '', ''],
-      image: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=300&fit=crop&auto=format&q=80',
-      price: '',
-      duration: ''
-    }
+  readonly discounts = [
+    { key: 'WEEKLY', percent: FREQUENCY_DISCOUNTS['weekly'] * 100 },
+    { key: 'BI_WEEKLY', percent: FREQUENCY_DISCOUNTS['bi-weekly'] * 100 },
+    { key: 'MONTHLY', percent: FREQUENCY_DISCOUNTS['monthly'] * 100 },
   ];
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private transloco: TranslocoService) {}
+  readonly why = [
+    { key: 'ECO', icon: 'leaf' },
+    { key: 'EXPERTISE', icon: 'award' },
+    { key: 'INSURANCE', icon: 'shield-check' },
+  ];
 
-  ngOnInit() {
-    this.isHeroVisible = true;
+  features(key: string): string[] {
+    const list = this.transloco.translate(`SERVICES.PAGE.SERVICE_LIST.${key}.FEATURES`);
+    return Array.isArray(list) ? list : [];
   }
 
-  ngAfterViewInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.setupScrollAnimations();
+  ngAfterViewInit(): void {
+    if (!this.isBrowser) return;
+    // The site header is fixed and its height varies by breakpoint; pin the chapter nav right below it.
+    const header = document.querySelector<HTMLElement>('.header');
+    if (header) {
+      this.headerObserver = new ResizeObserver(() =>
+        this.host.nativeElement.style.setProperty('--header-h', `${header.offsetHeight}px`));
+      this.headerObserver.observe(header);
     }
-  }
-
-  ngOnDestroy() {
-    if (this.observer) {
-      this.observer.disconnect();
-    }
-  }
-
-  private setupScrollAnimations() {
-    this.observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const element = entry.target;
-
-            if (element === this.categoriesSection?.nativeElement) {
-              this.isCategoriesVisible = true;
-            } else if (element === this.servicesSection?.nativeElement) {
-              this.isServicesVisible = true;
-            } else if (element === this.whySection?.nativeElement) {
-              this.isWhyVisible = true;
-            } else if (element === this.ctaSection?.nativeElement) {
-              this.isCtaVisible = true;
-            }
-          }
-        });
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+    // The chapter crossing the upper third of the viewport is the active tab.
+    this.observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) this.setActive((entry.target as HTMLElement).id);
       }
-    );
-
-    // Observe sections
-    if (this.categoriesSection) this.observer.observe(this.categoriesSection.nativeElement);
-    if (this.servicesSection) this.observer.observe(this.servicesSection.nativeElement);
-    if (this.whySection) this.observer.observe(this.whySection.nativeElement);
-    if (this.ctaSection) this.observer.observe(this.ctaSection.nativeElement);
+    }, { rootMargin: '-30% 0px -65% 0px' });
+    this.chapterEls.forEach(el => this.observer!.observe(el.nativeElement));
   }
 
-  getServiceFeatures(serviceId: string): string[] {
-    const key = serviceId.toUpperCase();
-    const features = this.transloco.translate(`SERVICES.PAGE.SERVICE_LIST.${key}.FEATURES`);
-    return Array.isArray(features) ? features : [];
+  ngOnDestroy(): void {
+    this.observer?.disconnect();
+    this.headerObserver?.disconnect();
+  }
+
+  goTo(event: Event, id: string): void {
+    event.preventDefault();
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    this.setActive(id);
+  }
+
+  /** Highlight a tab and, on narrow screens, scroll the tab strip so it stays visible. */
+  private setActive(id: string): void {
+    this.active.set(id);
+    const track = this.navTrack?.nativeElement;
+    const tab = track?.querySelector<HTMLElement>(`[data-id="${id}"]`);
+    if (track && tab && track.scrollWidth > track.clientWidth) {
+      track.scrollTo({ left: tab.offsetLeft - (track.clientWidth - tab.offsetWidth) / 2, behavior: 'smooth' });
+    }
   }
 }

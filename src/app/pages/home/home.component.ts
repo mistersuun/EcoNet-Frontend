@@ -18,15 +18,15 @@ const IMG = (id: string, w: number, h: number) =>
     <!-- Hero: headline first, then the image grows to full width as you scroll -->
     <section class="hero" scrollFx>
       <div class="hero-copy">
-        <p class="eyebrow">{{ 'HOME.HERO.BADGE' | transloco }}</p>
+        <p class="ui-eyebrow">{{ 'HOME.HERO.BADGE' | transloco }}</p>
         <h1 class="hero-title">
           {{ 'HOME.HERO.TITLE' | transloco }}
           <span class="accent">{{ 'HOME.HERO.TITLE_ACCENT' | transloco }}</span>
         </h1>
         <p class="hero-subtitle">{{ 'HOME.HERO.SUBTITLE' | transloco }}</p>
-        <div class="actions">
-          <a routerLink="/booking" class="pill pill-primary">{{ 'HOME.HERO.CTA_BUTTON' | transloco }}</a>
-          <a routerLink="/pricing" class="text-link">
+        <div class="ui-actions">
+          <a routerLink="/booking" class="ui-pill">{{ 'HOME.HERO.CTA_BUTTON' | transloco }}</a>
+          <a routerLink="/pricing" class="ui-link">
             {{ 'HOME.HERO.SECONDARY' | transloco }} <app-icon name="chevron-right" [size]="16" [stroke]="2.25" />
           </a>
         </div>
@@ -53,48 +53,48 @@ const IMG = (id: string, w: number, h: number) =>
     </section>
 
     <!-- Products -->
-    <section class="section products">
-      <div class="wrap split">
+    <section class="ui-section alt">
+      <div class="ui-wrap split">
         <div class="split-media parallax" scrollFx>
           <img [src]="img.products" [alt]="'HOME.ALT_TEXTS.PRODUCTS_IMAGE' | transloco" loading="lazy">
           <span class="media-badge"><app-icon name="leaf" [size]="16" /> {{ 'HOME.PRODUCTS.BADGE' | transloco }}</span>
         </div>
-        <div class="split-copy reveal" scrollFx>
-          <p class="eyebrow">{{ 'HOME.PRODUCTS.EYEBROW' | transloco }}</p>
-          <h2 class="title">
+        <div class="split-copy ui-reveal" scrollFx>
+          <p class="ui-eyebrow">{{ 'HOME.PRODUCTS.EYEBROW' | transloco }}</p>
+          <h2 class="ui-title">
             {{ 'HOME.PRODUCTS.TITLE' | transloco }}
             <span class="muted">{{ 'HOME.PRODUCTS.TITLE_ACCENT' | transloco }}</span>
           </h2>
-          <p class="lead">{{ 'HOME.PRODUCTS.DESCRIPTION' | transloco }}</p>
+          <p class="ui-lead">{{ 'HOME.PRODUCTS.DESCRIPTION' | transloco }}</p>
           <ul class="feature-list">
-            <li><span class="icon-chip"><app-icon name="leaf" /></span>{{ 'HOME.PRODUCTS.FEATURES.BIODEGRADABLE' | transloco }}</li>
-            <li><span class="icon-chip"><app-icon name="heart" /></span>{{ 'HOME.PRODUCTS.FEATURES.NON_TOXIC' | transloco }}</li>
-            <li><span class="icon-chip"><app-icon name="droplet" /></span>{{ 'HOME.PRODUCTS.FEATURES.ZERO_RESIDUE' | transloco }}</li>
+            <li><span class="ui-chip"><app-icon name="leaf" /></span>{{ 'HOME.PRODUCTS.FEATURES.BIODEGRADABLE' | transloco }}</li>
+            <li><span class="ui-chip"><app-icon name="heart" /></span>{{ 'HOME.PRODUCTS.FEATURES.NON_TOXIC' | transloco }}</li>
+            <li><span class="ui-chip"><app-icon name="droplet" /></span>{{ 'HOME.PRODUCTS.FEATURES.ZERO_RESIDUE' | transloco }}</li>
           </ul>
         </div>
       </div>
     </section>
 
     <!-- Services bento -->
-    <section class="section services">
-      <div class="wrap">
-        <header class="section-head reveal" scrollFx>
-          <p class="eyebrow">{{ 'HOME.SERVICES.EYEBROW' | transloco }}</p>
-          <h2 class="title">{{ 'HOME.SERVICES.TITLE' | transloco }}</h2>
+    <section class="ui-section">
+      <div class="ui-wrap">
+        <header class="ui-head ui-reveal" scrollFx>
+          <p class="ui-eyebrow">{{ 'HOME.SERVICES.EYEBROW' | transloco }}</p>
+          <h2 class="ui-title">{{ 'HOME.SERVICES.TITLE' | transloco }}</h2>
         </header>
 
         <div class="bento">
-          <a routerLink="/services" class="tile tile-photo tile-tall reveal" scrollFx>
+          <a routerLink="/services" class="tile tile-photo tile-tall ui-reveal" scrollFx>
             <img [src]="img.residential" [alt]="'HOME.ALT_TEXTS.RESIDENTIAL_IMAGE' | transloco" loading="lazy">
             <div class="tile-copy">
               <span class="tile-icon"><app-icon name="home" /></span>
               <h3>{{ 'HOME.SERVICES.RESIDENTIAL.TITLE' | transloco }}</h3>
               <p>{{ 'HOME.SERVICES.RESIDENTIAL.DESCRIPTION' | transloco }}</p>
-              <span class="text-link light">{{ 'HOME.SERVICES.LEARN_MORE' | transloco }} <app-icon name="chevron-right" [size]="16" [stroke]="2.25" /></span>
+              <span class="ui-link light">{{ 'HOME.SERVICES.LEARN_MORE' | transloco }} <app-icon name="chevron-right" [size]="16" [stroke]="2.25" /></span>
             </div>
           </a>
 
-          <a routerLink="/services" class="tile tile-photo reveal" scrollFx style="--delay: 80ms">
+          <a routerLink="/services" class="tile tile-photo ui-reveal" scrollFx style="--delay: 80ms">
             <img [src]="img.commercial" [alt]="'HOME.ALT_TEXTS.COMMERCIAL_IMAGE' | transloco" loading="lazy">
             <div class="tile-copy">
               <span class="tile-icon"><app-icon name="building" /></span>
@@ -104,13 +104,13 @@ const IMG = (id: string, w: number, h: number) =>
           </a>
 
           <div class="tile-row">
-            <a routerLink="/services" class="tile tile-plain reveal" scrollFx style="--delay: 160ms">
-              <span class="icon-chip lg"><app-icon name="hammer" [size]="24" /></span>
+            <a routerLink="/services" class="tile tile-plain ui-reveal" scrollFx style="--delay: 160ms">
+              <span class="ui-chip lg"><app-icon name="hammer" [size]="24" /></span>
               <h3>{{ 'HOME.SERVICES.POST_CONSTRUCTION.TITLE' | transloco }}</h3>
               <p>{{ 'HOME.SERVICES.POST_CONSTRUCTION.DESCRIPTION' | transloco }}</p>
             </a>
-            <a routerLink="/pricing" class="tile tile-dark reveal" scrollFx style="--delay: 240ms">
-              <span class="icon-chip lg on-dark"><app-icon name="refresh" [size]="24" /></span>
+            <a routerLink="/pricing" class="tile tile-dark ui-reveal" scrollFx style="--delay: 240ms">
+              <span class="ui-chip lg on-dark"><app-icon name="refresh" [size]="24" /></span>
               <h3>{{ 'HOME.SERVICES.RECURRING.TITLE' | transloco }}</h3>
               <p>{{ 'HOME.SERVICES.RECURRING.DESCRIPTION' | transloco }}</p>
             </a>
@@ -120,17 +120,17 @@ const IMG = (id: string, w: number, h: number) =>
     </section>
 
     <!-- How it works -->
-    <section class="section steps" scrollFx>
-      <div class="wrap">
-        <header class="section-head reveal" scrollFx>
-          <p class="eyebrow">{{ 'HOME.STEPS.EYEBROW' | transloco }}</p>
-          <h2 class="title">{{ 'HOME.STEPS.TITLE' | transloco }}</h2>
+    <section class="ui-section alt steps" scrollFx>
+      <div class="ui-wrap">
+        <header class="ui-head ui-reveal" scrollFx>
+          <p class="ui-eyebrow">{{ 'HOME.STEPS.EYEBROW' | transloco }}</p>
+          <h2 class="ui-title">{{ 'HOME.STEPS.TITLE' | transloco }}</h2>
         </header>
         <div class="step-track">
         <span class="step-line" aria-hidden="true"></span>
         <ol class="step-list">
           @for (step of steps; track step.key; let i = $index) {
-            <li class="step reveal" scrollFx [style.--delay]="(i * 120) + 'ms'">
+            <li class="step ui-reveal" scrollFx [style.--delay]="(i * 120) + 'ms'">
               <span class="step-icon"><app-icon [name]="step.icon" [size]="26" /></span>
               <span class="step-num">{{ i + 1 }}</span>
               <h3>{{ 'HOME.STEPS.' + step.key + '.TITLE' | transloco }}</h3>
@@ -143,14 +143,14 @@ const IMG = (id: string, w: number, h: number) =>
     </section>
 
     <!-- Closing CTA -->
-    <section class="cta" scrollFx>
-      <div class="wrap cta-inner">
-        <app-icon name="leaf" [size]="40" [stroke]="1.5" class="cta-mark" />
-        <h2 class="cta-title">{{ 'HOME.CTA.TITLE' | transloco }}</h2>
-        <p class="cta-subtitle">{{ 'HOME.CTA.SUBTITLE' | transloco }}</p>
-        <div class="actions center">
-          <a routerLink="/booking" class="pill pill-light">{{ 'HOME.CTA.GET_QUOTE' | transloco }}</a>
-          <a routerLink="/contact" class="text-link light">
+    <section class="ui-cta" scrollFx>
+      <div class="ui-wrap ui-cta-inner">
+        <app-icon name="leaf" [size]="40" [stroke]="1.5" class="ui-cta-mark" />
+        <h2 class="ui-cta-title">{{ 'HOME.CTA.TITLE' | transloco }}</h2>
+        <p class="ui-cta-subtitle">{{ 'HOME.CTA.SUBTITLE' | transloco }}</p>
+        <div class="ui-actions center">
+          <a routerLink="/booking" class="ui-pill light">{{ 'HOME.CTA.GET_QUOTE' | transloco }}</a>
+          <a routerLink="/contact" class="ui-link light">
             {{ 'HOME.CTA.DISCOVER_SERVICES' | transloco }} <app-icon name="chevron-right" [size]="16" [stroke]="2.25" />
           </a>
         </div>
@@ -159,98 +159,39 @@ const IMG = (id: string, w: number, h: number) =>
   `,
   styles: [`
     :host {
-      --ink: #1d1d1f;
-      --muted: #6e6e73;
-      --green: #6b9080;
-      --green-deep: #3f6b5a;
-      --green-ink: #1f3a30;
-      --mint: #eaf4f1;
-      --surface: #f5f5f7;
-      --ease: cubic-bezier(0.22, 1, 0.36, 1);
-      --wrap: 1120px;
       display: block;
-      color: var(--ink);
+      color: var(--ui-ink);
       background: #fff;
     }
-
-    .wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
-    .section { padding: clamp(80px, 12vw, 160px) 0; }
-
-    /* ---------- type ---------- */
-    .eyebrow {
-      font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--green-deep); margin: 0 0 16px;
-    }
-    .title {
-      font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 600; line-height: 1.05;
-      letter-spacing: -0.025em; margin: 0 0 20px; color: var(--ink);
-    }
-    .title .muted { display: block; color: var(--muted); }
-    .lead { font-size: clamp(1.0625rem, 1.6vw, 1.25rem); line-height: 1.55; color: var(--muted); margin: 0; }
-
-    /* ---------- buttons ---------- */
-    .actions { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
-    .actions.center { justify-content: center; }
-    .pill {
-      display: inline-flex; align-items: center; justify-content: center;
-      min-height: 48px; padding: 0 28px; border-radius: 980px;
-      font-size: 1.0625rem; font-weight: 500; text-decoration: none;
-      transition: transform 0.3s var(--ease), background-color 0.3s var(--ease);
-    }
-    .pill:active { transform: scale(0.97); }
-    .pill-primary { background: var(--green-deep); color: #fff; }
-    .pill-primary:hover { background: var(--green-ink); }
-    .pill-light { background: #fff; color: var(--green-ink); }
-    .pill-light:hover { background: var(--mint); }
-    .text-link {
-      display: inline-flex; align-items: center; gap: 2px;
-      font-size: 1.0625rem; font-weight: 500; color: var(--green-deep); text-decoration: none;
-    }
-    .text-link:hover { text-decoration: underline; text-underline-offset: 4px; }
-    .text-link app-icon { transition: transform 0.3s var(--ease); }
-    .text-link:hover app-icon { transform: translateX(3px); }
-    .text-link.light { color: #fff; }
-    .pill:focus-visible, .text-link:focus-visible, .tile:focus-visible {
-      outline: 3px solid var(--green); outline-offset: 3px;
-    }
-
-    /* ---------- reveal (shared) ---------- */
-    .reveal {
-      opacity: 0; transform: translateY(32px);
-      transition: opacity 0.9s var(--ease) var(--delay, 0ms), transform 0.9s var(--ease) var(--delay, 0ms);
-    }
-    .reveal.is-visible { opacity: 1; transform: none; }
 
     /* ---------- hero ---------- */
     .hero {
       padding: clamp(120px, 16vh, 180px) 24px clamp(48px, 8vh, 80px);
       text-align: center;
-      background: radial-gradient(120% 80% at 50% 0%, var(--mint) 0%, #fff 70%);
+      background: radial-gradient(120% 80% at 50% 0%, var(--ui-mint) 0%, #fff 70%);
     }
     .hero-copy {
       max-width: 880px; margin: 0 auto;
       /* drifts up and fades as the hero scrolls away */
       opacity: calc(1 - var(--exit, 0) * 1.6);
       transform: translateY(calc(var(--exit, 0) * -80px)) scale(calc(1 - var(--exit, 0) * 0.04));
-      animation: rise 1.1s var(--ease) backwards;
+      animation: ui-rise 1.1s var(--ui-ease) backwards;
     }
     .hero-title {
       font-size: clamp(2.75rem, 8vw, 6rem); font-weight: 600; line-height: 1;
-      letter-spacing: -0.035em; margin: 0 0 24px; color: var(--ink);
+      letter-spacing: -0.035em; margin: 0 0 24px; color: var(--ui-ink);
     }
     .hero-title .accent {
       display: block;
-      background: linear-gradient(90deg, var(--green-deep), var(--green) 60%, #8fb5a3);
+      background: linear-gradient(90deg, var(--ui-green-deep), var(--ui-green) 60%, #8fb5a3);
       -webkit-background-clip: text; background-clip: text; color: transparent;
       padding-bottom: 0.08em;
     }
     .hero-subtitle {
-      font-size: clamp(1.125rem, 2vw, 1.375rem); line-height: 1.5; color: var(--muted);
+      font-size: clamp(1.125rem, 2vw, 1.375rem); line-height: 1.5; color: var(--ui-muted);
       max-width: 620px; margin: 0 auto 36px;
     }
-    .hero .actions { justify-content: center; }
-    @keyframes rise { from { opacity: 0; transform: translateY(24px); } }
-
+    .hero .ui-actions { justify-content: center; }
     /* Image starts inset with rounded corners, then expands edge-to-edge */
     .hero-media { height: 170vh; position: relative; }
     .hero-media-sticky {
@@ -276,7 +217,7 @@ const IMG = (id: string, w: number, h: number) =>
       display: flex; align-items: center; justify-content: center; padding: 0 24px;
     }
     .statement-text {
-      max-width: 980px; margin: 0; text-align: center; color: var(--ink);
+      max-width: 980px; margin: 0; text-align: center; color: var(--ui-ink);
       font-size: clamp(1.875rem, 5vw, 3.75rem); font-weight: 600; line-height: 1.15; letter-spacing: -0.025em;
     }
     .statement-text span {
@@ -286,10 +227,9 @@ const IMG = (id: string, w: number, h: number) =>
     }
 
     /* ---------- products (split) ---------- */
-    .products { background: var(--surface); }
     .split { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(40px, 7vw, 96px); align-items: center; }
     .split-media {
-      position: relative; aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; background: var(--mint);
+      position: relative; aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; background: var(--ui-mint);
     }
     .parallax img {
       width: 100%; height: 118%; object-fit: cover; display: block;
@@ -301,20 +241,11 @@ const IMG = (id: string, w: number, h: number) =>
       display: inline-flex; align-items: center; gap: 8px;
       padding: 10px 16px; border-radius: 980px;
       background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      font-size: 0.875rem; font-weight: 600; color: var(--green-ink);
+      font-size: 0.875rem; font-weight: 600; color: var(--ui-green-ink);
     }
-    .feature-list { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 16px; }
     .feature-list li { display: flex; align-items: center; gap: 16px; font-size: 1.0625rem; font-weight: 500; }
-    .icon-chip {
-      width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
-      display: inline-flex; align-items: center; justify-content: center;
-      background: var(--mint); color: var(--green-deep);
-    }
-    .icon-chip.lg { width: 52px; height: 52px; border-radius: 16px; margin-bottom: 20px; }
-    .icon-chip.on-dark { background: rgba(255, 255, 255, 0.12); color: #fff; }
-
+    .feature-list { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 16px; }
     /* ---------- services bento ---------- */
-    .section-head { text-align: center; max-width: 720px; margin: 0 auto clamp(40px, 6vw, 72px); }
     .bento {
       display: grid; gap: 20px;
       grid-template-columns: 1fr 1fr;
@@ -324,17 +255,17 @@ const IMG = (id: string, w: number, h: number) =>
       position: relative; display: flex; flex-direction: column; justify-content: flex-end;
       border-radius: 28px; overflow: hidden; text-decoration: none; color: inherit;
       padding: 32px; min-height: 280px;
-      transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease),
-                  opacity 0.9s var(--ease) var(--delay, 0ms);
+      transition: transform 0.6s var(--ui-ease), box-shadow 0.6s var(--ui-ease),
+                  opacity 0.9s var(--ui-ease) var(--delay, 0ms);
     }
-    .tile.reveal.is-visible:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -24px rgba(31, 58, 48, 0.35); }
+    .tile.ui-reveal.is-visible:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -24px rgba(31, 58, 48, 0.35); }
     .tile h3 { color: inherit; font-size: 1.75rem; font-weight: 600; letter-spacing: -0.02em; margin: 0 0 8px; }
     .tile p { font-size: 1.0625rem; line-height: 1.5; margin: 0; }
     .tile-tall { grid-row: span 2; min-height: 580px; }
     .tile-photo { color: #fff; }
     .tile-photo img {
       position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-      transition: transform 1.2s var(--ease);
+      transition: transform 1.2s var(--ui-ease);
     }
     .tile-photo:hover img { transform: scale(1.04); }
     .tile-photo::after {
@@ -348,15 +279,15 @@ const IMG = (id: string, w: number, h: number) =>
       display: inline-flex; align-items: center; justify-content: center;
       background: rgba(255, 255, 255, 0.18); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     }
+    .tile .ui-chip.lg { margin-bottom: 20px; }
     .tile-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .tile-row .tile { justify-content: flex-start; min-height: 280px; }
-    .tile-plain { background: var(--surface); }
-    .tile-plain p { color: var(--muted); }
-    .tile-dark { background: var(--green-ink); color: #fff; }
+    .tile-plain { background: var(--ui-surface); }
+    .tile-plain p { color: var(--ui-muted); }
+    .tile-dark { background: var(--ui-green-ink); color: #fff; }
     .tile-dark p { color: rgba(255, 255, 255, 0.75); }
 
     /* ---------- steps ---------- */
-    .steps { background: var(--surface); }
     .step-track { position: relative; }
     .step-list {
       list-style: none; margin: 0; padding: 0;
@@ -364,39 +295,22 @@ const IMG = (id: string, w: number, h: number) =>
     }
     .step-line {
       position: absolute; top: 36px; left: 16.66%; right: 16.66%; height: 2px;
-      background: linear-gradient(90deg, var(--green), var(--green-deep));
+      background: linear-gradient(90deg, var(--ui-green), var(--ui-green-deep));
       transform-origin: left; transform: scaleX(clamp(0, calc(var(--enter, 0) * 1.25 - 0.25), 1));
     }
     .step { text-align: center; position: relative; }
     .step-icon {
       width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 20px;
       display: flex; align-items: center; justify-content: center; position: relative; z-index: 1;
-      background: #fff; color: var(--green-deep);
-      box-shadow: 0 0 0 8px var(--surface), 0 12px 24px -12px rgba(31, 58, 48, 0.35);
+      background: #fff; color: var(--ui-green-deep);
+      box-shadow: 0 0 0 8px var(--ui-surface), 0 12px 24px -12px rgba(31, 58, 48, 0.35);
     }
     .step-num {
-      display: block; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; color: var(--green);
+      display: block; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; color: var(--ui-green);
       margin-bottom: 6px;
     }
-    .step h3 { color: var(--ink); font-size: 1.375rem; font-weight: 600; letter-spacing: -0.015em; margin: 0 0 8px; }
-    .step p { color: var(--muted); line-height: 1.55; margin: 0 auto; max-width: 280px; }
-
-    /* ---------- CTA ---------- */
-    .cta {
-      background: radial-gradient(100% 120% at 50% 100%, #2c5244 0%, var(--green-ink) 60%);
-      color: #fff; text-align: center; padding: clamp(96px, 14vw, 180px) 0;
-      overflow: hidden;
-    }
-    .cta-inner {
-      max-width: 760px;
-      transform: scale(calc(0.95 + var(--enter, 1) * 0.05));
-    }
-    .cta-mark { color: #a4c3b2; margin-bottom: 24px; }
-    .cta-title {
-      font-size: clamp(2.25rem, 6vw, 4.5rem); font-weight: 600; line-height: 1.05;
-      letter-spacing: -0.03em; margin: 0 0 20px; color: #fff;
-    }
-    .cta-subtitle { font-size: clamp(1.0625rem, 1.8vw, 1.3125rem); color: rgba(255, 255, 255, 0.75); margin: 0 0 40px; }
+    .step h3 { color: var(--ui-ink); font-size: 1.375rem; font-weight: 600; letter-spacing: -0.015em; margin: 0 0 8px; }
+    .step p { color: var(--ui-muted); line-height: 1.55; margin: 0 auto; max-width: 280px; }
 
     /* ---------- responsive ---------- */
     @media (max-width: 900px) {
@@ -415,12 +329,10 @@ const IMG = (id: string, w: number, h: number) =>
       .tile-row { grid-template-columns: 1fr; }
       .tile-row .tile { min-height: 0; }
       .tile h3 { color: inherit; font-size: 1.5rem; }
-      .actions { gap: 20px; flex-direction: column; }
-      .pill { width: 100%; max-width: 320px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .reveal, .hero-copy { opacity: 1; transform: none; animation: none; transition: none; }
+      .hero-copy { opacity: 1; transform: none; animation: none; transition: none; }
       .hero-media { height: auto; }
       .hero-media-sticky { position: static; height: 70vh; }
       .statement { height: auto; padding: 120px 0; }

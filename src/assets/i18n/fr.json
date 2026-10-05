@@ -115,10 +115,10 @@
     "SUBTITLE": "Solutions complètes de nettoyage écologique",
     "PAGE": {
       "HERO": {
-        "BADGE": "Services Professionnels • Montréal",
-        "TITLE": "Solutions de nettoyage",
-        "TITLE_ACCENT": "sur mesure",
-        "SUBTITLE": "Des services professionnels adaptés à vos besoins spécifiques, avec des produits écologiques et une approche respectueuse de l'environnement."
+        "BADGE": "Services",
+        "TITLE": "Un service pour",
+        "TITLE_ACCENT": "chaque espace.",
+        "SUBTITLE": "Résidentiel, commercial ou après travaux : le même soin du détail, avec des produits biodégradables et non toxiques."
       },
       "CATEGORIES": {
         "TITLE": "Nos domaines d'expertise",
@@ -165,9 +165,9 @@
         "IMAGE_ALT": "Équipe professionnelle ÉcoNet"
       },
       "CTA": {
-        "TITLE": "Prêt à démarrer?",
-        "SUBTITLE": "Obtenez votre devis personnalisé et planifiez votre service dès aujourd'hui",
-        "BOOK_NOW": "Réserver maintenant",
+        "TITLE": "Trouvons le bon service pour vous.",
+        "SUBTITLE": "Réservez en ligne en deux minutes, ou écrivez-nous pour un devis sur mesure.",
+        "BOOK_NOW": "Réserver un nettoyage",
         "GET_QUOTE": "Demander un devis"
       },
       "SERVICE_LIST": {
@@ -182,7 +182,6 @@
             "Nettoyage des salles de bain",
             "Produits écologiques"
           ],
-          "PRICE": "89$/visite",
           "DURATION": "2-3 heures"
         },
         "RESIDENTIAL_DEEP": {
@@ -196,7 +195,6 @@
             "Nettoyage des plinthes et cadres",
             "Désinfection complète"
           ],
-          "PRICE": "159$/visite",
           "DURATION": "4-5 heures"
         },
         "COMMERCIAL_OFFICE": {
@@ -210,7 +208,6 @@
             "Désinfection des surfaces",
             "Service flexible (jour/soir)"
           ],
-          "PRICE": "45$/h",
           "DURATION": "Selon besoins"
         },
         "COMMERCIAL_RETAIL": {
@@ -224,7 +221,6 @@
             "Désinfection des zones sensibles",
             "Horaires flexibles"
           ],
-          "PRICE": "65$/h",
           "DURATION": "Selon surface"
         },
         "CONSTRUCTION_CLEANUP": {
@@ -238,7 +234,6 @@
             "Nettoyage des fenêtres",
             "Préparation pour emménagement"
           ],
-          "PRICE": "3.50$/pi²",
           "DURATION": "1-2 jours"
         },
         "MAINTENANCE": {
@@ -252,8 +247,43 @@
             "Suivi qualité régulier",
             "Tarifs préférentiels"
           ],
-          "PRICE": "Sur mesure",
           "DURATION": "Variable"
+        }
+      },
+      "NAV_LABEL": "Aller à la section",
+      "LABELS": {
+        "FROM": "À partir de",
+        "BOOK": "Réserver",
+        "QUOTE": "Demander un devis",
+        "SEE_PRICING": "Voir tous les tarifs",
+        "TAXES": "taxes en sus",
+        "OFF": "de rabais",
+        "INCLUDED": "Inclus"
+      },
+      "CHAPTERS": {
+        "RESIDENTIAL": {
+          "NAV": "Résidentiel",
+          "TITLE": "Votre maison,",
+          "TITLE_ACCENT": "impeccable.",
+          "DESCRIPTION": "Maisons, condos et appartements. Choisissez un entretien standard ou un grand nettoyage en profondeur."
+        },
+        "COMMERCIAL": {
+          "NAV": "Commercial",
+          "TITLE": "Un lieu de travail",
+          "TITLE_ACCENT": "qui inspire.",
+          "DESCRIPTION": "Bureaux, commerces et restaurants, nettoyés en dehors de vos heures d'ouverture."
+        },
+        "CONSTRUCTION": {
+          "NAV": "Après-construction",
+          "TITLE": "Après les travaux,",
+          "TITLE_ACCENT": "place à la vie.",
+          "DESCRIPTION": "Poussière fine, résidus de peinture et débris : nous préparons votre espace pour l'emménagement."
+        },
+        "MAINTENANCE": {
+          "NAV": "Entretien régulier",
+          "TITLE": "Toujours propre.",
+          "TITLE_ACCENT": "Toujours moins cher.",
+          "DESCRIPTION": "Planifiez un passage régulier et le rabais s'applique automatiquement à chaque visite."
         }
       }
     },
@@ -422,8 +452,10 @@
     "TITLE": "Nos Tarifs",
     "SUBTITLE": "Transparence et flexibilité pour tous vos besoins",
     "HERO": {
-      "TITLE": "Services de Nettoyage",
-      "SUBTITLE": "Écologique. Professionnel. Transparent."
+      "TITLE": "Des prix clairs.",
+      "SUBTITLE": "Voyez votre prix avant de réserver. Les rabais sur les services réguliers s'appliquent automatiquement.",
+      "BADGE": "Tarifs",
+      "TITLE_ACCENT": "Sans surprise."
     },
     "SERVICES": {
       "TITLE": "Nos Services",
@@ -526,195 +558,11 @@
         ]
       }
     },
-    "PLANS_TITLE": "Nos Forfaits",
-    "ESSENTIAL": {
-      "NAME": "Essentiel",
-      "PRICE": "À partir de 89$",
-      "FEATURES": [
-        "Nettoyage de base",
-        "Produits écologiques",
-        "2-3 heures",
-        "Garantie satisfaction"
-      ]
-    },
-    "PREMIUM": {
-      "NAME": "Premium",
-      "PRICE": "À partir de 149$",
-      "FEATURES": [
-        "Nettoyage complet",
-        "Produits premium",
-        "4-5 heures",
-        "Équipe de 2 personnes"
-      ]
-    },
-    "DELUXE": {
-      "NAME": "Deluxe",
-      "PRICE": "À partir de 219$",
-      "FEATURES": [
-        "Service complet",
-        "Finitions détaillées",
-        "6+ heures",
-        "Équipe spécialisée"
-      ]
-    },
-    "CUSTOM_TITLE": "Service Personnalisé",
-    "CUSTOM_DESC": "Chaque espace est unique. Contactez-nous pour un devis sur mesure.",
     "CTA_TITLE": "Prêt pour un espace plus propre?",
     "CTA_DESC": "Obtenez votre devis personnalisé gratuitement",
     "GET_QUOTE_BTN": "Demander un Devis",
-    "PAGE": {
-      "HERO": {
-        "TITLE": "Services de Nettoyage",
-        "SUBTITLE": "Écologique. Professionnel. Transparent."
-      },
-      "SERVICES": {
-        "TITLE": "Nos Services",
-        "SUBTITLE": "Choisissez la solution parfaite pour vos besoins",
-        "PRICE_FROM": "à partir de",
-        "BOOK": "Réserver",
-        "LEARN_MORE": "En savoir plus"
-      },
-      "PLANS": {
-        "RESIDENTIAL": {
-          "NAME": "Nettoyage Résidentiel",
-          "DESCRIPTION": "Parfait pour maisons et appartements",
-          "DURATION": "2-3 heures",
-          "FEATURES": [
-            "Nettoyage complet de toutes les pièces",
-            "Cuisine et salle de bain désinfectées",
-            "Aspirateur et serpillière",
-            "Dépoussiérage des surfaces",
-            "Nettoyage des vitres intérieures",
-            "Vidage des poubelles"
-          ],
-          "DISCOUNTS": [
-            {
-              "FREQUENCY": "Hebdomadaire",
-              "DISCOUNT": 15
-            },
-            {
-              "FREQUENCY": "Bi-hebdomadaire",
-              "DISCOUNT": 10
-            },
-            {
-              "FREQUENCY": "Mensuel",
-              "DISCOUNT": 5
-            }
-          ]
-        },
-        "COMMERCIAL": {
-          "NAME": "Nettoyage Commercial",
-          "DESCRIPTION": "Idéal pour bureaux et commerces",
-          "DURATION": "3-5 heures",
-          "FEATURES": [
-            "Nettoyage des espaces de travail",
-            "Sanitaires et espaces communs",
-            "Désinfection des points de contact",
-            "Vidage et remplacement des sacs",
-            "Nettoyage des surfaces vitrées",
-            "Entretien des sols"
-          ],
-          "DISCOUNTS": [
-            {
-              "FREQUENCY": "Hebdomadaire",
-              "DISCOUNT": 20
-            },
-            {
-              "FREQUENCY": "Bi-hebdomadaire",
-              "DISCOUNT": 15
-            },
-            {
-              "FREQUENCY": "Mensuel",
-              "DISCOUNT": 10
-            }
-          ]
-        },
-        "POST_CONSTRUCTION": {
-          "NAME": "Post-Construction",
-          "DESCRIPTION": "Après travaux de rénovation",
-          "DURATION": "4-6 heures",
-          "FEATURES": [
-            "Enlèvement poussière de construction",
-            "Nettoyage résidus de peinture",
-            "Aspiration industrielle",
-            "Dégraissage complet",
-            "Nettoyage approfondi vitres",
-            "Finition détaillée"
-          ]
-        },
-        "DEEP_CLEANING": {
-          "NAME": "Nettoyage en Profondeur",
-          "DESCRIPTION": "Service intensif et détaillé",
-          "DURATION": "4-5 heures",
-          "FEATURES": [
-            "Nettoyage complet chaque pièce",
-            "Intérieur des électroménagers",
-            "Plinthes et moulures",
-            "Luminaires et ventilateurs",
-            "Désinfection complète",
-            "Traitement taches tenaces"
-          ],
-          "DISCOUNTS": [
-            {
-              "FREQUENCY": "Trimestriel",
-              "DISCOUNT": 8
-            },
-            {
-              "FREQUENCY": "Semestriel",
-              "DISCOUNT": 5
-            }
-          ]
-        }
-      },
-      "FACTORS": {
-        "TITLE": "Facteurs de Tarification",
-        "SUBTITLE": "Comprendre comment nous calculons nos prix",
-        "LIST": {
-          "AREA": {
-            "NAME": "Superficie",
-            "DESCRIPTION": "La taille de votre espace influence directement le temps nécessaire",
-            "FACTORS": [
-              "Moins de 800 pi² : Prix de base",
-              "800-1500 pi² : +25%",
-              "1500-2500 pi² : +50%",
-              "Plus de 2500 pi² : Devis personnalisé"
-            ]
-          },
-          "PROPERTY_TYPE": {
-            "NAME": "Type de Propriété",
-            "DESCRIPTION": "Différents espaces nécessitent des approches spécifiques",
-            "FACTORS": [
-              "Appartement/Condo : Prix standard",
-              "Maison unifamiliale : +10-20%",
-              "Bureau/Commercial : Tarif spécialisé",
-              "Espace post-construction : +40-60%"
-            ]
-          },
-          "FREQUENCY": {
-            "NAME": "Fréquence",
-            "DESCRIPTION": "Plus vous réservez régulièrement, plus vous économisez",
-            "FACTORS": [
-              "Ponctuel : Prix plein",
-              "Mensuel : -5%",
-              "Bi-hebdomadaire : -10%",
-              "Hebdomadaire : -15%"
-            ]
-          },
-          "ADDITIONAL_SERVICES": {
-            "NAME": "Services Additionnels",
-            "DESCRIPTION": "Options supplémentaires selon vos besoins",
-            "FACTORS": [
-              "Nettoyage vitres extérieures : +40$",
-              "Nettoyage four : +25$",
-              "Nettoyage réfrigérateur : +35$",
-              "Garage/sous-sol : +50$"
-            ]
-          }
-        }
-      }
-    },
     "COMPARISON": {
-      "TITLE": "Comparaison des Services",
+      "TITLE": "Ce qui est inclus.",
       "SUBTITLE": "Trouvez le service parfait pour vos besoins",
       "FEATURES": "Caractéristiques",
       "GENERAL_CLEANING": "Nettoyage général",
@@ -723,16 +571,10 @@
       "SPECIALIZED_EQUIPMENT": "Équipement spécialisé",
       "POST_CONSTRUCTION": "Nettoyage post-travaux",
       "APPLIANCE_INTERIOR": "Intérieur électroménagers",
-      "SATISFACTION_GUARANTEE": "Garantie satisfaction"
-    },
-    "CALCULATOR": {
-      "TITLE": "Calculateur de Prix Instantané",
-      "SUBTITLE": "Obtenez une estimation immédiate basée sur vos besoins spécifiques",
-      "FEATURE_1": "Calcul basé sur la superficie",
-      "FEATURE_2": "Type de propriété pris en compte",
-      "FEATURE_3": "Rabais pour services récurrents",
-      "FEATURE_4": "Devis instantané et gratuit",
-      "BUTTON": "Calculer Mon Prix"
+      "SATISFACTION_GUARANTEE": "Garantie satisfaction",
+      "EYEBROW": "Comparer",
+      "YES": "Inclus",
+      "NO": "Non inclus"
     },
     "GUARANTEE": {
       "TITLE": "Notre Garantie Prix",
@@ -751,7 +593,7 @@
       }
     },
     "FAQ": {
-      "TITLE": "Questions Fréquentes sur les Prix",
+      "TITLE": "Questions sur les prix",
       "PAYMENT_METHODS": {
         "QUESTION": "Quels modes de paiement acceptez-vous?",
         "ANSWER": "Nous acceptons les cartes de crédit, débit, virement Interac et paiement comptant."
@@ -778,10 +620,31 @@
       }
     },
     "CTA": {
-      "TITLE": "Prêt pour un espace plus propre?",
-      "SUBTITLE": "Commencez dès aujourd'hui avec un devis gratuit.",
-      "BOOK_NOW": "Réserver maintenant",
-      "GET_QUOTE": "Obtenir un devis"
+      "TITLE": "Votre prix en deux minutes.",
+      "SUBTITLE": "Choisissez votre service, vos options et votre fréquence. Le total s'affiche avant d'envoyer.",
+      "BOOK_NOW": "Calculer et réserver",
+      "GET_QUOTE": "Demander un devis"
+    },
+    "POPULAR": "Le plus populaire",
+    "QUOTE": "Demander un devis",
+    "TAXES_NOTE": "Prix de départ avant taxes (TPS + TVQ).",
+    "PLANS_HEAD": {
+      "EYEBROW": "Forfaits",
+      "TITLE": "Choisissez votre service."
+    },
+    "DISCOUNTS": {
+      "EYEBROW": "Services réguliers",
+      "TITLE": "Plus c'est régulier,",
+      "TITLE_ACCENT": "moins c'est cher.",
+      "SUBTITLE": "Le rabais s'applique sur chaque visite, options comprises."
+    },
+    "ADDONS": {
+      "TITLE": "Options à la carte",
+      "SUBTITLE": "Ajoutez-les lors de votre réservation."
+    },
+    "ADJUST": {
+      "TITLE": "Ce qui peut ajuster votre prix",
+      "SUBTITLE": "Pour les grands espaces ou les cas particuliers, nous confirmons le prix avec vous avant le service."
     }
   },
   "CONTACT": {
