@@ -32,28 +32,33 @@
   },
   "HOME": {
     "HERO": {
-      "BADGE": "Eco-Friendly Cleaning • Montreal",
-      "TITLE": "Excellence in",
-      "TITLE_ACCENT": "eco-friendly cleaning",
-      "SUBTITLE": "Together, let's redefine professional cleaning standards with 100% natural and respectful solutions.",
-      "CTA_BUTTON": "Get started now"
+      "BADGE": "Eco-friendly cleaning · Montreal",
+      "TITLE": "A spotless space.",
+      "TITLE_ACCENT": "Naturally.",
+      "SUBTITLE": "Residential and commercial cleaning with biodegradable, non-toxic products. Book online in two minutes.",
+      "CTA_BUTTON": "Book a cleaning",
+      "SECONDARY": "See pricing"
     },
+    "STATEMENT": "Biodegradable products. A meticulous team. Results you can see, and air you can breathe a little easier.",
     "PRODUCTS": {
-      "TITLE": "Certified natural",
-      "TITLE_ACCENT": "products",
-      "DESCRIPTION": "Every product is selected according to our most rigorous standards. Biodegradable, non-toxic and effective - the perfect alliance for your health and that of the environment.",
+      "EYEBROW": "Our products",
+      "TITLE": "Gentle on you.",
+      "TITLE_ACCENT": "Tough on dirt.",
+      "DESCRIPTION": "We choose biodegradable, non-toxic products that cut through dirt without leaving harsh smells or residue behind.",
       "FEATURES": {
-        "CERT": "✓ Quebec ecological certification",
-        "FORMULA": "✓ Advanced natural formulas",
-        "ZERO_RESIDUE": "✓ Zero chemical residue"
+        "BIODEGRADABLE": "Biodegradable",
+        "NON_TOXIC": "Non-toxic",
+        "ZERO_RESIDUE": "No chemical residue"
       },
-      "BADGE": "100% Natural"
+      "BADGE": "100% natural"
     },
     "SERVICES": {
-      "TITLE": "Tailored excellence",
+      "EYEBROW": "Services",
+      "TITLE": "A service for every space.",
+      "LEARN_MORE": "Learn more",
       "RESIDENTIAL": {
         "TITLE": "Residential",
-        "DESCRIPTION": "Your home deserves special attention. Our personalized approach transforms your space into a sanctuary of cleanliness.",
+        "DESCRIPTION": "Houses, condos and apartments. A thorough clean that fits your schedule.",
         "FEATURES": {
           "HYPOALLERGENIC": "Hypoallergenic products",
           "FLEXIBLE": "Flexible service"
@@ -61,45 +66,48 @@
       },
       "COMMERCIAL": {
         "TITLE": "Commercial",
-        "DESCRIPTION": "Create a professional environment that inspires confidence. Solutions adapted to modern workspaces.",
+        "DESCRIPTION": "Offices, shops and workspaces, outside your business hours.",
         "FEATURES": {
           "FLEXIBLE_HOURS": "Flexible hours",
           "ADAPTED_PROTOCOLS": "Adapted protocols"
         }
+      },
+      "POST_CONSTRUCTION": {
+        "TITLE": "Post-construction",
+        "DESCRIPTION": "Fine dust, debris and finishing touches after your renovation."
+      },
+      "RECURRING": {
+        "TITLE": "Up to 15% off",
+        "DESCRIPTION": "with weekly service. 10% every two weeks."
       }
     },
-    "EXPERIENCE": {
-      "TITLE": "The",
-      "TITLE_ACCENT": "EcoNet experience",
-      "DESCRIPTION": "More than just a service, we create a unique experience that exceeds your expectations. Every detail matters in our holistic approach to cleaning.",
-      "STATS": {
-        "CLIENTS": "Satisfied clients",
-        "ECO": "Eco-friendly",
-        "EXPERTISE": "Of expertise",
-        "REACTIVITY": "Response time"
+    "STEPS": {
+      "EYEBROW": "How it works",
+      "TITLE": "Simple, from start to finish.",
+      "BOOK": {
+        "TITLE": "Book online",
+        "DESCRIPTION": "Pick your service and see your price instantly."
       },
-      "TESTIMONIAL": {
-        "TEXT": "A revolution in cleaning. The EcoNet team transformed our office into a wellness space. Natural products, exceptional results.",
-        "AUTHOR_NAME": "Marie Dubois",
-        "AUTHOR_TITLE": "Director, TechStart Montreal"
+      "CONFIRM": {
+        "TITLE": "We confirm",
+        "DESCRIPTION": "We get back to you within 24 hours to confirm the date."
+      },
+      "CLEAN": {
+        "TITLE": "You enjoy",
+        "DESCRIPTION": "Our team arrives on time with everything needed."
       }
     },
     "CTA": {
-      "TITLE": "Transform your space",
-      "SUBTITLE": "Join hundreds of satisfied customers who have chosen ecological excellence. Your personalized quote awaits you.",
-      "GET_QUOTE": "Get my quote",
-      "DISCOVER_SERVICES": "Discover our services",
-      "FLOATING_BADGES": {
-        "ECO": "100% Natural",
-        "SERVICE": "Premium Service",
-        "LOCAL": "Montreal"
-      }
+      "TITLE": "Ready for a space that breathes?",
+      "SUBTITLE": "Get your price online in two minutes. No commitment.",
+      "GET_QUOTE": "Book a cleaning",
+      "DISCOVER_SERVICES": "Contact us"
     },
     "ALT_TEXTS": {
-      "HERO_IMAGE": "Excellence in eco-friendly cleaning",
-      "PRODUCTS_IMAGE": "Premium eco-friendly products",
-      "RESIDENTIAL_IMAGE": "Premium residential cleaning",
-      "COMMERCIAL_IMAGE": "Premium commercial cleaning"
+      "HERO_IMAGE": "Bright, freshly cleaned living room",
+      "PRODUCTS_IMAGE": "Eco-friendly cleaning products",
+      "RESIDENTIAL_IMAGE": "Residential cleaning",
+      "COMMERCIAL_IMAGE": "Office cleaning"
     }
   },
   "SERVICES": {
@@ -143,11 +151,11 @@
         "FEATURES": {
           "ECO": {
             "TITLE": "100% Eco-Friendly",
-            "DESCRIPTION": "Certified and environmentally respectful products"
+            "DESCRIPTION": "Biodegradable, environmentally respectful products"
           },
           "EXPERTISE": {
-            "TITLE": "Recognized Expertise",
-            "DESCRIPTION": "Over 5 years of experience and 500+ satisfied clients"
+            "TITLE": "Meticulous work",
+            "DESCRIPTION": "A trained team that pays attention to every detail"
           },
           "INSURANCE": {
             "TITLE": "Complete Insurance",
@@ -172,7 +180,7 @@
             "Surface cleaning",
             "Vacuuming and floor washing",
             "Bathroom cleaning",
-            "Certified eco-friendly products"
+            "Eco-friendly products"
           ],
           "PRICE": "$89/visit",
           "DURATION": "2-3 hours"
@@ -252,39 +260,69 @@
     "RESIDENTIAL": {
       "TITLE": "Residential Cleaning",
       "DESC": "Complete service for homes and apartments",
-      "FEATURES": ["Regular cleaning", "Eco-friendly products", "Trained team", "Full insurance"]
+      "FEATURES": [
+        "Regular cleaning",
+        "Eco-friendly products",
+        "Trained team",
+        "Full insurance"
+      ]
     },
     "COMMERCIAL": {
       "TITLE": "Commercial Cleaning",
       "DESC": "Professional solutions for businesses",
-      "FEATURES": ["Offices and stores", "Flexible hours", "Professional equipment", "Custom contracts"]
+      "FEATURES": [
+        "Offices and stores",
+        "Flexible hours",
+        "Professional equipment",
+        "Custom contracts"
+      ]
     },
     "POST_CONSTRUCTION": {
       "TITLE": "Post-Construction",
       "DESC": "Cleaning after construction work",
-      "FEATURES": ["Dust and debris", "Delicate finishes", "Specialized equipment", "Impeccable results"]
+      "FEATURES": [
+        "Dust and debris",
+        "Delicate finishes",
+        "Specialized equipment",
+        "Impeccable results"
+      ]
     },
     "DEEP_CLEANING": {
       "TITLE": "Deep Cleaning",
       "DESC": "Complete renewal of your spaces",
-      "FEATURES": ["Intensive cleaning", "Complete disinfection", "Hard-to-reach areas", "Long-lasting results"]
+      "FEATURES": [
+        "Intensive cleaning",
+        "Complete disinfection",
+        "Hard-to-reach areas",
+        "Long-lasting results"
+      ]
     },
     "MAINTENANCE": {
       "TITLE": "Regular Maintenance",
       "DESC": "Personalized maintenance programs",
-      "FEATURES": ["Flexible scheduling", "Dedicated team", "Adapted products", "Quality monitoring"]
+      "FEATURES": [
+        "Flexible scheduling",
+        "Dedicated team",
+        "Adapted products",
+        "Quality monitoring"
+      ]
     },
     "CARPET": {
       "TITLE": "Carpet Cleaning",
       "DESC": "Textile cleaning expertise",
-      "FEATURES": ["Advanced techniques", "Quick drying", "Stain treatment", "Extends lifespan"]
+      "FEATURES": [
+        "Advanced techniques",
+        "Quick drying",
+        "Stain treatment",
+        "Extends lifespan"
+      ]
     }
   },
   "ABOUT": {
     "TITLE": "About Us",
-    "SUBTITLE": "Over 10 years of experience serving Montreal",
+    "SUBTITLE": "Eco-friendly cleaning for Montreal",
     "STORY_TITLE": "Our Story",
-    "STORY_TEXT": "Founded in 2014, EcoNet Cleaning was born from the vision of creating a cleaning service that respects both our clients and our environment.",
+    "STORY_TEXT": "EcoNet Cleaning was born from the vision of creating a cleaning service that respects both our clients and our environment.",
     "MISSION_TITLE": "Our Mission",
     "MISSION_TEXT": "To provide exceptional cleaning services while preserving the health of our clients and our planet.",
     "VALUES_TITLE": "Our Values",
@@ -295,22 +333,22 @@
       "INNOVATION": "Constant innovation"
     },
     "TEAM_TITLE": "Our Team",
-    "TEAM_SUBTITLE": "Passionate and certified professionals",
+    "TEAM_SUBTITLE": "Passionate professionals",
     "CERTIFICATIONS_TITLE": "Certifications",
     "AWARDS_TITLE": "Awards",
     "PAGE": {
       "HERO": {
         "BADGE": "About • EcoNet Cleaning",
         "TITLE": "Our Story, Your Cleanliness",
-        "SUBTITLE": "Your trusted partner for eco-friendly and professional cleaning in Montreal for over 5 years.",
+        "SUBTITLE": "Your partner for eco-friendly, professional cleaning in Montreal.",
         "IMAGE_ALT": "Our EcoNet Cleaning team"
       },
       "STORY": {
         "TITLE": "Our Story",
         "PARAGRAPHS": [
-          "Founded in 2019 by a team passionate about the environment and service quality, EcoNet Cleaning was born from the desire to revolutionize the cleaning industry in Quebec.",
-          "Recognizing the negative impact of traditional chemical products on health and the environment, we decided to create a 100% eco-friendly alternative without compromising effectiveness.",
-          "Today, with over 500 satisfied clients and a team of 15 professionals, we are proud to be the pioneers of eco-friendly cleaning in the Montreal region."
+          "EcoNet Cleaning was born from a passion for the environment and service quality, and the desire to change how cleaning is done in Quebec.",
+          "Seeing the impact of traditional chemical products on health and the environment, we chose an eco-friendly approach without compromising on effectiveness.",
+          "Today, we're proud to bring families and businesses across the Montreal region a spotless, responsible clean."
         ],
         "IMAGE_ALT": "Eco-friendly cleaning team"
       },
@@ -346,27 +384,7 @@
       },
       "TEAM": {
         "TITLE": "Our Team",
-        "SUBTITLE": "Passionate and experienced professionals",
-        "MEMBERS": {
-          "MARIE_CLAUDE": {
-            "NAME": "Marie-Claude Dubois",
-            "POSITION": "Founder & General Manager",
-            "DESCRIPTION": "Passionate about the environment and entrepreneurship, Marie-Claude founded EcoNet Cleaning with the vision of revolutionizing the cleaning industry.",
-            "SPECIALTIES": ["Leadership", "Sustainable Development", "Business Management"]
-          },
-          "JEAN_FRANCOIS": {
-            "NAME": "Jean-François Martin",
-            "POSITION": "Operations Manager",
-            "DESCRIPTION": "With 10 years of experience in commercial cleaning, Jean-François supervises all our operations with exemplary attention to detail.",
-            "SPECIALTIES": ["Team Management", "Quality", "Training"]
-          },
-          "SOPHIE": {
-            "NAME": "Sophie Tremblay",
-            "POSITION": "Eco-friendly Products Specialist",
-            "DESCRIPTION": "A trained chemist, Sophie develops and selects all our eco-friendly products to ensure effectiveness and environmental respect.",
-            "SPECIALTIES": ["Green Chemistry", "R&D", "Certifications"]
-          }
-        }
+        "SUBTITLE": "Passionate and experienced professionals"
       },
       "MISSION": {
         "TITLE": "Our Mission",
@@ -386,9 +404,9 @@
           }
         },
         "STATS": {
-          "CLIENTS": "Satisfied Clients",
-          "EXPERIENCE": "Years of Experience",
-          "EMPLOYEES": "Qualified Employees",
+          "RESPONSE": "Response time",
+          "BOOKING": "To book online",
+          "DISCOUNT": "Off weekly service",
           "ECO_PRODUCTS": "Eco-friendly Products"
         }
       },
@@ -467,98 +485,6 @@
     "FACTORS_TITLE": "Pricing Factors",
     "FACTORS_SUBTITLE": "Understanding how we calculate our prices",
     "FACTORS": {
-      "SIZE": "Area to clean",
-      "FREQUENCY": "Service frequency",
-      "TYPE": "Type of cleaning",
-      "LOCATION": "Location",
-      "EXTRAS": "Additional services"
-    },
-    "PLANS_TITLE": "Our Packages",
-    "ESSENTIAL": {
-      "NAME": "Essential",
-      "PRICE": "Starting at $89",
-      "FEATURES": ["Basic cleaning", "Eco-friendly products", "2-3 hours", "Satisfaction guarantee"]
-    },
-    "PREMIUM": {
-      "NAME": "Premium",
-      "PRICE": "Starting at $149",
-      "FEATURES": ["Complete cleaning", "Premium products", "4-5 hours", "Team of 2 people"]
-    },
-    "DELUXE": {
-      "NAME": "Deluxe",
-      "PRICE": "Starting at $219",
-      "FEATURES": ["Full service", "Detailed finishes", "6+ hours", "Specialized team"]
-    },
-    "CUSTOM_TITLE": "Custom Service",
-    "CUSTOM_DESC": "Every space is unique. Contact us for a custom quote.",
-    "CTA_TITLE": "Ready for a cleaner space?",
-    "CTA_DESC": "Get your personalized quote for free",
-    "GET_QUOTE_BTN": "Request Quote",
-    "COMPARISON": {
-      "TITLE": "Service Comparison",
-      "SUBTITLE": "Find the perfect service for your needs",
-      "FEATURES": "Features",
-      "GENERAL_CLEANING": "General cleaning",
-      "DISINFECTION": "Complete disinfection",
-      "INTERIOR_WINDOWS": "Interior window cleaning",
-      "SPECIALIZED_EQUIPMENT": "Specialized equipment",
-      "POST_CONSTRUCTION": "Post-construction cleaning",
-      "APPLIANCE_INTERIOR": "Appliance interior",
-      "SATISFACTION_GUARANTEE": "Satisfaction guarantee"
-    },
-    "CALCULATOR": {
-      "TITLE": "Instant Price Calculator",
-      "SUBTITLE": "Get an immediate estimate based on your specific needs",
-      "FEATURE_1": "Calculation based on area",
-      "FEATURE_2": "Property type taken into account",
-      "FEATURE_3": "Discounts for recurring services",
-      "FEATURE_4": "Instant and free quote",
-      "BUTTON": "🧮 Calculate My Price"
-    },
-    "GUARANTEE": {
-      "TITLE": "Our Price Guarantee",
-      "SUBTITLE": "Your satisfaction is our priority",
-      "TRANSPARENT": {
-        "TITLE": "Transparent Pricing",
-        "DESCRIPTION": "No hidden costs. The agreed price is the final price, guaranteed."
-      },
-      "SATISFACTION": {
-        "TITLE": "100% Satisfaction",
-        "DESCRIPTION": "Not satisfied? We come back free within 24h to correct it."
-      },
-      "BEST_PRICE": {
-        "TITLE": "Best Price",
-        "DESCRIPTION": "Found cheaper elsewhere? We match competitor prices."
-      }
-    },
-    "FAQ": {
-      "TITLE": "Pricing FAQ",
-      "PAYMENT_METHODS": {
-        "QUESTION": "💳 What payment methods do you accept?",
-        "ANSWER": "We accept credit cards, debit, Interac transfer and cash payment."
-      },
-      "ADVANCE_PAYMENT": {
-        "QUESTION": "📅 Do I have to pay in advance?",
-        "ANSWER": "No, payment is made after the service, once you are satisfied with the result."
-      },
-      "EXTRA_FEES": {
-        "QUESTION": "📋 Are there any extra fees?",
-        "ANSWER": "All our prices include products, equipment and travel in the Montreal region."
-      },
-      "MODIFY_BOOKING": {
-        "QUESTION": "🔄 Can I modify my booking?",
-        "ANSWER": "Yes, free modifications up to 24h before service. After that, fees may apply."
-      },
-      "LOCATION_PRICING": {
-        "QUESTION": "🎯 Do prices vary by neighborhood?",
-        "ANSWER": "Our prices are fixed throughout the metropolitan area. No surcharge by neighborhood."
-      },
-      "CUSTOM_QUOTE": {
-        "QUESTION": "📞 How do I get a personalized quote?",
-        "ANSWER": "Contact us by phone or form. We offer free quotes within 24h."
-      }
-    },
-    "FACTORS": {
       "AREA": {
         "NAME": "Area",
         "DESCRIPTION": "The size of your space directly influences the time required",
@@ -600,6 +526,106 @@
         ]
       }
     },
+    "PLANS_TITLE": "Our Packages",
+    "ESSENTIAL": {
+      "NAME": "Essential",
+      "PRICE": "Starting at $89",
+      "FEATURES": [
+        "Basic cleaning",
+        "Eco-friendly products",
+        "2-3 hours",
+        "Satisfaction guarantee"
+      ]
+    },
+    "PREMIUM": {
+      "NAME": "Premium",
+      "PRICE": "Starting at $149",
+      "FEATURES": [
+        "Complete cleaning",
+        "Premium products",
+        "4-5 hours",
+        "Team of 2 people"
+      ]
+    },
+    "DELUXE": {
+      "NAME": "Deluxe",
+      "PRICE": "Starting at $219",
+      "FEATURES": [
+        "Full service",
+        "Detailed finishes",
+        "6+ hours",
+        "Specialized team"
+      ]
+    },
+    "CUSTOM_TITLE": "Custom Service",
+    "CUSTOM_DESC": "Every space is unique. Contact us for a custom quote.",
+    "CTA_TITLE": "Ready for a cleaner space?",
+    "CTA_DESC": "Get your personalized quote for free",
+    "GET_QUOTE_BTN": "Request Quote",
+    "COMPARISON": {
+      "TITLE": "Service Comparison",
+      "SUBTITLE": "Find the perfect service for your needs",
+      "FEATURES": "Features",
+      "GENERAL_CLEANING": "General cleaning",
+      "DISINFECTION": "Complete disinfection",
+      "INTERIOR_WINDOWS": "Interior window cleaning",
+      "SPECIALIZED_EQUIPMENT": "Specialized equipment",
+      "POST_CONSTRUCTION": "Post-construction cleaning",
+      "APPLIANCE_INTERIOR": "Appliance interior",
+      "SATISFACTION_GUARANTEE": "Satisfaction guarantee"
+    },
+    "CALCULATOR": {
+      "TITLE": "Instant Price Calculator",
+      "SUBTITLE": "Get an immediate estimate based on your specific needs",
+      "FEATURE_1": "Calculation based on area",
+      "FEATURE_2": "Property type taken into account",
+      "FEATURE_3": "Discounts for recurring services",
+      "FEATURE_4": "Instant and free quote",
+      "BUTTON": "Calculate My Price"
+    },
+    "GUARANTEE": {
+      "TITLE": "Our Price Guarantee",
+      "SUBTITLE": "Your satisfaction is our priority",
+      "TRANSPARENT": {
+        "TITLE": "Transparent Pricing",
+        "DESCRIPTION": "No hidden costs. The agreed price is the final price, guaranteed."
+      },
+      "SATISFACTION": {
+        "TITLE": "100% Satisfaction",
+        "DESCRIPTION": "Not satisfied? We come back free within 24h to correct it."
+      },
+      "BEST_PRICE": {
+        "TITLE": "Best Price",
+        "DESCRIPTION": "Found cheaper elsewhere? We match competitor prices."
+      }
+    },
+    "FAQ": {
+      "TITLE": "Pricing FAQ",
+      "PAYMENT_METHODS": {
+        "QUESTION": "What payment methods do you accept?",
+        "ANSWER": "We accept credit cards, debit, Interac transfer and cash payment."
+      },
+      "ADVANCE_PAYMENT": {
+        "QUESTION": "Do I have to pay in advance?",
+        "ANSWER": "No, payment is made after the service, once you are satisfied with the result."
+      },
+      "EXTRA_FEES": {
+        "QUESTION": "Are there any extra fees?",
+        "ANSWER": "All our prices include products, equipment and travel in the Montreal region."
+      },
+      "MODIFY_BOOKING": {
+        "QUESTION": "Can I modify my booking?",
+        "ANSWER": "Yes, free modifications up to 24h before service. After that, fees may apply."
+      },
+      "LOCATION_PRICING": {
+        "QUESTION": "Do prices vary by neighborhood?",
+        "ANSWER": "Our prices are fixed throughout the metropolitan area. No surcharge by neighborhood."
+      },
+      "CUSTOM_QUOTE": {
+        "QUESTION": "How do I get a personalized quote?",
+        "ANSWER": "Contact us by phone or form. We offer free quotes within 24h."
+      }
+    },
     "CTA": {
       "TITLE": "Ready for a cleaner space?",
       "SUBTITLE": "Start today with a free quote.",
@@ -637,7 +663,7 @@
     "MESSAGE_PLACEHOLDER": "Describe your cleaning needs...",
     "MESSAGE_REQUIRED": "A message is required",
     "URGENT_REQUEST": "Urgent request (within 48h)",
-    "SEND_REQUEST": "📧 Send Request",
+    "SEND_REQUEST": "Send Request",
     "SENDING": "⏳ Sending...",
     "CUSTOMER_SERVICE_ALT": "ÉcoNet Customer Service",
     "SERVICE_OPTIONS": {
@@ -679,14 +705,14 @@
     "FAQ_PREVIEW_TITLE": "Frequently Asked Questions",
     "FAQ_PREVIEW_SUBTITLE": "Check our FAQ section for quick answers",
     "FAQ_QUESTIONS": {
-      "PRODUCTS": "❓ What products do you use?",
-      "PRODUCTS_ANSWER": "Exclusively certified eco-friendly products",
+      "PRODUCTS": "What products do you use?",
+      "PRODUCTS_ANSWER": "Exclusively biodegradable, non-toxic products",
       "TIMING": "⏰ What are your response times?",
       "TIMING_ANSWER": "Intervention possible within 24-48h",
-      "PRICING": "💰 How do you calculate your rates?",
+      "PRICING": "How do you calculate your rates?",
       "PRICING_ANSWER": "Based on surface area, service type and frequency"
     },
-    "VIEW_ALL_FAQ": "📚 View All FAQs",
+    "VIEW_ALL_FAQ": "View All FAQs",
     "SUCCESS_MESSAGE": "Your request has been sent successfully! We will contact you as soon as possible.",
     "ERROR_MESSAGE": "An error occurred while sending. Please try again or contact us directly."
   },
@@ -804,7 +830,7 @@
       "TAXES": "Taxes (GST + QST):",
       "TOTAL": "Total:",
       "MODIFY": "Modify",
-      "CONFIRM": "✅ Confirm Booking",
+      "CONFIRM": "Confirm Booking",
       "PROCESSING": "⏳ Processing..."
     },
     "SERVICES": {
@@ -883,13 +909,6 @@
       "TWO": "2 bathrooms",
       "TWO_HALF": "2.5 bathrooms",
       "THREE_PLUS": "3+ bathrooms"
-    },
-    "ADDITIONAL_SERVICES_LIST": {
-      "WINDOWS": "Interior window cleaning",
-      "OVEN": "Oven cleaning",
-      "FRIDGE": "Refrigerator cleaning",
-      "BASEMENT": "Basement cleaning",
-      "GARAGE": "Garage cleaning"
     },
     "FREQUENCY_OPTIONS": {
       "ONE_TIME": {

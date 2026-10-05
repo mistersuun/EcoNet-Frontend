@@ -32,28 +32,33 @@
   },
   "HOME": {
     "HERO": {
-      "BADGE": "Nettoyage Écologique • Montréal",
-      "TITLE": "L'excellence du",
-      "TITLE_ACCENT": "nettoyage écologique",
-      "SUBTITLE": "Redéfinissons ensemble les standards du nettoyage professionnel avec des solutions 100% naturelles et respectueuses.",
-      "CTA_BUTTON": "Commencer maintenant"
+      "BADGE": "Nettoyage écologique · Montréal",
+      "TITLE": "Un espace impeccable.",
+      "TITLE_ACCENT": "Naturellement.",
+      "SUBTITLE": "Nettoyage résidentiel et commercial avec des produits biodégradables et non toxiques. Réservez en ligne en deux minutes.",
+      "CTA_BUTTON": "Réserver un nettoyage",
+      "SECONDARY": "Voir les tarifs"
     },
+    "STATEMENT": "Des produits biodégradables. Une équipe minutieuse. Un résultat qui se voit, et un air que vous respirez mieux.",
     "PRODUCTS": {
-      "TITLE": "Produits naturels",
-      "TITLE_ACCENT": "certifiés",
-      "DESCRIPTION": "Chaque produit est sélectionné selon nos standards les plus rigoureux. Biodégradables, non-toxiques et efficaces - l'alliance parfaite pour votre santé et celle de l'environnement.",
+      "EYEBROW": "Nos produits",
+      "TITLE": "Doux pour vous.",
+      "TITLE_ACCENT": "Redoutable sur la saleté.",
+      "DESCRIPTION": "Nous choisissons des produits biodégradables et non toxiques, efficaces sur la saleté sans laisser derrière eux d'odeurs agressives ni de résidus.",
       "FEATURES": {
-        "CERT": "✓ Certification écologique québécoise",
-        "FORMULA": "✓ Formules naturelles avancées",
-        "ZERO_RESIDUE": "✓ Zéro résidu chimique"
+        "BIODEGRADABLE": "Biodégradables",
+        "NON_TOXIC": "Non toxiques",
+        "ZERO_RESIDUE": "Sans résidu chimique"
       },
-      "BADGE": "100% Naturel"
+      "BADGE": "100 % naturel"
     },
     "SERVICES": {
-      "TITLE": "Excellence sur mesure",
+      "EYEBROW": "Services",
+      "TITLE": "Un service pour chaque espace.",
+      "LEARN_MORE": "En savoir plus",
       "RESIDENTIAL": {
         "TITLE": "Résidentiel",
-        "DESCRIPTION": "Votre foyer mérite une attention particulière. Notre approche personnalisée transforme votre espace en sanctuaire de propreté.",
+        "DESCRIPTION": "Maisons, condos et appartements. Un nettoyage complet, adapté à votre horaire.",
         "FEATURES": {
           "HYPOALLERGENIC": "Produits hypoallergéniques",
           "FLEXIBLE": "Service flexible"
@@ -61,45 +66,48 @@
       },
       "COMMERCIAL": {
         "TITLE": "Commercial",
-        "DESCRIPTION": "Créez un environnement professionnel qui inspire confiance. Solutions adaptées aux espaces de travail modernes.",
+        "DESCRIPTION": "Bureaux, commerces et espaces de travail, en dehors de vos heures d'ouverture.",
         "FEATURES": {
           "FLEXIBLE_HOURS": "Horaires flexibles",
           "ADAPTED_PROTOCOLS": "Protocoles adaptés"
         }
+      },
+      "POST_CONSTRUCTION": {
+        "TITLE": "Après-construction",
+        "DESCRIPTION": "Poussière fine, résidus et finitions, après vos travaux."
+      },
+      "RECURRING": {
+        "TITLE": "Jusqu'à 15 % de rabais",
+        "DESCRIPTION": "sur l'entretien hebdomadaire. 10 % aux deux semaines."
       }
     },
-    "EXPERIENCE": {
-      "TITLE": "L'expérience",
-      "TITLE_ACCENT": "ÉcoNet",
-      "DESCRIPTION": "Plus qu'un simple service, nous créons une expérience unique qui dépasse vos attentes. Chaque détail compte dans notre approche holistique du nettoyage.",
-      "STATS": {
-        "CLIENTS": "Clients conquis",
-        "ECO": "Écologique",
-        "EXPERTISE": "D'expertise",
-        "REACTIVITY": "Réactivité"
+    "STEPS": {
+      "EYEBROW": "Comment ça marche",
+      "TITLE": "Simple, du début à la fin.",
+      "BOOK": {
+        "TITLE": "Réservez en ligne",
+        "DESCRIPTION": "Choisissez votre service et voyez votre prix instantanément."
       },
-      "TESTIMONIAL": {
-        "TEXT": "Une révolution dans le nettoyage. L'équipe d'ÉcoNet a transformé notre bureau en espace de bien-être. Produits naturels, résultats exceptionnels.",
-        "AUTHOR_NAME": "Marie Dubois",
-        "AUTHOR_TITLE": "Directrice, TechStart Montréal"
+      "CONFIRM": {
+        "TITLE": "Nous confirmons",
+        "DESCRIPTION": "Nous vous recontactons en moins de 24 h pour confirmer la date."
+      },
+      "CLEAN": {
+        "TITLE": "Vous profitez",
+        "DESCRIPTION": "Notre équipe arrive à l'heure, avec tout le matériel nécessaire."
       }
     },
     "CTA": {
-      "TITLE": "Transformez votre espace",
-      "SUBTITLE": "Rejoignez des centaines de clients satisfaits qui ont choisi l'excellence écologique. Votre devis personnalisé vous attend.",
-      "GET_QUOTE": "Obtenir mon devis",
-      "DISCOVER_SERVICES": "Découvrir nos services",
-      "FLOATING_BADGES": {
-        "ECO": "100% Naturel",
-        "SERVICE": "Service Premium",
-        "LOCAL": "Montréal"
-      }
+      "TITLE": "Prêt pour un espace qui respire ?",
+      "SUBTITLE": "Obtenez votre prix en ligne en deux minutes. Sans engagement.",
+      "GET_QUOTE": "Réserver un nettoyage",
+      "DISCOVER_SERVICES": "Nous contacter"
     },
     "ALT_TEXTS": {
-      "HERO_IMAGE": "Excellence du nettoyage écologique",
-      "PRODUCTS_IMAGE": "Produits écologiques premium",
-      "RESIDENTIAL_IMAGE": "Nettoyage résidentiel premium",
-      "COMMERCIAL_IMAGE": "Nettoyage commercial premium"
+      "HERO_IMAGE": "Salon lumineux fraîchement nettoyé",
+      "PRODUCTS_IMAGE": "Produits de nettoyage écologiques",
+      "RESIDENTIAL_IMAGE": "Nettoyage résidentiel",
+      "COMMERCIAL_IMAGE": "Nettoyage de bureaux"
     }
   },
   "SERVICES": {
@@ -143,11 +151,11 @@
         "FEATURES": {
           "ECO": {
             "TITLE": "100% Écologique",
-            "DESCRIPTION": "Produits certifiés et respectueux de l'environnement"
+            "DESCRIPTION": "Produits biodégradables et respectueux de l'environnement"
           },
           "EXPERTISE": {
-            "TITLE": "Expertise Reconnue",
-            "DESCRIPTION": "Plus de 5 ans d'expérience et 500+ clients satisfaits"
+            "TITLE": "Travail minutieux",
+            "DESCRIPTION": "Une équipe formée, attentive à chaque détail"
           },
           "INSURANCE": {
             "TITLE": "Assurance Complète",
@@ -172,7 +180,7 @@
             "Nettoyage des surfaces",
             "Aspiration et lavage des sols",
             "Nettoyage des salles de bain",
-            "Produits écologiques certifiés"
+            "Produits écologiques"
           ],
           "PRICE": "89$/visite",
           "DURATION": "2-3 heures"
@@ -252,39 +260,69 @@
     "RESIDENTIAL": {
       "TITLE": "Nettoyage Résidentiel",
       "DESC": "Service complet pour maisons et appartements",
-      "FEATURES": ["Nettoyage régulier", "Produits écologiques", "Équipe formée", "Assurance complète"]
+      "FEATURES": [
+        "Nettoyage régulier",
+        "Produits écologiques",
+        "Équipe formée",
+        "Assurance complète"
+      ]
     },
     "COMMERCIAL": {
       "TITLE": "Nettoyage Commercial",
       "DESC": "Solutions professionnelles pour entreprises",
-      "FEATURES": ["Bureaux et commerces", "Horaires flexibles", "Équipement professionnel", "Contrats personnalisés"]
+      "FEATURES": [
+        "Bureaux et commerces",
+        "Horaires flexibles",
+        "Équipement professionnel",
+        "Contrats personnalisés"
+      ]
     },
     "POST_CONSTRUCTION": {
       "TITLE": "Post-Construction",
       "DESC": "Nettoyage après travaux de construction",
-      "FEATURES": ["Poussière et débris", "Finitions délicates", "Équipement spécialisé", "Résultats impeccables"]
+      "FEATURES": [
+        "Poussière et débris",
+        "Finitions délicates",
+        "Équipement spécialisé",
+        "Résultats impeccables"
+      ]
     },
     "DEEP_CLEANING": {
       "TITLE": "Nettoyage en Profondeur",
       "DESC": "Remise à neuf complète de vos espaces",
-      "FEATURES": ["Nettoyage intensif", "Désinfection complète", "Recoins difficiles", "Résultats durables"]
+      "FEATURES": [
+        "Nettoyage intensif",
+        "Désinfection complète",
+        "Recoins difficiles",
+        "Résultats durables"
+      ]
     },
     "MAINTENANCE": {
       "TITLE": "Entretien Régulier",
       "DESC": "Programmes d'entretien personnalisés",
-      "FEATURES": ["Planification flexible", "Équipe dédiée", "Produits adaptés", "Suivi qualité"]
+      "FEATURES": [
+        "Planification flexible",
+        "Équipe dédiée",
+        "Produits adaptés",
+        "Suivi qualité"
+      ]
     },
     "CARPET": {
       "TITLE": "Nettoyage de Tapis",
       "DESC": "Expertise en nettoyage textile",
-      "FEATURES": ["Techniques avancées", "Séchage rapide", "Traitement des taches", "Prolonge la durée de vie"]
+      "FEATURES": [
+        "Techniques avancées",
+        "Séchage rapide",
+        "Traitement des taches",
+        "Prolonge la durée de vie"
+      ]
     }
   },
   "ABOUT": {
     "TITLE": "À Propos de Nous",
-    "SUBTITLE": "Plus de 10 ans d'expérience au service de Montréal",
+    "SUBTITLE": "Le nettoyage écologique au service de Montréal",
     "STORY_TITLE": "Notre Histoire",
-    "STORY_TEXT": "Fondée en 2014, ÉcoNet Propreté est née de la vision de créer un service de nettoyage qui respecte à la fois nos clients et notre environnement.",
+    "STORY_TEXT": "ÉcoNet Propreté est née de la vision de créer un service de nettoyage qui respecte à la fois nos clients et notre environnement.",
     "MISSION_TITLE": "Notre Mission",
     "MISSION_TEXT": "Offrir des services de nettoyage exceptionnels tout en préservant la santé de nos clients et de notre planète.",
     "VALUES_TITLE": "Nos Valeurs",
@@ -295,22 +333,22 @@
       "INNOVATION": "Innovation constante"
     },
     "TEAM_TITLE": "Notre Équipe",
-    "TEAM_SUBTITLE": "Professionnels passionnés et certifiés",
+    "TEAM_SUBTITLE": "Des professionnels passionnés",
     "CERTIFICATIONS_TITLE": "Certifications",
     "AWARDS_TITLE": "Récompenses",
     "PAGE": {
       "HERO": {
         "BADGE": "À Propos • ÉcoNet Propreté",
         "TITLE": "Notre Histoire, Votre Propreté",
-        "SUBTITLE": "Votre partenaire de confiance pour un nettoyage écologique et professionnel à Montréal depuis plus de 5 ans.",
+        "SUBTITLE": "Votre partenaire pour un nettoyage écologique et professionnel à Montréal.",
         "IMAGE_ALT": "Notre équipe ÉcoNet Propreté"
       },
       "STORY": {
         "TITLE": "Notre Histoire",
         "PARAGRAPHS": [
-          "Fondée en 2019 par une équipe passionnée par l'environnement et la qualité de service, ÉcoNet Propreté est née du désir de révolutionner l'industrie du nettoyage au Québec.",
-          "Constatant l'impact négatif des produits chimiques traditionnels sur la santé et l'environnement, nous avons décidé de créer une alternative 100% écologique sans compromettre l'efficacité.",
-          "Aujourd'hui, avec plus de 500 clients satisfaits et une équipe de 15 professionnels, nous sommes fiers d'être les pionniers du nettoyage écologique dans la région de Montréal."
+          "ÉcoNet Propreté est née d'une passion pour l'environnement et la qualité de service, avec le désir de changer la façon dont on nettoie au Québec.",
+          "Constatant l'impact des produits chimiques traditionnels sur la santé et l'environnement, nous avons choisi une approche écologique, sans compromis sur l'efficacité.",
+          "Aujourd'hui, nous sommes fiers d'offrir aux familles et aux entreprises de la région de Montréal un nettoyage impeccable et responsable."
         ],
         "IMAGE_ALT": "Équipe de nettoyage écologique"
       },
@@ -346,27 +384,7 @@
       },
       "TEAM": {
         "TITLE": "Notre Équipe",
-        "SUBTITLE": "Des professionnels passionnés et expérimentés",
-        "MEMBERS": {
-          "MARIE_CLAUDE": {
-            "NAME": "Marie-Claude Dubois",
-            "POSITION": "Fondatrice & Directrice Générale",
-            "DESCRIPTION": "Passionnée par l'environnement et l'entrepreneuriat, Marie-Claude a fondé ÉcoNet Propreté avec la vision de révolutionner l'industrie du nettoyage.",
-            "SPECIALTIES": ["Leadership", "Développement durable", "Gestion d'entreprise"]
-          },
-          "JEAN_FRANCOIS": {
-            "NAME": "Jean-François Martin",
-            "POSITION": "Responsable des Opérations",
-            "DESCRIPTION": "Fort de 10 ans d'expérience dans le nettoyage commercial, Jean-François supervise toutes nos opérations avec un souci du détail exemplaire.",
-            "SPECIALTIES": ["Gestion d'équipe", "Qualité", "Formation"]
-          },
-          "SOPHIE": {
-            "NAME": "Sophie Tremblay",
-            "POSITION": "Spécialiste Produits Écologiques",
-            "DESCRIPTION": "Chimiste de formation, Sophie développe et sélectionne tous nos produits écologiques pour garantir efficacité et respect de l'environnement.",
-            "SPECIALTIES": ["Chimie verte", "R&D", "Certifications"]
-          }
-        }
+        "SUBTITLE": "Des professionnels passionnés et expérimentés"
       },
       "MISSION": {
         "TITLE": "Notre Mission",
@@ -386,9 +404,9 @@
           }
         },
         "STATS": {
-          "CLIENTS": "Clients Satisfaits",
-          "EXPERIENCE": "Années d'Expérience",
-          "EMPLOYEES": "Employés Qualifiés",
+          "RESPONSE": "Délai de réponse",
+          "BOOKING": "Pour réserver en ligne",
+          "DISCOUNT": "De rabais en hebdomadaire",
           "ECO_PRODUCTS": "Produits Écologiques"
         }
       },
@@ -467,27 +485,77 @@
     "FACTORS_TITLE": "Facteurs de Tarification",
     "FACTORS_SUBTITLE": "Comprendre comment nous calculons nos prix",
     "FACTORS": {
-      "SIZE": "Superficie à nettoyer",
-      "FREQUENCY": "Fréquence du service",
-      "TYPE": "Type de nettoyage",
-      "LOCATION": "Localisation",
-      "EXTRAS": "Services additionnels"
+      "AREA": {
+        "NAME": "Superficie",
+        "DESCRIPTION": "La taille de votre espace influence directement le temps nécessaire",
+        "ITEMS": [
+          "Moins de 800 pi² : Prix de base",
+          "800-1500 pi² : +25%",
+          "1500-2500 pi² : +50%",
+          "Plus de 2500 pi² : Devis personnalisé"
+        ]
+      },
+      "PROPERTY_TYPE": {
+        "NAME": "Type de Propriété",
+        "DESCRIPTION": "Différents espaces nécessitent des approches spécifiques",
+        "ITEMS": [
+          "Appartement/Condo : Prix standard",
+          "Maison unifamiliale : +10-20%",
+          "Bureau/Commercial : Tarif spécialisé",
+          "Espace post-construction : +40-60%"
+        ]
+      },
+      "FREQUENCY": {
+        "NAME": "Fréquence",
+        "DESCRIPTION": "Plus vous réservez régulièrement, plus vous économisez",
+        "ITEMS": [
+          "Ponctuel : Prix plein",
+          "Mensuel : -5%",
+          "Bi-hebdomadaire : -10%",
+          "Hebdomadaire : -15%"
+        ]
+      },
+      "ADDITIONAL_SERVICES": {
+        "NAME": "Services Additionnels",
+        "DESCRIPTION": "Options supplémentaires selon vos besoins",
+        "ITEMS": [
+          "Nettoyage vitres extérieures : +40$",
+          "Nettoyage four : +25$",
+          "Nettoyage réfrigérateur : +35$",
+          "Garage/sous-sol : +50$"
+        ]
+      }
     },
     "PLANS_TITLE": "Nos Forfaits",
     "ESSENTIAL": {
       "NAME": "Essentiel",
       "PRICE": "À partir de 89$",
-      "FEATURES": ["Nettoyage de base", "Produits écologiques", "2-3 heures", "Garantie satisfaction"]
+      "FEATURES": [
+        "Nettoyage de base",
+        "Produits écologiques",
+        "2-3 heures",
+        "Garantie satisfaction"
+      ]
     },
     "PREMIUM": {
       "NAME": "Premium",
       "PRICE": "À partir de 149$",
-      "FEATURES": ["Nettoyage complet", "Produits premium", "4-5 heures", "Équipe de 2 personnes"]
+      "FEATURES": [
+        "Nettoyage complet",
+        "Produits premium",
+        "4-5 heures",
+        "Équipe de 2 personnes"
+      ]
     },
     "DELUXE": {
       "NAME": "Deluxe",
       "PRICE": "À partir de 219$",
-      "FEATURES": ["Service complet", "Finitions détaillées", "6+ heures", "Équipe spécialisée"]
+      "FEATURES": [
+        "Service complet",
+        "Finitions détaillées",
+        "6+ heures",
+        "Équipe spécialisée"
+      ]
     },
     "CUSTOM_TITLE": "Service Personnalisé",
     "CUSTOM_DESC": "Chaque espace est unique. Contactez-nous pour un devis sur mesure.",
@@ -520,9 +588,18 @@
             "Vidage des poubelles"
           ],
           "DISCOUNTS": [
-            { "FREQUENCY": "Hebdomadaire", "DISCOUNT": 15 },
-            { "FREQUENCY": "Bi-hebdomadaire", "DISCOUNT": 10 },
-            { "FREQUENCY": "Mensuel", "DISCOUNT": 5 }
+            {
+              "FREQUENCY": "Hebdomadaire",
+              "DISCOUNT": 15
+            },
+            {
+              "FREQUENCY": "Bi-hebdomadaire",
+              "DISCOUNT": 10
+            },
+            {
+              "FREQUENCY": "Mensuel",
+              "DISCOUNT": 5
+            }
           ]
         },
         "COMMERCIAL": {
@@ -538,9 +615,18 @@
             "Entretien des sols"
           ],
           "DISCOUNTS": [
-            { "FREQUENCY": "Hebdomadaire", "DISCOUNT": 20 },
-            { "FREQUENCY": "Bi-hebdomadaire", "DISCOUNT": 15 },
-            { "FREQUENCY": "Mensuel", "DISCOUNT": 10 }
+            {
+              "FREQUENCY": "Hebdomadaire",
+              "DISCOUNT": 20
+            },
+            {
+              "FREQUENCY": "Bi-hebdomadaire",
+              "DISCOUNT": 15
+            },
+            {
+              "FREQUENCY": "Mensuel",
+              "DISCOUNT": 10
+            }
           ]
         },
         "POST_CONSTRUCTION": {
@@ -569,8 +655,14 @@
             "Traitement taches tenaces"
           ],
           "DISCOUNTS": [
-            { "FREQUENCY": "Trimestriel", "DISCOUNT": 8 },
-            { "FREQUENCY": "Semestriel", "DISCOUNT": 5 }
+            {
+              "FREQUENCY": "Trimestriel",
+              "DISCOUNT": 8
+            },
+            {
+              "FREQUENCY": "Semestriel",
+              "DISCOUNT": 5
+            }
           ]
         }
       },
@@ -640,7 +732,7 @@
       "FEATURE_2": "Type de propriété pris en compte",
       "FEATURE_3": "Rabais pour services récurrents",
       "FEATURE_4": "Devis instantané et gratuit",
-      "BUTTON": "🧮 Calculer Mon Prix"
+      "BUTTON": "Calculer Mon Prix"
     },
     "GUARANTEE": {
       "TITLE": "Notre Garantie Prix",
@@ -661,107 +753,28 @@
     "FAQ": {
       "TITLE": "Questions Fréquentes sur les Prix",
       "PAYMENT_METHODS": {
-        "QUESTION": "💳 Quels modes de paiement acceptez-vous?",
+        "QUESTION": "Quels modes de paiement acceptez-vous?",
         "ANSWER": "Nous acceptons les cartes de crédit, débit, virement Interac et paiement comptant."
       },
       "ADVANCE_PAYMENT": {
-        "QUESTION": "📅 Dois-je payer à l'avance?",
+        "QUESTION": "Dois-je payer à l'avance?",
         "ANSWER": "Non, le paiement s'effectue après la prestation, une fois que vous êtes satisfait du résultat."
       },
       "EXTRA_FEES": {
-        "QUESTION": "📋 Y a-t-il des frais supplémentaires?",
+        "QUESTION": "Y a-t-il des frais supplémentaires?",
         "ANSWER": "Tous nos prix incluent les produits, équipements et déplacements dans la région de Montréal."
       },
       "MODIFY_BOOKING": {
-        "QUESTION": "🔄 Puis-je modifier ma réservation?",
+        "QUESTION": "Puis-je modifier ma réservation?",
         "ANSWER": "Oui, modifications gratuites jusqu'à 24h avant le service. Après, des frais peuvent s'appliquer."
       },
       "LOCATION_PRICING": {
-        "QUESTION": "🎯 Les prix varient-ils selon les quartiers?",
+        "QUESTION": "Les prix varient-ils selon les quartiers?",
         "ANSWER": "Nos prix sont fixes dans toute la région métropolitaine. Aucun supplément selon le quartier."
       },
       "CUSTOM_QUOTE": {
-        "QUESTION": "📞 Comment obtenir un devis personnalisé?",
+        "QUESTION": "Comment obtenir un devis personnalisé?",
         "ANSWER": "Contactez-nous par téléphone ou formulaire. Nous offrons des devis gratuits sous 24h."
-      }
-    },
-    "FACTORS": {
-      "AREA": {
-        "NAME": "Superficie",
-        "DESCRIPTION": "La taille de votre espace influence directement le temps nécessaire",
-        "ITEMS": [
-          "Moins de 800 pi² : Prix de base",
-          "800-1500 pi² : +25%",
-          "1500-2500 pi² : +50%",
-          "Plus de 2500 pi² : Devis personnalisé"
-        ]
-      },
-      "PROPERTY_TYPE": {
-        "NAME": "Type de Propriété",
-        "DESCRIPTION": "Différents espaces nécessitent des approches spécifiques",
-        "ITEMS": [
-          "Appartement/Condo : Prix standard",
-          "Maison unifamiliale : +10-20%",
-          "Bureau/Commercial : Tarif spécialisé",
-          "Espace post-construction : +40-60%"
-        ]
-      },
-      "FREQUENCY": {
-        "NAME": "Fréquence",
-        "DESCRIPTION": "Plus vous réservez régulièrement, plus vous économisez",
-        "ITEMS": [
-          "Ponctuel : Prix plein",
-          "Mensuel : -5%",
-          "Bi-hebdomadaire : -10%",
-          "Hebdomadaire : -15%"
-        ]
-      },
-      "ADDITIONAL_SERVICES": {
-        "NAME": "Services Additionnels",
-        "DESCRIPTION": "Options supplémentaires selon vos besoins",
-        "ITEMS": [
-          "Nettoyage vitres extérieures : +40$",
-          "Nettoyage four : +25$",
-          "Nettoyage réfrigérateur : +35$",
-          "Garage/sous-sol : +50$"
-        ]
-      }
-    },
-    "COMPARISON": {
-      "TITLE": "Comparaison des Services",
-      "SUBTITLE": "Trouvez le service parfait pour vos besoins",
-      "FEATURES": "Caractéristiques",
-      "GENERAL_CLEANING": "Nettoyage général",
-      "DISINFECTION": "Désinfection complète",
-      "INTERIOR_WINDOWS": "Nettoyage vitres intérieures",
-      "SPECIALIZED_EQUIPMENT": "Équipement spécialisé",
-      "POST_CONSTRUCTION": "Nettoyage post-travaux",
-      "APPLIANCE_INTERIOR": "Intérieur électroménagers",
-      "SATISFACTION_GUARANTEE": "Garantie satisfaction"
-    },
-    "CALCULATOR": {
-      "TITLE": "Calculateur de Prix Instantané",
-      "SUBTITLE": "Obtenez une estimation immédiate basée sur vos besoins spécifiques",
-      "FEATURE_1": "Calcul basé sur la superficie",
-      "FEATURE_2": "Type de propriété pris en compte",
-      "FEATURE_3": "Rabais pour services récurrents",
-      "FEATURE_4": "Devis instantané et gratuit",
-      "BUTTON": "🧮 Calculer Mon Prix"
-    },
-    "GUARANTEE": {
-      "TITLE": "Notre Garantie Prix",
-      "SUBTITLE": "Votre satisfaction est notre priorité",
-      "TRANSPARENT": {
-        "TITLE": "Prix Transparent",
-        "DESCRIPTION": "Aucun coût caché. Le prix convenu est le prix final, garanti."
-      },
-      "SATISFACTION": {
-        "TITLE": "Satisfaction 100%",
-        "DESCRIPTION": "Non satisfait? Nous revenons gratuitement dans les 24h pour corriger."
-      },
-      "BEST_PRICE": {
-        "TITLE": "Meilleur Prix",
-        "DESCRIPTION": "Trouvé moins cher ailleurs? Nous égalons le prix de la concurrence."
       }
     },
     "CTA": {
@@ -801,7 +814,7 @@
     "MESSAGE_PLACEHOLDER": "Décrivez vos besoins de nettoyage...",
     "MESSAGE_REQUIRED": "Un message est requis",
     "URGENT_REQUEST": "Demande urgente (dans les 48h)",
-    "SEND_REQUEST": "📧 Envoyer la Demande",
+    "SEND_REQUEST": "Envoyer la Demande",
     "SENDING": "⏳ Envoi en cours...",
     "CUSTOMER_SERVICE_ALT": "Service client ÉcoNet",
     "SERVICE_OPTIONS": {
@@ -843,14 +856,14 @@
     "FAQ_PREVIEW_TITLE": "Questions Fréquentes",
     "FAQ_PREVIEW_SUBTITLE": "Consultez notre section FAQ pour des réponses rapides",
     "FAQ_QUESTIONS": {
-      "PRODUCTS": "❓ Quels produits utilisez-vous?",
-      "PRODUCTS_ANSWER": "Exclusivement des produits écologiques certifiés",
+      "PRODUCTS": "Quels produits utilisez-vous?",
+      "PRODUCTS_ANSWER": "Exclusivement des produits biodégradables et non toxiques",
       "TIMING": "⏰ Quels sont vos délais d'intervention?",
       "TIMING_ANSWER": "Intervention possible dans les 24-48h",
-      "PRICING": "💰 Comment calculez-vous vos tarifs?",
+      "PRICING": "Comment calculez-vous vos tarifs?",
       "PRICING_ANSWER": "Selon la surface, le type de service et la fréquence"
     },
-    "VIEW_ALL_FAQ": "📚 Voir toutes les FAQ",
+    "VIEW_ALL_FAQ": "Voir toutes les FAQ",
     "SUCCESS_MESSAGE": "Votre demande a été envoyée avec succès! Nous vous contacterons dans les plus brefs délais.",
     "ERROR_MESSAGE": "Une erreur est survenue lors de l'envoi. Veuillez réessayer ou nous contacter directement."
   },
@@ -1085,10 +1098,7 @@
       "HOUSE": "Maison unifamiliale",
       "TOWNHOUSE": "Maison en rangée",
       "OFFICE": "Bureau",
-      "RETAIL": "Commerce de détail",
-      "RESTAURANT": "Restaurant",
-      "CONSTRUCTION": "Site de construction",
-      "OTHER": "Autre"
+      "RETAIL": "Commerce de détail"
     },
     "ADDITIONAL_SERVICES_OPTIONS": {
       "WINDOWS_EXTERIOR": {
@@ -1144,13 +1154,6 @@
       "PHONE": "Téléphone",
       "SMS": "SMS",
       "ANY": "N'importe lequel"
-    },
-    "PROPERTY_TYPES": {
-      "APARTMENT": "Appartement/Condo",
-      "HOUSE": "Maison unifamiliale",
-      "TOWNHOUSE": "Maison en rangée",
-      "OFFICE": "Bureau",
-      "RETAIL": "Commerce de détail"
     },
     "ADDITIONAL_SERVICES_LIST": {
       "WINDOWS": "Nettoyage vitres intérieures",

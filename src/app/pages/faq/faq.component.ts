@@ -3,6 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ScrollAnimationService } from '../../services/scroll-animation.service';
+import { IconComponent } from '../../shared/components/icon.component';
 
 interface FAQ {
   question: string;
@@ -22,7 +23,7 @@ interface FAQCategory {
 @Component({
   selector: 'app-faq',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, IconComponent],
   template: `
     <section #heroSection class="hero-section" [class.visible]="isHeroVisible">
       <div class="container">
@@ -41,7 +42,7 @@ interface FAQCategory {
                  placeholder="Rechercher dans les FAQ..."
                  [(ngModel)]="searchTerm"
                  (input)="filterFAQs()">
-          <span class="search-icon">🔍</span>
+          <span class="search-icon"><app-icon name="search" [size]="20" /></span>
         </div>
       </div>
     </section>
@@ -58,7 +59,7 @@ interface FAQCategory {
                       [class.active]="category.active"
                       [class]="'stagger-' + (i + 2)"
                       (click)="selectCategory(category.id)">
-                <span class="category-icon">{{category.icon}}</span>
+                <span class="category-icon"><app-icon [name]="category.icon" [size]="18" /></span>
                 {{category.name}}
               </button>
             </div>
@@ -77,7 +78,7 @@ interface FAQCategory {
                 <div class="faq-question"
                      (click)="toggleFAQ(faq)">
                   <div class="question-content">
-                    <span class="faq-icon">{{faq.icon}}</span>
+                    <span class="faq-icon"><app-icon [name]="faq.icon" [size]="22" /></span>
                     <h3>{{faq.question}}</h3>
                   </div>
                   <span class="toggle-icon"
@@ -96,7 +97,7 @@ interface FAQCategory {
             <!-- No Results -->
             <div class="no-results" *ngIf="getFilteredFAQs().length === 0 && searchTerm">
               <div class="no-results-content">
-                <div class="no-results-icon">❓</div>
+                <div class="no-results-icon"><app-icon name="help-circle" [size]="48" [stroke]="1.5" /></div>
                 <h3>Aucun résultat trouvé</h3>
                 <p>Essayez avec d'autres mots-clés ou consultez toutes nos FAQ.</p>
                 <button class="btn btn-primary" (click)="clearSearch()">
@@ -112,30 +113,23 @@ interface FAQCategory {
     <section #helpSection class="help-section section">
       <div class="container">
         <div class="help-content text-center fade-in-up" [class.visible]="isHelpVisible">
-          <div class="help-icon stagger-1">💬</div>
+          <div class="help-icon stagger-1"><app-icon name="message-circle" [size]="36" /></div>
           <h2 class="stagger-2">Vous ne trouvez pas votre réponse?</h2>
           <p class="stagger-3">Notre équipe de service client est là pour vous aider</p>
 
           <div class="help-options">
             <div class="help-option card scale-in stagger-4" [class.visible]="isHelpVisible">
-              <div class="option-icon">📞</div>
+              <div class="option-icon"><app-icon name="phone" [size]="26" /></div>
               <h4>Appelez-nous</h4>
               <p>(514) 942-2670</p>
               <p class="option-hours">Lun-Ven: 8h-18h</p>
             </div>
 
             <div class="help-option card scale-in stagger-5" [class.visible]="isHelpVisible">
-              <div class="option-icon">📧</div>
+              <div class="option-icon"><app-icon name="mail" [size]="26" /></div>
               <h4>Écrivez-nous</h4>
               <p>econetentretienmenager@gmail.com</p>
               <p class="option-hours">Réponse sous 2h</p>
-            </div>
-
-            <div class="help-option card scale-in stagger-6" [class.visible]="isHelpVisible">
-              <div class="option-icon">💬</div>
-              <h4>Chat en direct</h4>
-              <p>Support instantané</p>
-              <p class="option-hours">Disponible maintenant</p>
             </div>
           </div>
 
@@ -160,7 +154,7 @@ interface FAQCategory {
 
         <div class="popular-grid">
           <div class="popular-item card slide-up" [class.visible]="arePopularQuestionsVisible" *ngFor="let faq of getPopularFAQs(); let i = index" [class]="'stagger-' + (i + 3)">
-            <div class="popular-icon">{{faq.icon}}</div>
+            <div class="popular-icon"><app-icon [name]="faq.icon" [size]="26" /></div>
             <h4>{{faq.question}}</h4>
             <p [innerHTML]="getShortAnswer(faq.answer)"></p>
             <button class="btn btn-secondary btn-sm" (click)="expandFAQ(faq)">
@@ -229,8 +223,8 @@ interface FAQCategory {
       right: var(--spacing-lg);
       top: 50%;
       transform: translateY(-50%);
-      font-size: 1.2rem;
-      color: var(--medium-gray);
+      display: inline-flex;
+      color: var(--medium-gray, #9ca3af);
     }
 
     // FAQ Layout
@@ -286,7 +280,8 @@ interface FAQCategory {
     }
 
     .category-icon {
-      font-size: 1.2rem;
+      display: inline-flex;
+      flex-shrink: 0;
     }
 
     // FAQ Main Content
@@ -336,8 +331,9 @@ interface FAQCategory {
     }
 
     .faq-icon {
-      font-size: 1.5rem;
+      display: inline-flex;
       flex-shrink: 0;
+      color: var(--viridian, #6b9080);
     }
 
     .faq-question h3 {
@@ -406,7 +402,8 @@ interface FAQCategory {
     }
 
     .no-results-icon {
-      font-size: 4rem;
+      display: inline-flex;
+      color: var(--medium-gray, #9ca3af);
       margin-bottom: var(--spacing-lg);
     }
 
@@ -422,7 +419,14 @@ interface FAQCategory {
     }
 
     .help-icon {
-      font-size: 4rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(107, 144, 128, 0.12);
+      color: var(--viridian, #6b9080);
       margin-bottom: var(--spacing-lg);
     }
 
@@ -449,7 +453,14 @@ interface FAQCategory {
     }
 
     .option-icon {
-      font-size: 2.5rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(107, 144, 128, 0.12);
+      color: var(--viridian, #6b9080);
       margin-bottom: var(--spacing-md);
     }
 
@@ -488,7 +499,14 @@ interface FAQCategory {
     }
 
     .popular-icon {
-      font-size: 2.5rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(107, 144, 128, 0.12);
+      color: var(--viridian, #6b9080);
       margin-bottom: var(--spacing-md);
     }
 
@@ -553,7 +571,6 @@ interface FAQCategory {
       }
 
       .faq-icon {
-        font-size: 1.2rem;
         flex-shrink: 0;
       }
 
@@ -634,10 +651,6 @@ interface FAQCategory {
 
       .faq-question h3 {
         font-size: 0.875rem;
-      }
-
-      .faq-icon {
-        font-size: 1rem;
       }
 
       .toggle-icon {
@@ -724,19 +737,19 @@ export class FaqComponent implements OnInit, OnDestroy, AfterViewInit {
   arePopularQuestionsVisible = false;
 
   categories: FAQCategory[] = [
-    { id: 'all', name: 'Toutes les FAQ', icon: '📚', active: true },
-    { id: 'services', name: 'Services', icon: '🧹', active: false },
-    { id: 'pricing', name: 'Tarifs', icon: '💰', active: false },
-    { id: 'booking', name: 'Réservation', icon: '📅', active: false },
-    { id: 'products', name: 'Produits', icon: '🌿', active: false },
-    { id: 'general', name: 'Général', icon: '❓', active: false }
+    { id: 'all', name: 'Toutes les FAQ', icon: 'book-open', active: true },
+    { id: 'services', name: 'Services', icon: 'brush', active: false },
+    { id: 'pricing', name: 'Tarifs', icon: 'dollar', active: false },
+    { id: 'booking', name: 'Réservation', icon: 'calendar', active: false },
+    { id: 'products', name: 'Produits', icon: 'leaf', active: false },
+    { id: 'general', name: 'Général', icon: 'help-circle', active: false }
   ];
 
   faqs: FAQ[] = [
     // Services
     {
       category: 'services',
-      icon: '🧹',
+      icon: 'brush',
       question: 'Quels types de services de nettoyage offrez-vous?',
       answer: `<p>Nous offrons une gamme complète de services de nettoyage écologique:</p>
                <ul>
@@ -747,25 +760,24 @@ export class FaqComponent implements OnInit, OnDestroy, AfterViewInit {
                  <li><strong>Entretien régulier:</strong> Forfaits hebdomadaires ou mensuels</li>
                  <li><strong>Services spécialisés:</strong> Tapis, moquettes, vitres</li>
                </ul>
-               <p>Tous nos services utilisent exclusivement des produits écologiques certifiés.</p>`
+               <p>Tous nos services utilisent exclusivement des produits biodégradables et non toxiques.</p>`
     },
     {
       category: 'products',
-      icon: '🌿',
+      icon: 'leaf',
       question: 'Quels produits écologiques utilisez-vous?',
-      answer: `<p>Nous utilisons uniquement des produits de nettoyage certifiés écologiques:</p>
+      answer: `<p>Nous utilisons uniquement des produits de nettoyage écologiques:</p>
                <ul>
                  <li><strong>Produits naturels:</strong> Bases végétales, sans produits chimiques toxiques</li>
                  <li><strong>Biodégradables:</strong> Respectueux de l'environnement</li>
                  <li><strong>Non-toxiques:</strong> Sécuritaires pour enfants et animaux</li>
                  <li><strong>Sans parfums artificiels:</strong> Évitent les allergies</li>
-                 <li><strong>Certifications:</strong> Green Seal, EcoLogo, BNQ</li>
                </ul>
                <p>Nous pouvons également utiliser vos propres produits si vous préférez.</p>`
     },
     {
       category: 'pricing',
-      icon: '💰',
+      icon: 'dollar',
       question: 'Comment calculez-vous vos tarifs?',
       answer: `<p>Nos tarifs sont basés sur plusieurs facteurs transparents:</p>
                <ul>
@@ -779,7 +791,7 @@ export class FaqComponent implements OnInit, OnDestroy, AfterViewInit {
     },
     {
       category: 'booking',
-      icon: '📅',
+      icon: 'calendar',
       question: 'Comment puis-je réserver un service?',
       answer: `<p>Réserver avec nous est simple et flexible:</p>
                <ul>
@@ -792,7 +804,7 @@ export class FaqComponent implements OnInit, OnDestroy, AfterViewInit {
     },
     {
       category: 'booking',
-      icon: '⏰',
+      icon: 'clock',
       question: 'Quels sont vos horaires de service?',
       answer: `<p>Nous adaptons nos horaires à votre emploi du temps:</p>
                <ul>
@@ -805,21 +817,20 @@ export class FaqComponent implements OnInit, OnDestroy, AfterViewInit {
     },
     {
       category: 'general',
-      icon: '🛡️',
+      icon: 'shield-check',
       question: 'Êtes-vous assurés et liés?',
-      answer: `<p>Oui, nous sommes entièrement protégés et certifiés:</p>
+      answer: `<p>Oui, nous sommes entièrement protégés:</p>
                <ul>
                  <li><strong>Assurance responsabilité civile:</strong> 2M$ de couverture</li>
                  <li><strong>Assurance biens:</strong> Protection de vos biens personnels</li>
                  <li><strong>Cautionnement:</strong> Tous nos employés sont cautionnés</li>
-                 <li><strong>Certifications:</strong> ISSA, Green Seal, BNQ</li>
                  <li><strong>Licence d'entreprise:</strong> Enregistrée au Québec</li>
                </ul>
                <p>Nous vous fournirons les preuves d'assurance sur demande.</p>`
     },
     {
       category: 'services',
-      icon: '🗝️',
+      icon: 'key',
       question: 'Dois-je être présent pendant le nettoyage?',
       answer: `<p>Non, votre présence n'est pas obligatoire:</p>
                <ul>
@@ -832,7 +843,7 @@ export class FaqComponent implements OnInit, OnDestroy, AfterViewInit {
     },
     {
       category: 'pricing',
-      icon: '💳',
+      icon: 'credit-card',
       question: 'Quels modes de paiement acceptez-vous?',
       answer: `<p>Nous acceptons tous les modes de paiement courants:</p>
                <ul>
@@ -846,7 +857,7 @@ export class FaqComponent implements OnInit, OnDestroy, AfterViewInit {
     },
     {
       category: 'general',
-      icon: '📍',
+      icon: 'map-pin',
       question: 'Dans quelles régions offrez-vous vos services?',
       answer: `<p>Nous couvrons toute la région métropolitaine de Montréal:</p>
                <ul>
@@ -860,7 +871,7 @@ export class FaqComponent implements OnInit, OnDestroy, AfterViewInit {
     },
     {
       category: 'general',
-      icon: '✅',
+      icon: 'check-circle',
       question: 'Offrez-vous une garantie de satisfaction?',
       answer: `<p>Absolument! Notre garantie de satisfaction 100% inclut:</p>
                <ul>
@@ -870,7 +881,7 @@ export class FaqComponent implements OnInit, OnDestroy, AfterViewInit {
                  <li><strong>Suivi qualité:</strong> Appel de confirmation après chaque service</li>
                  <li><strong>Amélioration continue:</strong> Vos commentaires nous aident</li>
                </ul>
-               <p>Votre satisfaction est notre priorité absolue depuis plus de 5 ans.</p>`
+               <p>Votre satisfaction est notre priorité absolue.</p>`
     }
   ];
 

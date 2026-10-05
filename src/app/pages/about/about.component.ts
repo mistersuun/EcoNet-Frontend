@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, Inject, PLATFORM_ID, ElementRef, View
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { IconComponent } from '../../shared/components/icon.component';
 
 interface CompanyValue {
   title: string;
@@ -12,7 +13,7 @@ interface CompanyValue {
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule, RouterLink, TranslocoPipe],
+  imports: [CommonModule, RouterLink, TranslocoPipe, IconComponent],
   template: `
     <!-- Hero Section -->
     <section class="hero wave-border-bottom-only" #heroSection>
@@ -62,7 +63,7 @@ interface CompanyValue {
                [class.visible]="areValuesVisible"
                [style.transition-delay]="(i * 0.1) + 's'"
                *ngFor="let value of companyValues; index as i">
-            <div class="value-icon">{{getValueIcon(i)}}</div>
+            <div class="value-icon"><app-icon [name]="getValueIcon(i)" [size]="32" /></div>
             <h3>{{getValueTitle(i)}}</h3>
             <p>{{getValueDescription(i)}}</p>
           </div>
@@ -81,21 +82,21 @@ interface CompanyValue {
             </p>
             <div class="mission-points">
               <div class="mission-point">
-                <span class="point-icon">🌍</span>
+                <span class="point-icon"><app-icon name="globe" [size]="24" /></span>
                 <div>
                   <h4>{{ 'ABOUT.PAGE.MISSION.POINTS.ENVIRONMENT.TITLE' | transloco }}</h4>
                   <p>{{ 'ABOUT.PAGE.MISSION.POINTS.ENVIRONMENT.DESCRIPTION' | transloco }}</p>
                 </div>
               </div>
               <div class="mission-point">
-                <span class="point-icon">👥</span>
+                <span class="point-icon"><app-icon name="users" [size]="24" /></span>
                 <div>
                   <h4>{{ 'ABOUT.PAGE.MISSION.POINTS.COMMUNITY.TITLE' | transloco }}</h4>
                   <p>{{ 'ABOUT.PAGE.MISSION.POINTS.COMMUNITY.DESCRIPTION' | transloco }}</p>
                 </div>
               </div>
               <div class="mission-point">
-                <span class="point-icon">⭐</span>
+                <span class="point-icon"><app-icon name="award" [size]="24" /></span>
                 <div>
                   <h4>{{ 'ABOUT.PAGE.MISSION.POINTS.EXCELLENCE.TITLE' | transloco }}</h4>
                   <p>{{ 'ABOUT.PAGE.MISSION.POINTS.EXCELLENCE.DESCRIPTION' | transloco }}</p>
@@ -105,16 +106,16 @@ interface CompanyValue {
           </div>
           <div class="mission-stats fade-in-right" [class.visible]="isMissionVisible">
             <div class="stat-box">
-              <div class="stat-number">500+</div>
-              <div class="stat-label">{{ 'ABOUT.PAGE.MISSION.STATS.CLIENTS' | transloco }}</div>
+              <div class="stat-number">24 h</div>
+              <div class="stat-label">{{ 'ABOUT.PAGE.MISSION.STATS.RESPONSE' | transloco }}</div>
             </div>
             <div class="stat-box">
-              <div class="stat-number">5+</div>
-              <div class="stat-label">{{ 'ABOUT.PAGE.MISSION.STATS.EXPERIENCE' | transloco }}</div>
+              <div class="stat-number">2 min</div>
+              <div class="stat-label">{{ 'ABOUT.PAGE.MISSION.STATS.BOOKING' | transloco }}</div>
             </div>
             <div class="stat-box">
-              <div class="stat-number">15</div>
-              <div class="stat-label">{{ 'ABOUT.PAGE.MISSION.STATS.EMPLOYEES' | transloco }}</div>
+              <div class="stat-number">15 %</div>
+              <div class="stat-label">{{ 'ABOUT.PAGE.MISSION.STATS.DISCOUNT' | transloco }}</div>
             </div>
             <div class="stat-box">
               <div class="stat-number">100%</div>
@@ -242,7 +243,14 @@ interface CompanyValue {
     }
 
     .value-icon {
-      font-size: 3.5rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(107, 144, 128, 0.12);
+      color: var(--viridian);
       margin-bottom: var(--space-lg);
     }
 
@@ -289,7 +297,14 @@ interface CompanyValue {
     }
 
     .point-icon {
-      font-size: 2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      color: var(--pure-white);
       flex-shrink: 0;
     }
 
@@ -320,6 +335,7 @@ interface CompanyValue {
     }
 
     .stat-number {
+      white-space: nowrap;
       font-size: 2.5rem;
       font-weight: var(--font-weight-bold);
       color: var(--pure-white);
@@ -473,32 +489,32 @@ export class AboutComponent implements OnInit, AfterViewInit {
     {
       title: 'Respect de l\'Environnement',
       description: 'Nous utilisons exclusivement des produits biodégradables et respectueux de l\'écosystème pour préserver notre planète.',
-      icon: '🌱'
+      icon: 'leaf'
     },
     {
       title: 'Qualité & Excellence',
       description: 'Chaque intervention est réalisée selon nos standards les plus élevés pour garantir votre satisfaction.',
-      icon: '⭐'
+      icon: 'award'
     },
     {
       title: 'Transparence',
       description: 'Nous communiquons ouvertement sur nos pratiques, nos produits et nos processus.',
-      icon: '🔍'
+      icon: 'search'
     },
     {
       title: 'Innovation',
       description: 'Nous investissons constamment dans de nouvelles technologies et méthodes de nettoyage écologique.',
-      icon: '💡'
+      icon: 'lightbulb'
     },
     {
       title: 'Communauté',
       description: 'Nous contribuons activement au bien-être de notre communauté locale.',
-      icon: '🤝'
+      icon: 'heart'
     },
     {
       title: 'Intégrité',
       description: 'Nous agissons avec honnêteté et éthique dans toutes nos relations d\'affaires.',
-      icon: '🛡️'
+      icon: 'shield-check'
     }
   ];
 
