@@ -134,11 +134,10 @@ export class SupabaseService {
         status: 'pending'
       };
 
-      const { data: result, error } = await this.supabase
+      // No .select(): the public (anon) role can insert but not read rows back.
+      const { error } = await this.supabase
         .from('contact_submissions')
-        .insert([submissionData])
-        .select()
-        .single();
+        .insert([submissionData]);
 
       if (error) {
         console.error('Error saving contact submission:', error);
@@ -148,10 +147,7 @@ export class SupabaseService {
         };
       }
 
-      return {
-        success: true,
-        data: result
-      };
+      return { success: true };
     } catch (error: any) {
       console.error('Exception saving contact submission:', error);
       return {
@@ -183,11 +179,10 @@ export class SupabaseService {
         status: 'pending'
       };
 
-      const { data: result, error } = await this.supabase
+      // No .select(): the public (anon) role can insert but not read rows back.
+      const { error } = await this.supabase
         .from('booking_requests')
-        .insert([bookingData])
-        .select()
-        .single();
+        .insert([bookingData]);
 
       if (error) {
         console.error('Error saving booking request:', error);
@@ -197,10 +192,7 @@ export class SupabaseService {
         };
       }
 
-      return {
-        success: true,
-        data: result
-      };
+      return { success: true };
     } catch (error: any) {
       console.error('Exception saving booking request:', error);
       return {

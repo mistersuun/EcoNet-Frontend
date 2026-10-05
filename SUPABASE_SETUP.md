@@ -97,15 +97,8 @@ CREATE POLICY "Allow public insert" ON contact_submissions
   FOR INSERT TO anon
   WITH CHECK (true);
 
--- Allow authenticated users to read all submissions (for admin panel)
-CREATE POLICY "Allow authenticated read" ON contact_submissions
-  FOR SELECT TO authenticated
-  USING (true);
-
--- Allow authenticated users to update submissions (for admin panel)
-CREATE POLICY "Allow authenticated update" ON contact_submissions
-  FOR UPDATE TO authenticated
-  USING (true);
+-- Admin read/update policies live in supabase/secure-admin-access.sql (Step 4b).
+-- Do NOT use "TO authenticated USING (true)": anyone who signs up would see every row.
 
 
 -- ====================================
@@ -182,15 +175,8 @@ CREATE POLICY "Allow public insert" ON booking_requests
   FOR INSERT TO anon
   WITH CHECK (true);
 
--- Allow authenticated users to read all bookings (for admin panel)
-CREATE POLICY "Allow authenticated read" ON booking_requests
-  FOR SELECT TO authenticated
-  USING (true);
-
--- Allow authenticated users to update bookings (for admin panel)
-CREATE POLICY "Allow authenticated update" ON booking_requests
-  FOR UPDATE TO authenticated
-  USING (true);
+-- Admin read/update policies live in supabase/secure-admin-access.sql (Step 4b).
+-- Do NOT use "TO authenticated USING (true)": anyone who signs up would see every row.
 
 
 -- ====================================
@@ -248,7 +234,20 @@ ORDER BY created_at DESC;
 GRANT SELECT ON recent_contacts TO authenticated;
 GRANT SELECT ON recent_bookings TO authenticated;
 GRANT SELECT ON urgent_requests TO authenticated;
+
+-- Views must check RLS as the caller, or they bypass the policies above
+ALTER VIEW recent_contacts SET (security_invoker = true);
+ALTER VIEW recent_bookings SET (security_invoker = true);
+ALTER VIEW urgent_requests SET (security_invoker = true);
 ```
+
+## Step 4b: Restrict Customer Data to Admins (Required)
+
+1. Run [`supabase/secure-admin-access.sql`](supabase/secure-admin-access.sql) in the SQL Editor.
+   It creates an `admin_users` table and limits reading/updating submissions to accounts listed there.
+2. Uncomment and run the `INSERT INTO admin_users ...` line at the bottom with your admin email.
+3. **Authentication → Sign In / Providers → turn off "Allow new users to sign up".**
+   The anon key is public (it ships in the website), so with sign-ups on, anyone can create an account.
 
 ## Step 5: Verify Tables Created
 
@@ -273,7 +272,7 @@ Once you've updated the environment files with your credentials:
 ### Security
 - **Row Level Security (RLS)** enabled on all tables
 - Public users can only INSERT (submit forms)
-- Only authenticated users can view/update records (admin panel)
+- Only admins listed in `admin_users` can view/update records (see Step 4b)
 - No data can be deleted through the API
 
 ### Status Tracking
