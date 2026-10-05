@@ -757,132 +757,164 @@
     }
   },
   "BOOKING": {
-    "TITLE": "Online Booking",
-    "SUBTITLE": "Schedule your cleaning service in a few clicks",
     "HERO": {
-      "BADGE": "Online Booking",
-      "TITLE": "Book Your Service",
-      "SUBTITLE": "Schedule your eco-friendly cleaning in just a few clicks"
+      "EYEBROW": "Online booking",
+      "TITLE": "Book in two minutes.",
+      "TITLE_ACCENT": "Your price, live.",
+      "SUBTITLE": "Pick your service, describe your space and watch your estimate update at every step."
     },
     "STEPS": {
-      "SERVICE": {
-        "TITLE": "Service",
-        "DESCRIPTION": "Choose the service"
-      },
-      "DETAILS": {
-        "TITLE": "Details",
-        "DESCRIPTION": "Property information"
-      },
-      "PLANNING": {
-        "TITLE": "Planning",
-        "DESCRIPTION": "Date and time"
-      },
-      "CONTACT": {
-        "TITLE": "Contact",
-        "DESCRIPTION": "Your information"
-      },
-      "CONFIRMATION": {
-        "TITLE": "Confirmation",
-        "DESCRIPTION": "Finalize"
-      }
+      "SERVICE": "Service",
+      "PROPERTY": "Property",
+      "SCHEDULE": "Schedule",
+      "CONTACT": "Contact",
+      "REVIEW": "Review",
+      "PROGRESS": "Step {{current}} of {{total}}",
+      "COMPLETED": "completed",
+      "CURRENT": "current step"
     },
     "STEP_1": {
-      "TITLE": "Choose Your Service",
-      "SUBTITLE": "Select the type of cleaning you need",
-      "CONTINUE": "Continue to Details"
+      "TITLE": "Which service do you need?",
+      "SUBTITLE": "The starting price adjusts to your space in the next step.",
+      "FROM": "From",
+      "POPULAR": "Popular",
+      "POST_CONSTRUCTION": "After construction or renovation?",
+      "POST_CONSTRUCTION_LINK": "Request a quote"
     },
     "STEP_2": {
-      "TITLE": "Property Details",
-      "SUBTITLE": "Help us better understand your needs",
-      "BASIC_INFO": "Basic Information",
+      "TITLE": "Tell us about your space.",
+      "SUBTITLE": "Size and property type adjust your estimate.",
       "PROPERTY_TYPE": "Property type",
-      "PROPERTY_SIZE": "Area (sq ft)",
-      "PROPERTY_SIZE_PLACEHOLDER": "Ex: 1200",
-      "BEDROOMS": "Number of bedrooms",
-      "BATHROOMS": "Number of bathrooms",
-      "ADDITIONAL_SERVICES": "Additional Services",
-      "SPECIAL_INSTRUCTIONS": "Special Instructions",
-      "SPECIAL_INSTRUCTIONS_PLACEHOLDER": "Do you have any particular instructions, areas to avoid, or special requests?",
-      "BACK": "Back",
-      "CONTINUE": "Continue to Planning"
+      "SIZE": "Size",
+      "BEDROOMS": "Bedrooms",
+      "BATHROOMS": "Bathrooms",
+      "OPTIONAL": "optional",
+      "SELECT": "Select",
+      "ADD_ONS": "Add-ons",
+      "ADD_ONS_HINT": "Add what you need, at a fixed price.",
+      "SPECIAL_INSTRUCTIONS": "Special instructions",
+      "SPECIAL_INSTRUCTIONS_PLACEHOLDER": "Access, pets, areas to avoid, special requests…",
+      "HOUSE_NOTE": "Houses: +{{percent}}% in the estimate (advertised range 10 to 20%). The final price is confirmed with you before the service.",
+      "QUOTE_NOTE": "Over 2,500 sq ft: we prepare a custom quote. You can still send your request and we’ll call you back with a price."
+    },
+    "SIZES": {
+      "under_800": "Under 800 sq ft",
+      "800_1500": "800 to 1,500 sq ft",
+      "1500_2500": "1,500 to 2,500 sq ft",
+      "over_2500": "Over 2,500 sq ft"
+    },
+    "EFFECT": {
+      "BASE": "Base price",
+      "STANDARD": "Standard price",
+      "PLUS": "+{{percent}}%",
+      "QUOTE": "Custom quote",
+      "COMMERCIAL": "Commercial rate",
+      "MINUS": "−{{percent}}%"
+    },
+    "BEDROOM_OPTIONS": {
+      "B0": "Studio",
+      "B1": "1 bedroom",
+      "B2": "2 bedrooms",
+      "B3": "3 bedrooms",
+      "B4": "4 bedrooms",
+      "B5": "5 bedrooms or more"
+    },
+    "BATHROOM_OPTIONS": {
+      "BA1": "1 bathroom",
+      "BA15": "1.5 bathrooms",
+      "BA2": "2 bathrooms",
+      "BA25": "2.5 bathrooms",
+      "BA3": "3 bathrooms or more"
     },
     "STEP_3": {
-      "TITLE": "Choose Date and Time",
-      "SUBTITLE": "Select your preferred time slot",
-      "PREFERRED_DATE": "Preferred Date",
-      "AVAILABLE_SLOTS": "Available Slots",
-      "OCCUPIED": "Busy",
-      "SERVICE_FREQUENCY": "Service Frequency",
-      "BACK": "Back",
-      "CONTINUE": "Continue to Information"
+      "TITLE": "When should we come?",
+      "SUBTITLE": "Pick your preferred time. We confirm availability with you.",
+      "DATE": "Preferred date",
+      "TIME": "Arrival time",
+      "FREQUENCY": "Frequency",
+      "FREQUENCY_HINT": "Regular cleaning costs less per visit.",
+      "SAVE": "Save {{percent}}%",
+      "FULL_PRICE": "Regular price"
     },
     "STEP_4": {
-      "TITLE": "Your Information",
-      "SUBTITLE": "Complete your contact details to finalize the booking",
-      "FIRST_NAME": "First Name",
-      "LAST_NAME": "Last Name",
+      "TITLE": "Where and how to reach you?",
+      "SUBTITLE": "We only use this information for your booking.",
+      "FIRST_NAME": "First name",
+      "LAST_NAME": "Last name",
       "EMAIL": "Email",
       "PHONE": "Phone",
-      "ADDRESS": "Complete Address",
-      "ADDRESS_PLACEHOLDER": "Address, city, postal code",
-      "COMMUNICATION_PREFERENCES": "Communication Preferences",
-      "SMS_REMINDERS": "Receive SMS reminders",
-      "EMAIL_UPDATES": "Receive email updates",
-      "BACK": "Back",
-      "CONTINUE": "View Summary"
+      "ADDRESS": "Service address",
+      "ADDRESS_PLACEHOLDER": "123 Example St., Apt. 4",
+      "CITY": "City",
+      "POSTAL_CODE": "Postal code"
     },
     "STEP_5": {
-      "TITLE": "Booking Confirmation",
-      "SUBTITLE": "Review details before confirming",
-      "SELECTED_SERVICE": "Selected Service",
-      "ADDITIONAL_SERVICES": "Additional Services",
-      "DATE_TIME": "Date and Time",
-      "DATE": "Date:",
-      "TIME": "Time:",
-      "FREQUENCY": "Frequency:",
-      "SUBTOTAL": "Subtotal:",
-      "TAXES": "Taxes (GST + QST):",
-      "TOTAL": "Total:",
-      "MODIFY": "Modify",
-      "CONFIRM": "Confirm Booking",
-      "PROCESSING": "⏳ Processing..."
+      "TITLE": "Review and confirm.",
+      "SUBTITLE": "No online payment: we contact you to confirm the price and time.",
+      "SERVICE": "Service",
+      "PROPERTY": "Property",
+      "SCHEDULE": "Schedule",
+      "CONTACT": "Contact",
+      "EDIT": "Edit",
+      "AT": "at"
+    },
+    "SUMMARY": {
+      "TITLE": "Your estimate",
+      "ESTIMATE": "Estimate",
+      "BASE": "Base price",
+      "SIZE_ADJ": "Size",
+      "TYPE_ADJ": "Property type",
+      "ADD_ONS": "Add-ons",
+      "DISCOUNT": "Frequency discount",
+      "SUBTOTAL": "Subtotal",
+      "TAXES": "Taxes (GST + QST)",
+      "TOTAL": "Estimated total",
+      "DISCLAIMER": "Estimate — the final price is confirmed with you before the service.",
+      "QUOTE": "Custom quote",
+      "QUOTE_TEXT": "For spaces over 2,500 sq ft, we send you a tailored price after your request.",
+      "EMPTY": "Choose a service to see your estimate.",
+      "NOT_SELECTED": "Not selected"
+    },
+    "NAV": {
+      "BACK": "Back",
+      "CONTINUE": "Continue",
+      "CONFIRM": "Confirm booking",
+      "SUBMITTING": "Sending…"
+    },
+    "ERRORS": {
+      "SUMMARY": "A few details are missing:",
+      "SERVICE": "Choose a service.",
+      "PROPERTY_TYPE": "Choose a property type.",
+      "SIZE": "Choose a size.",
+      "DATE": "Choose a date.",
+      "DATE_PAST": "Choose a date from tomorrow on.",
+      "TIME": "Choose an arrival time.",
+      "FIRST_NAME": "Enter your first name.",
+      "LAST_NAME": "Enter your last name.",
+      "EMAIL": "Enter your email address.",
+      "EMAIL_FORMAT": "This email address doesn’t look valid.",
+      "PHONE": "Enter your phone number.",
+      "PHONE_FORMAT": "Enter a 10-digit number.",
+      "ADDRESS": "Enter the service address.",
+      "CITY": "Enter the city.",
+      "POSTAL_CODE": "Enter the postal code.",
+      "POSTAL_CODE_FORMAT": "Expected format: H2X 1Y4."
     },
     "SERVICES": {
       "RESIDENTIAL": {
         "NAME": "Residential Cleaning",
         "DESCRIPTION": "Complete service for your home including kitchen, bathrooms, bedrooms and living areas",
-        "DURATION": "2-3 hours",
-        "FEATURES": [
-          "Complete dusting",
-          "Surface cleaning",
-          "Vacuuming and floor washing",
-          "Bathroom cleaning",
-          "Kitchen cleaning"
-        ]
+        "DURATION": "2-3 hours"
       },
       "COMMERCIAL": {
         "NAME": "Commercial Cleaning",
         "DESCRIPTION": "Customized solutions to maintain a healthy and professional work environment",
-        "DURATION": "3-5 hours",
-        "FEATURES": [
-          "Workstation cleaning",
-          "Trash removal",
-          "Common area cleaning",
-          "Surface disinfection",
-          "Flexible service (day/evening)"
-        ]
+        "DURATION": "3-5 hours"
       },
       "DEEP_CLEANING": {
         "NAME": "Deep Cleaning",
         "DESCRIPTION": "Intensive and detailed service for complete cleaning",
-        "DURATION": "4-5 hours",
-        "FEATURES": [
-          "Complete cleaning each room",
-          "Interior of appliances",
-          "Baseboards and moldings",
-          "Light fixtures and fans",
-          "Complete disinfection"
-        ]
+        "DURATION": "4-5 hours"
       }
     },
     "PROPERTY_TYPES": {
@@ -892,6 +924,20 @@
       "OFFICE": "Office",
       "RETAIL": "Retail store"
     },
+    "FREQUENCY_OPTIONS": {
+      "ONE_TIME": {
+        "NAME": "One time only"
+      },
+      "WEEKLY": {
+        "NAME": "Weekly"
+      },
+      "BI_WEEKLY": {
+        "NAME": "Every two weeks"
+      },
+      "MONTHLY": {
+        "NAME": "Monthly"
+      }
+    },
     "ADDITIONAL_SERVICES_LIST": {
       "WINDOWS": "Interior window cleaning",
       "OVEN": "Oven cleaning",
@@ -899,52 +945,6 @@
       "BASEMENT": "Basement cleaning",
       "GARAGE": "Garage cleaning"
     },
-    "PROPERTY_TYPE_OPTIONS": {
-      "SELECT": "Select",
-      "APARTMENT": "Apartment",
-      "HOUSE": "House",
-      "CONDO": "Condo",
-      "OFFICE": "Office",
-      "COMMERCIAL": "Commercial"
-    },
-    "BEDROOM_OPTIONS": {
-      "SELECT": "Select",
-      "STUDIO": "Studio",
-      "ONE": "1 bedroom",
-      "TWO": "2 bedrooms",
-      "THREE": "3 bedrooms",
-      "FOUR": "4 bedrooms",
-      "FIVE_PLUS": "5+ bedrooms"
-    },
-    "BATHROOM_OPTIONS": {
-      "SELECT": "Select",
-      "ONE": "1 bathroom",
-      "ONE_HALF": "1.5 bathrooms",
-      "TWO": "2 bathrooms",
-      "TWO_HALF": "2.5 bathrooms",
-      "THREE_PLUS": "3+ bathrooms"
-    },
-    "FREQUENCY_OPTIONS": {
-      "ONE_TIME": {
-        "NAME": "One time only",
-        "DISCOUNT": ""
-      },
-      "WEEKLY": {
-        "NAME": "Weekly",
-        "DISCOUNT": "15% discount"
-      },
-      "BI_WEEKLY": {
-        "NAME": "Every two weeks",
-        "DISCOUNT": "10% discount"
-      },
-      "MONTHLY": {
-        "NAME": "Monthly",
-        "DISCOUNT": "5% discount"
-      }
-    },
-    "NOT_SELECTED": "Not selected",
-    "POPULAR": "⭐ POPULAR",
-    "STARTING_FROM": "Starting at",
     "SUCCESS_TITLE": "Booking Confirmed!",
     "SUCCESS_MESSAGE": "Your booking has been received successfully. We will contact you shortly to confirm the details.",
     "ERROR_MESSAGE": "An error occurred while sending your booking. Please try again."

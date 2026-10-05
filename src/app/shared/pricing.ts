@@ -39,3 +39,107 @@ export const FREQUENCY_DISCOUNTS: Record<string, number> = {
 
 /** QC sales taxes (GST 5% + QST 9.975%) */
 export const QC_TAX_RATE = 0.14975;
+
+/**
+ * Property size ranges, matching the pricing page (PRICING.FACTORS.AREA.ITEMS).
+ * A `null` multiplier means the space is too large to price online: custom quote.
+ */
+export type AreaRange = 'under_800' | '800_1500' | '1500_2500' | 'over_2500';
+
+export const AREA_MULTIPLIERS: Record<AreaRange, number | null> = {
+  under_800: 1,      // base price
+  '800_1500': 1.25,  // +25%
+  '1500_2500': 1.5,  // +50%
+  over_2500: null,   // custom quote
+};
+
+/**
+ * Property type adjustment, matching PRICING.FACTORS.PROPERTY_TYPE.ITEMS.
+ * Houses are advertised at +10-20%; the online estimate uses the midpoint and
+ * the final price is confirmed with the customer before the service.
+ * Offices and stores are already priced by the commercial service's own rate.
+ */
+export type PropertyType = 'apartment' | 'house' | 'townhouse' | 'office' | 'retail';
+
+export const PROPERTY_TYPE_MULTIPLIERS: Record<PropertyType, number> = {
+  apartment: 1,
+  house: 1.15,
+  townhouse: 1.15,
+  office: 1,
+  retail: 1,
+};
+
+export interface EstimateInput {
+  service: ServiceId | '' | null;
+  area: AreaRange | '' | null;
+  propertyType: PropertyType | '' | null;
+  addOnIds: string[];
+  frequency: string;
+}
+
+export interface Estimate {
+  /** Service starting price */
+  base: number;
+  areaMultiplier: number;
+  /** base × (area − 1) */
+  areaAdjustment: number;
+  propertyTypeMultiplier: number;
+  /** base × area × (type − 1) */
+  propertyTypeAdjustment: number;
+  addOns: { id: string; name: string; price: number }[];
+  addOnsTotal: number;
+  /** Before the frequency discount */
+  beforeDiscount: number;
+  discountRate: number;
+  /** Amount taken off (positive number) */
+  discount: number;
+  /** Rounded to the dollar, before taxes */
+  subtotal: number;
+  taxes: number;
+  total: number;
+  /** The space is too large to price online (area over 2500 sq ft) */
+  quoteRequired: boolean;
+}
+
+/**
+ * (base × area × propertyType + add-ons) × (1 − frequency discount),
+ * rounded to the dollar, then QC taxes (rounded to the dollar).
+ * Missing area or property type count as ×1 until the customer picks one.
+ */
+export function estimatePrice(input: EstimateInput): Estimate {
+  const base = input.service ? SERVICE_PRICES[input.service].from : 0;
+  const areaValue = input.area ? AREA_MULTIPLIERS[input.area] : 1;
+  const quoteRequired = areaValue === null;
+  const areaMultiplier = areaValue ?? 1;
+  const propertyTypeMultiplier = input.propertyType ? PROPERTY_TYPE_MULTIPLIERS[input.propertyType] ?? 1 : 1;
+
+  const sized = base * areaMultiplier;
+  const adjusted = sized * propertyTypeMultiplier;
+  const addOns = ADD_ONS.filter(a => input.addOnIds.includes(a.id));
+  const addOnsTotal = addOns.reduce((sum, a) => sum + a.price, 0);
+  const beforeDiscount = adjusted + addOnsTotal;
+  const discountRate = FREQUENCY_DISCOUNTS[input.frequency] ?? 0;
+  const subtotal = Math.round(beforeDiscount * (1 - discountRate));
+  const taxes = Math.round(subtotal * QC_TAX_RATE);
+
+  return {
+    base,
+    areaMultiplier,
+    areaAdjustment: cents(sized - base),
+    propertyTypeMultiplier,
+    propertyTypeAdjustment: cents(adjusted - sized),
+    addOns,
+    addOnsTotal,
+    beforeDiscount: cents(beforeDiscount),
+    discountRate,
+    discount: cents(beforeDiscount * discountRate),
+    subtotal,
+    taxes,
+    total: subtotal + taxes,
+    quoteRequired,
+  };
+}
+
+function cents(n: number): number {
+  return Math.round(n * 100) / 100;
+}

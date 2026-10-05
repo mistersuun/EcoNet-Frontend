@@ -757,203 +757,164 @@
     }
   },
   "BOOKING": {
-    "TITLE": "Réservation en Ligne",
-    "SUBTITLE": "Planifiez votre service de nettoyage en quelques clics",
     "HERO": {
-      "BADGE": "Réservation en Ligne",
-      "TITLE": "Réservez Votre Service",
-      "SUBTITLE": "Planifiez votre nettoyage écologique en quelques clics seulement"
+      "EYEBROW": "Réservation en ligne",
+      "TITLE": "Réservez en deux minutes.",
+      "TITLE_ACCENT": "Votre prix, en direct.",
+      "SUBTITLE": "Choisissez votre service, décrivez votre espace et voyez votre estimation se mettre à jour à chaque étape."
     },
     "STEPS": {
-      "SERVICE": {
-        "TITLE": "Service",
-        "DESCRIPTION": "Choisir le service"
-      },
-      "DETAILS": {
-        "TITLE": "Détails",
-        "DESCRIPTION": "Informations propriété"
-      },
-      "PLANNING": {
-        "TITLE": "Planning",
-        "DESCRIPTION": "Date et heure"
-      },
-      "CONTACT": {
-        "TITLE": "Contact",
-        "DESCRIPTION": "Vos informations"
-      },
-      "CONFIRMATION": {
-        "TITLE": "Confirmation",
-        "DESCRIPTION": "Finaliser"
-      }
+      "SERVICE": "Service",
+      "PROPERTY": "Propriété",
+      "SCHEDULE": "Horaire",
+      "CONTACT": "Coordonnées",
+      "REVIEW": "Confirmation",
+      "PROGRESS": "Étape {{current}} sur {{total}}",
+      "COMPLETED": "terminée",
+      "CURRENT": "étape en cours"
     },
     "STEP_1": {
-      "TITLE": "Choisissez Votre Service",
-      "SUBTITLE": "Sélectionnez le type de nettoyage dont vous avez besoin",
-      "CONTINUE": "Continuer vers les Détails"
+      "TITLE": "Quel service vous faut-il ?",
+      "SUBTITLE": "Le prix de départ s’ajuste selon votre espace à l’étape suivante.",
+      "FROM": "À partir de",
+      "POPULAR": "Populaire",
+      "POST_CONSTRUCTION": "Après construction ou rénovation ?",
+      "POST_CONSTRUCTION_LINK": "Demandez un devis"
     },
     "STEP_2": {
-      "TITLE": "Détails de la Propriété",
-      "SUBTITLE": "Aidez-nous à mieux comprendre vos besoins",
-      "BASIC_INFO": "Informations de Base",
+      "TITLE": "Parlez-nous de votre espace.",
+      "SUBTITLE": "La superficie et le type de propriété ajustent votre estimation.",
       "PROPERTY_TYPE": "Type de propriété",
-      "PROPERTY_SIZE": "Superficie (pi²)",
-      "PROPERTY_SIZE_PLACEHOLDER": "Ex: 1200",
-      "BEDROOMS": "Nombre de chambres",
-      "BATHROOMS": "Nombre de salles de bain",
-      "ADDITIONAL_SERVICES": "Services Additionnels",
-      "SPECIAL_INSTRUCTIONS": "Instructions Spéciales",
-      "SPECIAL_INSTRUCTIONS_PLACEHOLDER": "Avez-vous des instructions particulières, zones à éviter ou demandes spéciales?",
-      "BACK": "Retour",
-      "CONTINUE": "Continuer vers le Planning"
+      "SIZE": "Superficie",
+      "BEDROOMS": "Chambres",
+      "BATHROOMS": "Salles de bain",
+      "OPTIONAL": "facultatif",
+      "SELECT": "Sélectionner",
+      "ADD_ONS": "Services additionnels",
+      "ADD_ONS_HINT": "Ajoutez ce dont vous avez besoin, au prix fixe.",
+      "SPECIAL_INSTRUCTIONS": "Instructions particulières",
+      "SPECIAL_INSTRUCTIONS_PLACEHOLDER": "Accès, animaux, zones à éviter, demandes spéciales…",
+      "HOUSE_NOTE": "Maisons : +{{percent}} % dans l’estimation (fourchette annoncée de 10 à 20 %). Le prix final est confirmé avec vous avant le service.",
+      "QUOTE_NOTE": "Plus de 2500 pi² : nous préparons un devis personnalisé. Vous pouvez quand même envoyer votre demande, nous vous rappelons avec un prix."
+    },
+    "SIZES": {
+      "under_800": "Moins de 800 pi²",
+      "800_1500": "800 à 1500 pi²",
+      "1500_2500": "1500 à 2500 pi²",
+      "over_2500": "Plus de 2500 pi²"
+    },
+    "EFFECT": {
+      "BASE": "Prix de base",
+      "STANDARD": "Prix standard",
+      "PLUS": "+{{percent}} %",
+      "QUOTE": "Devis personnalisé",
+      "COMMERCIAL": "Tarif commercial",
+      "MINUS": "−{{percent}} %"
+    },
+    "BEDROOM_OPTIONS": {
+      "B0": "Studio",
+      "B1": "1 chambre",
+      "B2": "2 chambres",
+      "B3": "3 chambres",
+      "B4": "4 chambres",
+      "B5": "5 chambres et plus"
+    },
+    "BATHROOM_OPTIONS": {
+      "BA1": "1 salle de bain",
+      "BA15": "1 salle de bain + salle d’eau",
+      "BA2": "2 salles de bain",
+      "BA25": "2 salles de bain + salle d’eau",
+      "BA3": "3 salles de bain et plus"
     },
     "STEP_3": {
-      "TITLE": "Sélectionnez Date et Heure",
-      "SUBTITLE": "Choisissez quand vous souhaitez que nous venions",
-      "PREFERRED_DATE": "Date préférée",
-      "PREFERRED_TIME": "Heure préférée",
-      "FREQUENCY": "Fréquence du service",
-      "START_DATE": "Date de début",
-      "NOTES": "Notes additionnelles",
-      "NOTES_PLACEHOLDER": "Informations supplémentaires sur la planification...",
-      "CONTINUE": "Continuer vers le Contact"
+      "TITLE": "Quand passons-nous ?",
+      "SUBTITLE": "Choisissez votre moment préféré. Nous confirmons la disponibilité avec vous.",
+      "DATE": "Date souhaitée",
+      "TIME": "Heure d’arrivée",
+      "FREQUENCY": "Fréquence",
+      "FREQUENCY_HINT": "Un entretien régulier coûte moins cher à chaque visite.",
+      "SAVE": "Économisez {{percent}} %",
+      "FULL_PRICE": "Prix régulier"
     },
     "STEP_4": {
-      "TITLE": "Vos Informations",
-      "SUBTITLE": "Comment pouvons-nous vous contacter?",
-      "CONTACT_INFO": "Informations de Contact",
+      "TITLE": "Où et comment vous joindre ?",
+      "SUBTITLE": "Nous utilisons ces informations uniquement pour votre réservation.",
       "FIRST_NAME": "Prénom",
       "LAST_NAME": "Nom",
-      "EMAIL": "Adresse courriel",
-      "PHONE": "Numéro de téléphone",
-      "ADDRESS": "Adresse du Service",
-      "STREET_ADDRESS": "Adresse",
+      "EMAIL": "Courriel",
+      "PHONE": "Téléphone",
+      "ADDRESS": "Adresse du service",
+      "ADDRESS_PLACEHOLDER": "123, rue Exemple, app. 4",
       "CITY": "Ville",
-      "POSTAL_CODE": "Code postal",
-      "PROVINCE": "Province",
-      "PREFERENCES": "Préférences",
-      "CONTACT_METHOD": "Méthode de contact préférée",
-      "CONTINUE": "Continuer vers la Confirmation"
+      "POSTAL_CODE": "Code postal"
     },
     "STEP_5": {
-      "TITLE": "Confirmez Votre Réservation",
-      "SUBTITLE": "Veuillez vérifier vos informations avant de soumettre",
-      "SERVICE_SUMMARY": "Résumé du Service",
-      "PROPERTY_DETAILS": "Détails de la Propriété",
-      "SCHEDULE_DETAILS": "Détails de la Planification",
-      "CONTACT_DETAILS": "Détails de Contact",
-      "PRICING": "Tarification",
-      "ESTIMATED_PRICE": "Prix Estimé",
-      "DEPOSIT": "Acompte Requis",
-      "FINAL_PAYMENT": "Paiement Final",
-      "TERMS": "Conditions Générales",
-      "ACCEPT_TERMS": "J'accepte les conditions générales et la politique de confidentialité",
-      "MARKETING": "Je souhaite recevoir des offres promotionnelles et des mises à jour",
-      "CONFIRM_BOOKING": "Confirmer la Réservation",
+      "TITLE": "Vérifiez et confirmez.",
+      "SUBTITLE": "Aucun paiement en ligne : nous vous contactons pour confirmer le prix et l’horaire.",
+      "SERVICE": "Service",
+      "PROPERTY": "Propriété",
+      "SCHEDULE": "Horaire",
+      "CONTACT": "Coordonnées",
       "EDIT": "Modifier",
-      "BACK": "Retour"
+      "AT": "à"
+    },
+    "SUMMARY": {
+      "TITLE": "Votre estimation",
+      "ESTIMATE": "Estimation",
+      "BASE": "Prix de base",
+      "SIZE_ADJ": "Superficie",
+      "TYPE_ADJ": "Type de propriété",
+      "ADD_ONS": "Services additionnels",
+      "DISCOUNT": "Rabais de fréquence",
+      "SUBTOTAL": "Sous-total",
+      "TAXES": "Taxes (TPS + TVQ)",
+      "TOTAL": "Total estimé",
+      "DISCLAIMER": "Estimation — le prix final est confirmé avec vous avant le service.",
+      "QUOTE": "Devis personnalisé",
+      "QUOTE_TEXT": "Pour plus de 2500 pi², nous vous envoyons un prix sur mesure après votre demande.",
+      "EMPTY": "Choisissez un service pour voir votre estimation.",
+      "NOT_SELECTED": "Non sélectionné"
+    },
+    "NAV": {
+      "BACK": "Retour",
+      "CONTINUE": "Continuer",
+      "CONFIRM": "Confirmer la réservation",
+      "SUBMITTING": "Envoi en cours…"
+    },
+    "ERRORS": {
+      "SUMMARY": "Il manque quelques informations :",
+      "SERVICE": "Choisissez un service.",
+      "PROPERTY_TYPE": "Choisissez un type de propriété.",
+      "SIZE": "Choisissez une superficie.",
+      "DATE": "Choisissez une date.",
+      "DATE_PAST": "Choisissez une date à partir de demain.",
+      "TIME": "Choisissez une heure d’arrivée.",
+      "FIRST_NAME": "Entrez votre prénom.",
+      "LAST_NAME": "Entrez votre nom.",
+      "EMAIL": "Entrez votre adresse courriel.",
+      "EMAIL_FORMAT": "Cette adresse courriel ne semble pas valide.",
+      "PHONE": "Entrez votre numéro de téléphone.",
+      "PHONE_FORMAT": "Entrez un numéro à 10 chiffres.",
+      "ADDRESS": "Entrez l’adresse du service.",
+      "CITY": "Entrez la ville.",
+      "POSTAL_CODE": "Entrez le code postal.",
+      "POSTAL_CODE_FORMAT": "Format attendu : H2X 1Y4."
     },
     "SERVICES": {
       "RESIDENTIAL": {
         "NAME": "Nettoyage Résidentiel",
         "DESCRIPTION": "Service complet pour votre maison incluant cuisine, salles de bain, chambres et espaces de vie",
-        "DURATION": "2-3 heures",
-        "FEATURES": [
-          "Dépoussiérage complet",
-          "Nettoyage des surfaces",
-          "Aspiration et lavage des sols",
-          "Nettoyage des salles de bain",
-          "Nettoyage de la cuisine"
-        ]
+        "DURATION": "2-3 heures"
       },
       "COMMERCIAL": {
         "NAME": "Nettoyage Commercial",
         "DESCRIPTION": "Solutions sur mesure pour maintenir un environnement de travail sain et professionnel",
-        "DURATION": "3-5 heures",
-        "FEATURES": [
-          "Nettoyage des postes de travail",
-          "Vidange des corbeilles",
-          "Nettoyage des espaces communs",
-          "Désinfection des surfaces",
-          "Service flexible (jour/soir)"
-        ]
+        "DURATION": "3-5 heures"
       },
       "DEEP_CLEANING": {
         "NAME": "Nettoyage en Profondeur",
         "DESCRIPTION": "Service intensif et détaillé pour un nettoyage complet",
-        "DURATION": "4-5 heures",
-        "FEATURES": [
-          "Nettoyage complet de chaque pièce",
-          "Intérieur des électroménagers",
-          "Plinthes et moulures",
-          "Luminaires et ventilateurs",
-          "Désinfection complète"
-        ]
-      },
-      "RESIDENTIAL_BASIC": {
-        "NAME": "Nettoyage Résidentiel Standard",
-        "DESCRIPTION": "Service complet pour votre maison incluant cuisine, salles de bain, chambres et espaces de vie",
-        "FEATURES": [
-          "Dépoussiérage complet",
-          "Nettoyage des surfaces",
-          "Aspiration et lavage des sols",
-          "Nettoyage des salles de bain",
-          "Nettoyage de la cuisine"
-        ]
-      },
-      "RESIDENTIAL_DEEP": {
-        "NAME": "Grand Nettoyage Résidentiel",
-        "DESCRIPTION": "Nettoyage en profondeur idéal pour les déménagements ou nettoyage saisonnier",
-        "FEATURES": [
-          "Toutes les prestations standard",
-          "Nettoyage intérieur des appareils",
-          "Lavage des fenêtres intérieures",
-          "Nettoyage des plinthes et cadres",
-          "Désinfection complète"
-        ]
-      },
-      "COMMERCIAL_OFFICE": {
-        "NAME": "Nettoyage de Bureaux",
-        "DESCRIPTION": "Solutions sur mesure pour maintenir un environnement de travail sain",
-        "FEATURES": [
-          "Nettoyage des postes de travail",
-          "Vidange des corbeilles",
-          "Nettoyage des espaces communs",
-          "Désinfection des surfaces",
-          "Service flexible (jour/soir)"
-        ]
-      },
-      "COMMERCIAL_RETAIL": {
-        "NAME": "Nettoyage Commercial",
-        "DESCRIPTION": "Services adaptés aux magasins, restaurants et espaces commerciaux",
-        "FEATURES": [
-          "Nettoyage des espaces clients",
-          "Entretien des vitrines",
-          "Nettoyage des sols commerciaux",
-          "Désinfection des zones sensibles",
-          "Horaires flexibles"
-        ]
-      },
-      "POST_CONSTRUCTION": {
-        "NAME": "Nettoyage Post-Construction",
-        "DESCRIPTION": "Remise en état complète après travaux de construction ou rénovation",
-        "FEATURES": [
-          "Évacuation des débris fins",
-          "Nettoyage des résidus de construction",
-          "Lavage complet des surfaces",
-          "Nettoyage des fenêtres",
-          "Préparation pour emménagement"
-        ]
-      },
-      "MOVE_IN_OUT": {
-        "NAME": "Nettoyage Déménagement",
-        "DESCRIPTION": "Nettoyage complet pour les déménagements entrants ou sortants",
-        "FEATURES": [
-          "Nettoyage complet de toutes les pièces",
-          "Intérieur des armoires et tiroirs",
-          "Nettoyage des appareils",
-          "Murs et plafonds",
-          "Prêt pour inspection"
-        ]
+        "DURATION": "4-5 heures"
       }
     },
     "PROPERTY_TYPES": {
@@ -963,60 +924,19 @@
       "OFFICE": "Bureau",
       "RETAIL": "Commerce de détail"
     },
-    "ADDITIONAL_SERVICES_OPTIONS": {
-      "WINDOWS_EXTERIOR": {
-        "NAME": "Nettoyage vitres extérieures",
-        "DESCRIPTION": "Inclut toutes les fenêtres accessibles"
-      },
-      "OVEN_CLEANING": {
-        "NAME": "Nettoyage du four",
-        "DESCRIPTION": "Nettoyage en profondeur de l'intérieur du four"
-      },
-      "FRIDGE_CLEANING": {
-        "NAME": "Nettoyage du réfrigérateur",
-        "DESCRIPTION": "Nettoyage complet intérieur et extérieur"
-      },
-      "CARPET_CLEANING": {
-        "NAME": "Nettoyage de tapis",
-        "DESCRIPTION": "Nettoyage professionnel des tapis et moquettes"
-      },
-      "GARAGE_BASEMENT": {
-        "NAME": "Garage/Sous-sol",
-        "DESCRIPTION": "Nettoyage des espaces de rangement"
-      },
-      "LAUNDRY": {
-        "NAME": "Service de lessive",
-        "DESCRIPTION": "Lessive, pliage et rangement"
-      }
-    },
-    "TIME_SLOTS": {
-      "MORNING": "Matin (8h-12h)",
-      "AFTERNOON": "Après-midi (12h-17h)",
-      "EVENING": "Soir (17h-20h)"
-    },
     "FREQUENCY_OPTIONS": {
       "ONE_TIME": {
-        "NAME": "Une fois seulement",
-        "DISCOUNT": ""
+        "NAME": "Une fois seulement"
       },
       "WEEKLY": {
-        "NAME": "Hebdomadaire",
-        "DISCOUNT": "Rabais de 15%"
+        "NAME": "Hebdomadaire"
       },
       "BI_WEEKLY": {
-        "NAME": "Aux 2 semaines",
-        "DISCOUNT": "Rabais de 10%"
+        "NAME": "Aux 2 semaines"
       },
       "MONTHLY": {
-        "NAME": "Mensuel",
-        "DISCOUNT": "Rabais de 5%"
+        "NAME": "Mensuel"
       }
-    },
-    "CONTACT_METHODS": {
-      "EMAIL": "Courriel",
-      "PHONE": "Téléphone",
-      "SMS": "SMS",
-      "ANY": "N'importe lequel"
     },
     "ADDITIONAL_SERVICES_LIST": {
       "WINDOWS": "Nettoyage vitres intérieures",
@@ -1024,16 +944,6 @@
       "FRIDGE": "Nettoyage du réfrigérateur",
       "BASEMENT": "Nettoyage du sous-sol",
       "GARAGE": "Nettoyage du garage"
-    },
-    "COMMON": {
-      "REQUIRED": "Requis",
-      "OPTIONAL": "Optionnel",
-      "SELECT": "Sélectionner",
-      "LOADING": "Chargement...",
-      "SUBMITTING": "Envoi en cours...",
-      "SUCCESS": "Réservation confirmée!",
-      "ERROR": "Une erreur s'est produite. Veuillez réessayer.",
-      "VALIDATION_ERROR": "Veuillez remplir tous les champs requis"
     },
     "SUCCESS_TITLE": "Réservation confirmée!",
     "SUCCESS_MESSAGE": "Votre réservation a été reçue avec succès. Nous vous contacterons sous peu pour confirmer les détails.",
