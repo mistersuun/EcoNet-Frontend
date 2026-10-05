@@ -6,6 +6,7 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ScrollAnimationService } from '../../services/scroll-animation.service';
 import { EmailService } from '../../services/email.service';
 import { SuccessModalComponent } from '../../shared/components/success-modal.component';
+import { IconComponent } from '../../shared/components/icon.component';
 
 interface ContactMethod {
   icon: string;
@@ -18,7 +19,7 @@ interface ContactMethod {
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, TranslocoPipe, SuccessModalComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, TranslocoPipe, SuccessModalComponent, IconComponent],
   template: `
     <section class="hero wave-border-bottom-only" #heroSection>
       <div class="container">
@@ -41,7 +42,7 @@ interface ContactMethod {
 
         <div class="contact-grid">
           <div class="contact-card card scale-in" [class.visible]="areContactMethodsVisible" *ngFor="let method of contactMethods; let i = index" [class]="'stagger-' + (i + 3)">
-            <div class="contact-icon">{{method.icon}}</div>
+            <div class="contact-icon"><app-icon [name]="method.icon" [size]="30" /></div>
             <h3>{{ method.title | transloco }}</h3>
             <div class="contact-value">{{method.value}}</div>
             <p class="contact-description">{{ method.description | transloco }}</p>
@@ -333,9 +334,15 @@ interface ContactMethod {
     }
 
     .contact-icon {
-      font-size: 3.5rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(107, 144, 128, 0.12);
+      color: var(--viridian);
       margin-bottom: var(--space-lg);
-      display: block;
     }
 
     .contact-card h3 {
@@ -564,7 +571,14 @@ interface ContactMethod {
     }
 
     .dropdown-option.selected::after {
-      content: '✓';
+      content: '';
+      display: inline-block;
+      width: 5px;
+      height: 10px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      margin: 3px 4px 0 0;
       float: right;
       color: #007AFF;
       font-weight: 600;
@@ -879,14 +893,14 @@ export class ContactComponent implements OnInit, OnDestroy, AfterViewInit {
 
   contactMethods: ContactMethod[] = [
     {
-      icon: '📞',
+      icon: 'phone',
       title: 'CONTACT.PHONE',
       value: '(514) 942-2670',
       description: 'CONTACT.PHONE_DESC',
       action: 'CONTACT.PHONE_ACTION'
     },
     {
-      icon: '📧',
+      icon: 'mail',
       title: 'CONTACT.EMAIL',
       value: 'econetentretienmenager@gmail.com',
       description: 'CONTACT.EMAIL_DESC',

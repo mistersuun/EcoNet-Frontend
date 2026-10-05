@@ -3,6 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ScrollAnimationService } from '../../services/scroll-animation.service';
+import { IconComponent } from '../../shared/components/icon.component';
 
 interface PricingPlan {
   id: string;
@@ -21,7 +22,7 @@ interface PricingFactor {
 @Component({
   selector: 'app-pricing',
   standalone: true,
-  imports: [CommonModule, RouterLink, TranslocoPipe],
+  imports: [CommonModule, RouterLink, TranslocoPipe, IconComponent],
   template: `
     <section #heroSection class="hero-section" [class.visible]="isHeroVisible">
       <div class="container">
@@ -45,7 +46,7 @@ interface PricingFactor {
               <div class="carousel-slide" *ngFor="let plan of pricingPlans; let i = index">
                 <div class="service-card">
                   <div class="service-header">
-                    <div class="service-icon">{{plan.icon}}</div>
+                    <div class="service-icon"><app-icon [name]="plan.icon" [size]="32" /></div>
                     <h3 class="service-name">{{ getPlanName(plan.id) }}</h3>
                     <p class="service-description">{{ getPlanDescription(plan.id) }}</p>
                     <div class="service-price">
@@ -97,7 +98,7 @@ interface PricingFactor {
 
         <div class="factors-grid">
           <div class="factor-card card slide-up" [class.visible]="arePricingFactorsVisible" *ngFor="let factor of pricingFactors; let i = index" [class]="'stagger-' + (i + 3)">
-            <div class="factor-icon">{{factor.icon}}</div>
+            <div class="factor-icon"><app-icon [name]="factor.icon" [size]="28" /></div>
             <h3>{{ getFactorName(factor.name) }}</h3>
             <p class="factor-description">{{ getFactorDescription(factor.name) }}</p>
             <ul class="factor-list">
@@ -129,52 +130,52 @@ interface PricingFactor {
             <tbody>
               <tr>
                 <td class="feature-name">{{ 'PRICING.COMPARISON.GENERAL_CLEANING' | transloco }}</td>
-                <td class="feature-check">✅</td>
-                <td class="feature-check">✅</td>
-                <td class="feature-check">✅</td>
-                <td class="feature-check">✅</td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
               </tr>
               <tr>
                 <td class="feature-name">{{ 'PRICING.COMPARISON.DISINFECTION' | transloco }}</td>
-                <td class="feature-check">✅</td>
-                <td class="feature-check">✅</td>
-                <td class="feature-check">✅</td>
-                <td class="feature-check">✅</td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
               </tr>
               <tr>
                 <td class="feature-name">{{ 'PRICING.COMPARISON.INTERIOR_WINDOWS' | transloco }}</td>
-                <td class="feature-check">✅</td>
-                <td class="feature-cross">❌</td>
-                <td class="feature-check">✅</td>
-                <td class="feature-check">✅</td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
+                <td class="feature-cross"><app-icon name="x" [size]="18" [stroke]="2" /><span class="sr-only">Non inclus</span></td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
               </tr>
               <tr>
                 <td class="feature-name">{{ 'PRICING.COMPARISON.SPECIALIZED_EQUIPMENT' | transloco }}</td>
-                <td class="feature-cross">❌</td>
-                <td class="feature-check">✅</td>
-                <td class="feature-check">✅</td>
-                <td class="feature-check">✅</td>
+                <td class="feature-cross"><app-icon name="x" [size]="18" [stroke]="2" /><span class="sr-only">Non inclus</span></td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
               </tr>
               <tr>
                 <td class="feature-name">{{ 'PRICING.COMPARISON.POST_CONSTRUCTION' | transloco }}</td>
-                <td class="feature-cross">❌</td>
-                <td class="feature-cross">❌</td>
-                <td class="feature-check">✅</td>
-                <td class="feature-cross">❌</td>
+                <td class="feature-cross"><app-icon name="x" [size]="18" [stroke]="2" /><span class="sr-only">Non inclus</span></td>
+                <td class="feature-cross"><app-icon name="x" [size]="18" [stroke]="2" /><span class="sr-only">Non inclus</span></td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
+                <td class="feature-cross"><app-icon name="x" [size]="18" [stroke]="2" /><span class="sr-only">Non inclus</span></td>
               </tr>
               <tr>
                 <td class="feature-name">{{ 'PRICING.COMPARISON.APPLIANCE_INTERIOR' | transloco }}</td>
-                <td class="feature-cross">❌</td>
-                <td class="feature-cross">❌</td>
-                <td class="feature-cross">❌</td>
-                <td class="feature-check">✅</td>
+                <td class="feature-cross"><app-icon name="x" [size]="18" [stroke]="2" /><span class="sr-only">Non inclus</span></td>
+                <td class="feature-cross"><app-icon name="x" [size]="18" [stroke]="2" /><span class="sr-only">Non inclus</span></td>
+                <td class="feature-cross"><app-icon name="x" [size]="18" [stroke]="2" /><span class="sr-only">Non inclus</span></td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
               </tr>
               <tr>
                 <td class="feature-name">{{ 'PRICING.COMPARISON.SATISFACTION_GUARANTEE' | transloco }}</td>
-                <td class="feature-check">✅</td>
-                <td class="feature-check">✅</td>
-                <td class="feature-check">✅</td>
-                <td class="feature-check">✅</td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
+                <td class="feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></td>
               </tr>
             </tbody>
           </table>
@@ -187,31 +188,31 @@ interface PricingFactor {
               <div class="mobile-feature-list">
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.GENERAL_CLEANING' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.DISINFECTION' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.INTERIOR_WINDOWS' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.SPECIALIZED_EQUIPMENT' | transloco }}</span>
-                  <span class="mobile-feature-value">❌</span>
+                  <span class="mobile-feature-value feature-cross"><app-icon name="x" [size]="18" [stroke]="2" /><span class="sr-only">Non inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.POST_CONSTRUCTION' | transloco }}</span>
-                  <span class="mobile-feature-value">❌</span>
+                  <span class="mobile-feature-value feature-cross"><app-icon name="x" [size]="18" [stroke]="2" /><span class="sr-only">Non inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.APPLIANCE_INTERIOR' | transloco }}</span>
-                  <span class="mobile-feature-value">❌</span>
+                  <span class="mobile-feature-value feature-cross"><app-icon name="x" [size]="18" [stroke]="2" /><span class="sr-only">Non inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.SATISFACTION_GUARANTEE' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
               </div>
             </div>
@@ -222,31 +223,31 @@ interface PricingFactor {
               <div class="mobile-feature-list">
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.GENERAL_CLEANING' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.DISINFECTION' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.INTERIOR_WINDOWS' | transloco }}</span>
-                  <span class="mobile-feature-value">❌</span>
+                  <span class="mobile-feature-value feature-cross"><app-icon name="x" [size]="18" [stroke]="2" /><span class="sr-only">Non inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.SPECIALIZED_EQUIPMENT' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.POST_CONSTRUCTION' | transloco }}</span>
-                  <span class="mobile-feature-value">❌</span>
+                  <span class="mobile-feature-value feature-cross"><app-icon name="x" [size]="18" [stroke]="2" /><span class="sr-only">Non inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.APPLIANCE_INTERIOR' | transloco }}</span>
-                  <span class="mobile-feature-value">❌</span>
+                  <span class="mobile-feature-value feature-cross"><app-icon name="x" [size]="18" [stroke]="2" /><span class="sr-only">Non inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.SATISFACTION_GUARANTEE' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
               </div>
             </div>
@@ -257,31 +258,31 @@ interface PricingFactor {
               <div class="mobile-feature-list">
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.GENERAL_CLEANING' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.DISINFECTION' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.INTERIOR_WINDOWS' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.SPECIALIZED_EQUIPMENT' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.POST_CONSTRUCTION' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.APPLIANCE_INTERIOR' | transloco }}</span>
-                  <span class="mobile-feature-value">❌</span>
+                  <span class="mobile-feature-value feature-cross"><app-icon name="x" [size]="18" [stroke]="2" /><span class="sr-only">Non inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.SATISFACTION_GUARANTEE' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
               </div>
             </div>
@@ -292,31 +293,31 @@ interface PricingFactor {
               <div class="mobile-feature-list">
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.GENERAL_CLEANING' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.DISINFECTION' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.INTERIOR_WINDOWS' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.SPECIALIZED_EQUIPMENT' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.POST_CONSTRUCTION' | transloco }}</span>
-                  <span class="mobile-feature-value">❌</span>
+                  <span class="mobile-feature-value feature-cross"><app-icon name="x" [size]="18" [stroke]="2" /><span class="sr-only">Non inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.APPLIANCE_INTERIOR' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
                 <div class="mobile-feature-item">
                   <span class="mobile-feature-name">{{ 'PRICING.COMPARISON.SATISFACTION_GUARANTEE' | transloco }}</span>
-                  <span class="mobile-feature-value">✅</span>
+                  <span class="mobile-feature-value feature-check"><app-icon name="check" [size]="20" [stroke]="2.25" /><span class="sr-only">Inclus</span></span>
                 </div>
               </div>
             </div>
@@ -333,19 +334,19 @@ interface PricingFactor {
             <p class="stagger-2">{{ 'PRICING.CALCULATOR.SUBTITLE' | transloco }}</p>
             <div class="calculator-features">
               <div class="calc-feature stagger-3">
-                <span class="calc-icon">📏</span>
+                <span class="calc-icon"><app-icon name="ruler" [size]="20" /></span>
                 <span>{{ 'PRICING.CALCULATOR.FEATURE_1' | transloco }}</span>
               </div>
               <div class="calc-feature stagger-4">
-                <span class="calc-icon">🏠</span>
+                <span class="calc-icon"><app-icon name="home" [size]="20" /></span>
                 <span>{{ 'PRICING.CALCULATOR.FEATURE_2' | transloco }}</span>
               </div>
               <div class="calc-feature stagger-5">
-                <span class="calc-icon">🔄</span>
+                <span class="calc-icon"><app-icon name="refresh" [size]="20" /></span>
                 <span>{{ 'PRICING.CALCULATOR.FEATURE_3' | transloco }}</span>
               </div>
               <div class="calc-feature stagger-6">
-                <span class="calc-icon">⚡</span>
+                <span class="calc-icon"><app-icon name="zap" [size]="20" /></span>
                 <span>{{ 'PRICING.CALCULATOR.FEATURE_4' | transloco }}</span>
               </div>
             </div>
@@ -370,19 +371,19 @@ interface PricingFactor {
 
         <div class="guarantee-grid">
           <div class="guarantee-card card scale-in stagger-3" [class.visible]="isGuaranteeVisible">
-            <div class="guarantee-icon">💰</div>
+            <div class="guarantee-icon"><app-icon name="dollar" [size]="30" /></div>
             <h3>{{ 'PRICING.GUARANTEE.TRANSPARENT.TITLE' | transloco }}</h3>
             <p>{{ 'PRICING.GUARANTEE.TRANSPARENT.DESCRIPTION' | transloco }}</p>
           </div>
 
           <div class="guarantee-card card card-highlight scale-in stagger-4" [class.visible]="isGuaranteeVisible">
-            <div class="guarantee-icon">🛡️</div>
+            <div class="guarantee-icon"><app-icon name="shield-check" [size]="30" /></div>
             <h3>{{ 'PRICING.GUARANTEE.SATISFACTION.TITLE' | transloco }}</h3>
             <p>{{ 'PRICING.GUARANTEE.SATISFACTION.DESCRIPTION' | transloco }}</p>
           </div>
 
           <div class="guarantee-card card scale-in stagger-5" [class.visible]="isGuaranteeVisible">
-            <div class="guarantee-icon">🏆</div>
+            <div class="guarantee-icon"><app-icon name="award" [size]="30" /></div>
             <h3>{{ 'PRICING.GUARANTEE.BEST_PRICE.TITLE' | transloco }}</h3>
             <p>{{ 'PRICING.GUARANTEE.BEST_PRICE.DESCRIPTION' | transloco }}</p>
           </div>
@@ -565,9 +566,17 @@ interface PricingFactor {
     }
 
     .service-icon {
-      font-size: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 72px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 50%;
+      background: rgba(107, 144, 128, 0.12);
+      color: var(--viridian, #6b9080);
       margin-bottom: var(--space-lg);
-      display: block;
     }
 
     .service-name {
@@ -627,11 +636,15 @@ interface PricingFactor {
     }
 
     .feature-list li:before {
-      content: '✓';
-      color: var(--primary);
+      content: '';
       position: absolute;
-      left: 0;
-      font-weight: var(--font-weight-bold);
+      left: 4px;
+      top: calc(var(--space-sm) + 0.3em);
+      width: 5px;
+      height: 10px;
+      border-right: 2px solid var(--primary);
+      border-bottom: 2px solid var(--primary);
+      transform: rotate(45deg);
     }
 
     .service-actions {
@@ -803,9 +816,17 @@ interface PricingFactor {
     }
 
     .factor-icon {
-      font-size: 3.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 50%;
+      background: rgba(107, 144, 128, 0.12);
+      color: var(--viridian, #6b9080);
       margin-bottom: var(--space-lg);
-      display: block;
     }
 
     .factor-description {
@@ -876,13 +897,23 @@ interface PricingFactor {
     }
 
     .feature-check {
-      color: var(--success);
-      font-size: 1.3rem;
+      color: var(--viridian, #6b9080);
     }
 
     .feature-cross {
-      color: var(--error);
-      font-size: 1.3rem;
+      color: #9ca3af;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     /* Calculator Section */
@@ -926,7 +957,14 @@ interface PricingFactor {
     }
 
     .calc-icon {
-      font-size: 1.3rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      color: var(--pure-white);
       flex-shrink: 0;
     }
 
@@ -985,9 +1023,17 @@ interface PricingFactor {
     }
 
     .guarantee-icon {
-      font-size: 3.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 50%;
+      background: rgba(107, 144, 128, 0.12);
+      color: var(--viridian, #6b9080);
       margin-bottom: var(--space-lg);
-      display: block;
     }
 
     /* FAQ Section */
@@ -1177,7 +1223,8 @@ interface PricingFactor {
       }
 
       .mobile-feature-value {
-        font-size: 1.25rem;
+        display: inline-flex;
+        align-items: center;
         margin-left: var(--space-md);
         flex-shrink: 0;
       }
@@ -1306,7 +1353,8 @@ interface PricingFactor {
       }
 
       .service-icon {
-        font-size: 3rem;
+        width: 60px;
+        height: 60px;
       }
 
       .service-name {
@@ -1413,7 +1461,8 @@ interface PricingFactor {
       }
 
       .calc-icon {
-        font-size: 1.1rem;
+        width: 32px;
+        height: 32px;
       }
 
       .calculator-image {
@@ -1452,23 +1501,23 @@ export class PricingComponent implements OnInit, OnDestroy, AfterViewInit {
     {
       id: 'residential',
       price: 120,
-      icon: '🏠',
+      icon: 'home',
       popular: true
     },
     {
       id: 'commercial',
       price: 200,
-      icon: '🏢'
+      icon: 'building'
     },
     {
       id: 'postconstruction',
       price: 350,
-      icon: '🔨'
+      icon: 'hammer'
     },
     {
       id: 'deepcleaning',
       price: 280,
-      icon: '✨'
+      icon: 'sparkles'
     }
   ];
 
@@ -1476,25 +1525,25 @@ export class PricingComponent implements OnInit, OnDestroy, AfterViewInit {
     {
       name: 'area',
       description: '',
-      icon: '📏',
+      icon: 'ruler',
       factors: []
     },
     {
       name: 'property_type',
       description: '',
-      icon: '🏠',
+      icon: 'home',
       factors: []
     },
     {
       name: 'frequency',
       description: '',
-      icon: '🔄',
+      icon: 'refresh',
       factors: []
     },
     {
       name: 'additional_services',
       description: '',
-      icon: '➕',
+      icon: 'plus',
       factors: []
     }
   ];

@@ -6,6 +6,7 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ScrollAnimationService } from '../../services/scroll-animation.service';
 import { EmailService, BookingFormData } from '../../services/email.service';
 import { SuccessModalComponent } from '../../shared/components/success-modal.component';
+import { IconComponent } from '../../shared/components/icon.component';
 
 interface BookingStep {
   id: number;
@@ -33,7 +34,7 @@ interface TimeSlot {
 @Component({
   selector: 'app-booking',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TranslocoPipe, SuccessModalComponent],
+  imports: [CommonModule, ReactiveFormsModule, TranslocoPipe, SuccessModalComponent, IconComponent],
   template: `
     <section class="hero wave-border-bottom-only" #bookingHeader>
       <div class="container">
@@ -56,7 +57,7 @@ interface TimeSlot {
                  [class.completed]="step.completed">
               <div class="step-number">
                 <span *ngIf="!step.completed">{{step.id}}</span>
-                <span *ngIf="step.completed">✓</span>
+                <app-icon *ngIf="step.completed" name="check" [size]="18" [stroke]="2.5" />
               </div>
               <div class="step-info">
                 <div class="step-title">{{ 'BOOKING.STEPS.' + getStepKey(step.id) + '.TITLE' | transloco }}</div>
@@ -87,10 +88,10 @@ interface TimeSlot {
                    [class]="'stagger-' + (i + 2)"
                    (click)="selectService(service)">
 
-                <div class="service-badge" *ngIf="service.popular">⭐ POPULAIRE</div>
+                <div class="service-badge" *ngIf="service.popular">POPULAIRE</div>
 
                 <div class="service-header">
-                  <div class="service-icon">{{service.icon}}</div>
+                  <div class="service-icon"><app-icon [name]="service.icon" [size]="32" /></div>
                   <div class="service-pricing">
                     <span class="price">À partir de {{service.basePrice}}$</span>
                     <span class="duration">{{service.duration}}</span>
@@ -102,7 +103,7 @@ interface TimeSlot {
 
                 <ul class="service-features">
                   <li *ngFor="let feature of service.features">
-                    <span class="check-icon">✓</span>
+                    <span class="check-icon"><app-icon name="check" [size]="16" [stroke]="2.25" /></span>
                     {{ feature }}
                   </li>
                 </ul>
@@ -382,7 +383,7 @@ interface TimeSlot {
                 <h3>{{ 'BOOKING.STEP_5.SERVICE_SUMMARY' | transloco }}</h3>
                 <div class="service-summary">
                   <div class="summary-item">
-                    <span class="service-icon">{{selectedService?.icon}}</span>
+                    <span class="service-icon"><app-icon [name]="selectedService?.icon || ''" [size]="28" /></span>
                     <div>
                       <div class="item-name">{{selectedService?.name}}</div>
                       <div class="item-details">{{selectedService?.duration}}</div>
@@ -406,15 +407,15 @@ interface TimeSlot {
                 <h3>{{ 'BOOKING.STEP_5.SCHEDULE_DETAILS' | transloco }}</h3>
                 <div class="datetime-summary">
                   <div class="summary-item">
-                    <span>📅 Date:</span>
+                    <span class="summary-label"><app-icon name="calendar" [size]="16" /> Date:</span>
                     <span>{{formatDate(bookingForm.get('preferredDate')?.value)}}</span>
                   </div>
                   <div class="summary-item">
-                    <span>⏰ Heure:</span>
+                    <span class="summary-label"><app-icon name="clock" [size]="16" /> Heure:</span>
                     <span>{{selectedTimeSlot}}</span>
                   </div>
                   <div class="summary-item">
-                    <span>🔄 Fréquence:</span>
+                    <span class="summary-label"><app-icon name="refresh" [size]="16" /> Fréquence:</span>
                     <span>{{getFrequencyName()}}</span>
                   </div>
                 </div>
@@ -444,8 +445,8 @@ interface TimeSlot {
                       class="btn btn-primary btn-lg"
                       [disabled]="isSubmitting"
                       (click)="confirmBooking()">
-                <span *ngIf="!isSubmitting">✅ {{ 'BOOKING.STEP_5.CONFIRM_BOOKING' | transloco }}</span>
-                <span *ngIf="isSubmitting">⏳ {{ 'BOOKING.COMMON.SUBMITTING' | transloco }}</span>
+                <span *ngIf="!isSubmitting" class="btn-label"><app-icon name="check-circle" [size]="18" /> {{ 'BOOKING.STEP_5.CONFIRM_BOOKING' | transloco }}</span>
+                <span *ngIf="isSubmitting" class="btn-label"><app-icon name="clock" [size]="18" /> {{ 'BOOKING.COMMON.SUBMITTING' | transloco }}</span>
               </button>
             </div>
           </div>
@@ -774,8 +775,22 @@ interface TimeSlot {
     }
 
     .service-icon {
-      font-size: 2.8rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--viridian);
       line-height: 1;
+    }
+
+    .summary-label,
+    .btn-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .summary-label app-icon {
+      color: var(--viridian);
     }
 
     .service-pricing {
@@ -822,8 +837,8 @@ interface TimeSlot {
     }
 
     .check-icon {
-      color: var(--success);
-      font-weight: var(--font-weight-bold);
+      display: inline-flex;
+      color: var(--viridian);
       width: 16px;
       flex-shrink: 0;
     }
@@ -1041,7 +1056,14 @@ interface TimeSlot {
     }
 
     .dropdown-option.selected::after {
-      content: '✓';
+      content: '';
+      display: inline-block;
+      width: 5px;
+      height: 10px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      margin: 3px 4px 0 0;
       float: right;
       color: #007AFF;
       font-weight: 600;
@@ -1763,7 +1785,7 @@ export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
         description: this.translocoService.translate('BOOKING.SERVICES.RESIDENTIAL.DESCRIPTION'),
         basePrice: 120,
         duration: this.translocoService.translate('BOOKING.SERVICES.RESIDENTIAL.DURATION'),
-        icon: '🏠',
+        icon: 'home',
         features: this.translocoService.translate('BOOKING.SERVICES.RESIDENTIAL.FEATURES') as string[],
         popular: true
       },
@@ -1773,7 +1795,7 @@ export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
         description: this.translocoService.translate('BOOKING.SERVICES.COMMERCIAL.DESCRIPTION'),
         basePrice: 200,
         duration: this.translocoService.translate('BOOKING.SERVICES.COMMERCIAL.DURATION'),
-        icon: '🏢',
+        icon: 'building',
         features: this.translocoService.translate('BOOKING.SERVICES.COMMERCIAL.FEATURES') as string[]
       },
       {
@@ -1782,7 +1804,7 @@ export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
         description: this.translocoService.translate('BOOKING.SERVICES.DEEP_CLEANING.DESCRIPTION'),
         basePrice: 280,
         duration: this.translocoService.translate('BOOKING.SERVICES.DEEP_CLEANING.DURATION'),
-        icon: '✨',
+        icon: 'sparkles',
         features: this.translocoService.translate('BOOKING.SERVICES.DEEP_CLEANING.FEATURES') as string[]
       }
     ];

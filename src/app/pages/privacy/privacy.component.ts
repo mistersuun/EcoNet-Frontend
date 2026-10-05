@@ -346,11 +346,15 @@ import { ScrollAnimationService } from '../../services/scroll-animation.service'
     }
 
     .section-content li::before {
-      content: '✓';
+      content: '';
       position: absolute;
-      left: 0;
-      color: var(--primary);
-      font-weight: var(--font-weight-bold);
+      left: 4px;
+      top: 0.35em;
+      width: 5px;
+      height: 10px;
+      border-right: 2px solid var(--primary);
+      border-bottom: 2px solid var(--primary);
+      transform: rotate(45deg);
     }
 
     /* Contact Details */

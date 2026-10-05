@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID, ElementRef, ViewChil
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { IconComponent } from '../../shared/components/icon.component';
 
 interface Service {
   id: string;
@@ -25,7 +26,7 @@ interface ServiceCategory {
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [CommonModule, RouterLink, TranslocoPipe],
+  imports: [CommonModule, RouterLink, TranslocoPipe, IconComponent],
   template: `
     <!-- Sophisticated Hero Section -->
     <section class="hero wave-border-bottom-only" #heroSection>
@@ -62,7 +63,7 @@ interface ServiceCategory {
                [class.visible]="isCategoriesVisible"
                [class]="'stagger-' + (i + 1)"
                *ngFor="let category of categories; index as i">
-            <div class="category-icon">{{category.icon}}</div>
+            <div class="category-icon"><app-icon [name]="category.icon" [size]="30" /></div>
             <h3>{{ 'SERVICES.PAGE.CATEGORIES.' + category.id.toUpperCase() + '.NAME' | transloco }}</h3>
             <p>{{ 'SERVICES.PAGE.CATEGORIES.' + category.id.toUpperCase() + '.DESCRIPTION' | transloco }}</p>
           </div>
@@ -104,7 +105,7 @@ interface ServiceCategory {
 
               <ul class="service-features">
                 <li *ngFor="let feature of getServiceFeatures(service.id); let i = index">
-                  <span class="check-icon">✓</span>
+                  <span class="check-icon"><app-icon name="check" [size]="16" [stroke]="2.25" /></span>
                   {{feature}}
                 </li>
               </ul>
@@ -115,7 +116,7 @@ interface ServiceCategory {
                   <span class="price-value">{{ 'SERVICES.PAGE.SERVICE_LIST.' + service.id.toUpperCase() + '.PRICE' | transloco }}</span>
                 </div>
                 <div class="service-duration">
-                  <span class="duration-icon">⏱️</span>
+                  <app-icon class="duration-icon" name="clock" [size]="16" />
                   {{ 'SERVICES.PAGE.SERVICE_LIST.' + service.id.toUpperCase() + '.DURATION' | transloco }}
                 </div>
               </div>
@@ -138,21 +139,21 @@ interface ServiceCategory {
             <h2 class="section-title">{{ 'SERVICES.PAGE.WHY.TITLE' | transloco }}</h2>
             <div class="why-features">
               <div class="why-feature">
-                <div class="feature-icon">🌱</div>
+                <div class="feature-icon"><app-icon name="leaf" [size]="24" /></div>
                 <div>
                   <h4>{{ 'SERVICES.PAGE.WHY.FEATURES.ECO.TITLE' | transloco }}</h4>
                   <p>{{ 'SERVICES.PAGE.WHY.FEATURES.ECO.DESCRIPTION' | transloco }}</p>
                 </div>
               </div>
               <div class="why-feature">
-                <div class="feature-icon">🏆</div>
+                <div class="feature-icon"><app-icon name="award" [size]="24" /></div>
                 <div>
                   <h4>{{ 'SERVICES.PAGE.WHY.FEATURES.EXPERTISE.TITLE' | transloco }}</h4>
                   <p>{{ 'SERVICES.PAGE.WHY.FEATURES.EXPERTISE.DESCRIPTION' | transloco }}</p>
                 </div>
               </div>
               <div class="why-feature">
-                <div class="feature-icon">🛡️</div>
+                <div class="feature-icon"><app-icon name="shield-check" [size]="24" /></div>
                 <div>
                   <h4>{{ 'SERVICES.PAGE.WHY.FEATURES.INSURANCE.TITLE' | transloco }}</h4>
                   <p>{{ 'SERVICES.PAGE.WHY.FEATURES.INSURANCE.DESCRIPTION' | transloco }}</p>
@@ -262,7 +263,14 @@ interface ServiceCategory {
     }
 
     .category-icon {
-      font-size: 3rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(107, 144, 128, 0.12);
+      color: var(--viridian);
       margin-bottom: var(--space-lg);
     }
 
@@ -385,9 +393,9 @@ interface ServiceCategory {
     }
 
     .check-icon {
-      color: var(--success);
-      font-weight: var(--font-weight-bold);
-      font-size: 0.875rem;
+      display: inline-flex;
+      flex-shrink: 0;
+      color: var(--viridian);
     }
 
     .service-meta {
@@ -465,7 +473,14 @@ interface ServiceCategory {
     }
 
     .feature-icon {
-      font-size: 2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(107, 144, 128, 0.12);
+      color: var(--viridian);
       flex-shrink: 0;
     }
 
@@ -583,7 +598,8 @@ interface ServiceCategory {
       }
 
       .category-icon {
-        font-size: 2.5rem !important;
+        width: 56px !important;
+        height: 56px !important;
       }
 
       /* Services Grid - Mobile */
@@ -654,7 +670,7 @@ interface ServiceCategory {
       }
 
       .feature-icon {
-        font-size: 2rem !important;
+        align-self: center !important;
       }
 
       /* CTA Section - Mobile */
@@ -713,11 +729,8 @@ interface ServiceCategory {
       }
 
       .category-icon {
-        font-size: 2rem !important;
-      }
-
-      .feature-icon {
-        font-size: 1.75rem !important;
+        width: 52px !important;
+        height: 52px !important;
       }
     }
 
@@ -766,19 +779,19 @@ export class ServicesComponent implements OnInit, AfterViewInit, OnDestroy {
       id: 'residential',
       name: '',
       description: '',
-      icon: '🏠'
+      icon: 'home'
     },
     {
       id: 'commercial',
       name: '',
       description: '',
-      icon: '🏢'
+      icon: 'building'
     },
     {
       id: 'construction',
       name: '',
       description: '',
-      icon: '🚧'
+      icon: 'hammer'
     }
   ];
 
