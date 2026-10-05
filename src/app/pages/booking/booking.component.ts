@@ -7,6 +7,7 @@ import { ScrollAnimationService } from '../../services/scroll-animation.service'
 import { EmailService, BookingFormData } from '../../services/email.service';
 import { SuccessModalComponent } from '../../shared/components/success-modal.component';
 import { IconComponent } from '../../shared/components/icon.component';
+import { ADD_ONS, FREQUENCY_DISCOUNTS, QC_TAX_RATE, SERVICE_PRICES } from '../../shared/pricing';
 
 interface BookingStep {
   id: number;
@@ -1723,13 +1724,7 @@ export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
 
   serviceOptions: ServiceOption[] = [];
 
-  additionalServices = [
-    { id: 'windows', name: 'BOOKING.ADDITIONAL_SERVICES_LIST.WINDOWS', price: 30 },
-    { id: 'oven', name: 'BOOKING.ADDITIONAL_SERVICES_LIST.OVEN', price: 25 },
-    { id: 'fridge', name: 'BOOKING.ADDITIONAL_SERVICES_LIST.FRIDGE', price: 35 },
-    { id: 'basement', name: 'BOOKING.ADDITIONAL_SERVICES_LIST.BASEMENT', price: 50 },
-    { id: 'garage', name: 'BOOKING.ADDITIONAL_SERVICES_LIST.GARAGE', price: 40 }
-  ];
+  additionalServices = ADD_ONS;
 
   // All time slots are available - team will manually confirm availability with customers
   timeSlots: TimeSlot[] = [
@@ -1783,7 +1778,7 @@ export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
         id: 'residential',
         name: this.translocoService.translate('BOOKING.SERVICES.RESIDENTIAL.NAME'),
         description: this.translocoService.translate('BOOKING.SERVICES.RESIDENTIAL.DESCRIPTION'),
-        basePrice: 120,
+        basePrice: SERVICE_PRICES.residential.from,
         duration: this.translocoService.translate('BOOKING.SERVICES.RESIDENTIAL.DURATION'),
         icon: 'home',
         features: this.translocoService.translate('BOOKING.SERVICES.RESIDENTIAL.FEATURES') as string[],
@@ -1793,7 +1788,7 @@ export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
         id: 'commercial',
         name: this.translocoService.translate('BOOKING.SERVICES.COMMERCIAL.NAME'),
         description: this.translocoService.translate('BOOKING.SERVICES.COMMERCIAL.DESCRIPTION'),
-        basePrice: 200,
+        basePrice: SERVICE_PRICES.commercial.from,
         duration: this.translocoService.translate('BOOKING.SERVICES.COMMERCIAL.DURATION'),
         icon: 'building',
         features: this.translocoService.translate('BOOKING.SERVICES.COMMERCIAL.FEATURES') as string[]
@@ -1802,7 +1797,7 @@ export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
         id: 'deep_cleaning',
         name: this.translocoService.translate('BOOKING.SERVICES.DEEP_CLEANING.NAME'),
         description: this.translocoService.translate('BOOKING.SERVICES.DEEP_CLEANING.DESCRIPTION'),
-        basePrice: 280,
+        basePrice: SERVICE_PRICES.deep_cleaning.from,
         duration: this.translocoService.translate('BOOKING.SERVICES.DEEP_CLEANING.DURATION'),
         icon: 'sparkles',
         features: this.translocoService.translate('BOOKING.SERVICES.DEEP_CLEANING.FEATURES') as string[]
@@ -1946,23 +1941,13 @@ export class BookingComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // Apply frequency discount
     const frequency = this.bookingForm.get('frequency')?.value;
-    switch (frequency) {
-      case 'weekly':
-        total *= 0.85; // 15% discount
-        break;
-      case 'bi-weekly':
-        total *= 0.9; // 10% discount
-        break;
-      case 'monthly':
-        total *= 0.95; // 5% discount
-        break;
-    }
+    total *= 1 - (FREQUENCY_DISCOUNTS[frequency] ?? 0);
 
     return Math.round(total);
   }
 
   getTaxAmount(): number {
-    return Math.round(this.calculateSubtotal() * 0.14975); // QC taxes
+    return Math.round(this.calculateSubtotal() * QC_TAX_RATE);
   }
 
   calculateTotal(): number {
