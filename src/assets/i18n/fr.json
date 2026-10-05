@@ -533,6 +533,7 @@
         "ITEMS": [
           "Appartement/Condo : Prix standard",
           "Maison unifamiliale : +10-20%",
+          "Maison en rangée : +10-20%",
           "Bureau/Commercial : Tarif spécialisé",
           "Espace post-construction : +40-60%"
         ]
@@ -545,16 +546,6 @@
           "Mensuel : -5%",
           "Bi-hebdomadaire : -10%",
           "Hebdomadaire : -15%"
-        ]
-      },
-      "ADDITIONAL_SERVICES": {
-        "NAME": "Services Additionnels",
-        "DESCRIPTION": "Options supplémentaires selon vos besoins",
-        "ITEMS": [
-          "Nettoyage vitres extérieures : +40$",
-          "Nettoyage four : +25$",
-          "Nettoyage réfrigérateur : +35$",
-          "Garage/sous-sol : +50$"
         ]
       }
     },

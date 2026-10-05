@@ -533,6 +533,7 @@
         "ITEMS": [
           "Apartment/Condo: Standard price",
           "Single family home: +10-20%",
+          "Townhouse: +10-20%",
           "Office/Commercial: Specialized rate",
           "Post-construction space: +40-60%"
         ]
@@ -545,16 +546,6 @@
           "Monthly: -5%",
           "Bi-weekly: -10%",
           "Weekly: -15%"
-        ]
-      },
-      "ADDITIONAL_SERVICES": {
-        "NAME": "Additional Services",
-        "DESCRIPTION": "Extra options according to your needs",
-        "ITEMS": [
-          "Exterior window cleaning: +$40",
-          "Oven cleaning: +$25",
-          "Refrigerator cleaning: +$35",
-          "Garage/basement: +$50"
         ]
       }
     },
