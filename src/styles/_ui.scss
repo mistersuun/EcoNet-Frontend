@@ -25,8 +25,8 @@
 
 /* ---------- type ---------- */
 .ui-eyebrow {
-  font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--ui-green-deep); margin: 0 0 16px;
+  font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em;
+  color: var(--ui-green-deep); margin: 0 0 12px;
 }
 .ui-title {
   font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 600; line-height: 1.05;
@@ -46,11 +46,7 @@
   font-size: clamp(2.75rem, 8vw, 5.5rem); font-weight: 600; line-height: 1;
   letter-spacing: -0.035em; margin: 0 0 24px; color: var(--ui-ink);
 }
-.ui-hero-title .accent {
-  display: block; padding-bottom: 0.08em;
-  background: linear-gradient(90deg, var(--ui-green-deep), var(--ui-green) 60%, #8fb5a3);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
+.ui-hero-title .accent { display: block; color: var(--ui-green-deep); }
 .ui-hero-subtitle {
   font-size: clamp(1.125rem, 2vw, 1.375rem); line-height: 1.5; color: var(--ui-muted);
   max-width: 620px; margin: 0 auto;
@@ -88,12 +84,24 @@
 
 /* ---------- icon chip ---------- */
 .ui-chip {
-  width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
-  display: inline-flex; align-items: center; justify-content: center;
-  background: var(--ui-mint); color: var(--ui-green-deep);
+  /* A plain line icon in brand green — no tinted tile behind it. */
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  color: var(--ui-green-deep);
 }
-.ui-chip.lg { width: 52px; height: 52px; border-radius: 16px; }
-.ui-chip.on-dark { background: rgba(255, 255, 255, 0.12); color: #fff; }
+.ui-chip.lg app-icon svg { width: 32px; height: 32px; }
+.ui-chip.on-dark { color: #a4c3b2; }
+
+/* ---------- mask reveal: a photo opens from a small window to its full frame ---------- */
+/* Use with [scrollFx]; the wrapper sets size and radius, the image inside also drifts (parallax). */
+.ui-mask {
+  overflow: hidden;
+  clip-path: inset(calc((1 - var(--enter, 1)) * 16%) calc((1 - var(--enter, 1)) * 12%) round 32px);
+}
+.ui-mask img {
+  width: 100%; height: 118%; max-width: none; max-height: none; object-fit: cover; display: block;
+  transform: translate3d(0, calc((var(--progress, 0.5) - 0.5) * -14%), 0) scale(calc(1.25 - var(--enter, 1) * 0.25));
+  will-change: transform;
+}
 
 /* ---------- reveal ---------- */
 .ui-reveal {
@@ -122,4 +130,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ui-reveal, .ui-hero-inner { opacity: 1; transform: none; animation: none; transition: none; }
+  .ui-mask { clip-path: none; }
+  .ui-mask img { transform: none; height: 100%; }
 }

@@ -575,7 +575,7 @@ function phoneNumber(control: AbstractControl): ValidationErrors | null {
     .card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
     .choice.service .tick { top: 24px; right: 24px; }
     .badge {
-      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+      font-size: 0.8125rem; font-weight: 600;
       color: var(--ui-green-deep); background: var(--ui-mint); padding: 5px 9px; border-radius: 980px;
     }
     .card-title { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 6px; }
@@ -664,7 +664,7 @@ function phoneNumber(control: AbstractControl): ValidationErrors | null {
     .review { display: grid; gap: 12px; }
     .review-block { background: var(--ui-surface); border-radius: 20px; padding: 20px 22px; }
     .review-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 6px; }
-    .review-head h3 { margin: 0; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ui-green-deep); }
+    .review-head h3 { margin: 0; font-size: 0.9375rem; font-weight: 600; color: var(--ui-green-deep); }
     .review p { color: var(--ui-ink); margin: 4px 0 0; line-height: 1.5; overflow-wrap: anywhere; }
     .review .muted { color: var(--ui-muted); }
     .review .quote { font-style: italic; }

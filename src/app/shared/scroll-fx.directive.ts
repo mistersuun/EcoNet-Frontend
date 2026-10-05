@@ -120,3 +120,15 @@ export class ScrollFxDirective implements OnInit, OnDestroy {
     if (this.isBrowser) this.fx.unregister(this.el.nativeElement);
   }
 }
+
+/**
+ * Keep `--header-h` on `host` equal to the fixed site header's height (it changes per
+ * breakpoint), so sticky elements can sit right below it. Returns a cleanup function.
+ */
+export function observeHeaderHeight(host: HTMLElement): () => void {
+  const header = document.querySelector<HTMLElement>('.header');
+  if (!header || typeof ResizeObserver === 'undefined') return () => {};
+  const ro = new ResizeObserver(() => host.style.setProperty('--header-h', `${header.offsetHeight}px`));
+  ro.observe(header);
+  return () => ro.disconnect();
+}

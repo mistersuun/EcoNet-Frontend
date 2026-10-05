@@ -108,6 +108,21 @@
       "PRODUCTS_IMAGE": "Eco-friendly cleaning products",
       "RESIDENTIAL_IMAGE": "Residential cleaning",
       "COMMERCIAL_IMAGE": "Office cleaning"
+    },
+    "HERO_CARDS": {
+      "ECO": "Biodegradable products",
+      "RESPONSE": "Reply within 24 hours"
+    },
+    "AREAS_LABEL": "Cities we serve",
+    "GALLERY": {
+      "EYEBROW": "Services",
+      "TITLE": "A service for every space.",
+      "FROM": "From",
+      "QUOTE": "On quote",
+      "DEEP": {
+        "TITLE": "Deep clean",
+        "DESCRIPTION": "Appliances, baseboards, light fixtures: a top-to-bottom clean."
+      }
     }
   },
   "SERVICES": {
@@ -139,7 +154,7 @@
       "DETAILED": {
         "TITLE": "Detailed services",
         "SUBTITLE": "Discover our complete range of professional services",
-        "POPULAR_BADGE": "⭐ POPULAR",
+        "POPULAR_BADGE": "Popular",
         "PRICE_LABEL": "Starting at",
         "BUTTONS": {
           "BOOK": "Book",

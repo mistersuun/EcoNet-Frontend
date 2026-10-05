@@ -280,14 +280,11 @@ import { ScrollAnimationService } from '../../services/scroll-animation.service'
       padding: var(--space-sm) var(--space-md);
       border-radius: var(--radius-md);
       transition: all var(--transition-base);
-      border-left: 3px solid transparent;
     }
 
     .toc-link:hover {
       color: var(--primary);
       background: rgba(107, 144, 128, 0.1);
-      border-left-color: var(--primary);
-      transform: translateX(4px);
     }
 
     /* Main Content */

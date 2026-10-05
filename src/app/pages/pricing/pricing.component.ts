@@ -235,7 +235,7 @@ const COMPARISON: { key: string; included: boolean[] }[] = [
     .plan.popular { background: #fff; box-shadow: inset 0 0 0 2px var(--ui-green-deep), 0 30px 60px -30px rgba(31, 58, 48, 0.35); }
     .plan-badge {
       position: absolute; top: 28px; right: 24px;
-      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+      font-size: 0.8125rem; font-weight: 600;
       color: var(--ui-green-deep); background: var(--ui-mint); padding: 6px 10px; border-radius: 980px;
     }
     .plan .ui-chip { margin-bottom: 24px; }

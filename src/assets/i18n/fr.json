@@ -108,6 +108,21 @@
       "PRODUCTS_IMAGE": "Produits de nettoyage écologiques",
       "RESIDENTIAL_IMAGE": "Nettoyage résidentiel",
       "COMMERCIAL_IMAGE": "Nettoyage de bureaux"
+    },
+    "HERO_CARDS": {
+      "ECO": "Produits biodégradables",
+      "RESPONSE": "Réponse en moins de 24 h"
+    },
+    "AREAS_LABEL": "Villes desservies",
+    "GALLERY": {
+      "EYEBROW": "Services",
+      "TITLE": "Un service pour chaque espace.",
+      "FROM": "À partir de",
+      "QUOTE": "Sur devis",
+      "DEEP": {
+        "TITLE": "Grand ménage",
+        "DESCRIPTION": "Électroménagers, plinthes, luminaires : le nettoyage en profondeur, du sol au plafond."
+      }
     }
   },
   "SERVICES": {
@@ -139,7 +154,7 @@
       "DETAILED": {
         "TITLE": "Services détaillés",
         "SUBTITLE": "Découvrez notre gamme complète de services professionnels",
-        "POPULAR_BADGE": "⭐ POPULAIRE",
+        "POPULAR_BADGE": "Populaire",
         "PRICE_LABEL": "À partir de",
         "BUTTONS": {
           "BOOK": "Réserver",

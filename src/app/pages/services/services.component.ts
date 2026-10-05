@@ -3,7 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { IconComponent } from '../../shared/components/icon.component';
-import { ScrollFxDirective } from '../../shared/scroll-fx.directive';
+import { ScrollFxDirective, observeHeaderHeight } from '../../shared/scroll-fx.directive';
 import { FREQUENCY_DISCOUNTS, SERVICE_PRICES } from '../../shared/pricing';
 
 const IMG = (id: string, w: number, h: number) =>
@@ -63,7 +63,7 @@ const option = (key: string, price: { from: number; bookable: boolean }): Servic
       <section class="chapter" [id]="chapter.id" [class.alt]="odd" #chapterEl>
         <div class="ui-wrap">
           <div class="chapter-head" [class.flip]="odd">
-            <div class="chapter-media parallax" scrollFx>
+            <div class="chapter-media ui-mask" scrollFx>
               <img [src]="chapter.image" [alt]="'SERVICES.PAGE.CHAPTERS.' + chapter.key + '.NAV' | transloco" loading="lazy">
             </div>
             <div class="chapter-copy ui-reveal" scrollFx>
@@ -205,11 +205,6 @@ const option = (key: string, price: { from: number; bookable: boolean }): Servic
     .chapter-media {
       position: relative; aspect-ratio: 5 / 4; border-radius: 28px; overflow: hidden; background: var(--ui-mint);
     }
-    .parallax img {
-      width: 100%; height: 118%; object-fit: cover; display: block;
-      transform: translate3d(0, calc((var(--progress, 0.5) - 0.5) * -14%), 0);
-      will-change: transform;
-    }
     .eyebrow-icon { display: inline-flex; align-items: center; gap: 12px; }
 
     /* ---------- option cards ---------- */
@@ -281,7 +276,7 @@ export class ServicesComponent implements AfterViewInit, OnDestroy {
   private transloco = inject(TranslocoService);
   private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private observer?: IntersectionObserver;
-  private headerObserver?: ResizeObserver;
+  private stopHeaderObserver?: () => void;
   private host = inject(ElementRef<HTMLElement>);
 
   @ViewChildren('chapterEl') private chapterEls!: QueryList<ElementRef<HTMLElement>>;
@@ -337,13 +332,8 @@ export class ServicesComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (!this.isBrowser) return;
-    // The site header is fixed and its height varies by breakpoint; pin the chapter nav right below it.
-    const header = document.querySelector<HTMLElement>('.header');
-    if (header) {
-      this.headerObserver = new ResizeObserver(() =>
-        this.host.nativeElement.style.setProperty('--header-h', `${header.offsetHeight}px`));
-      this.headerObserver.observe(header);
-    }
+    // Pin the chapter nav right below the fixed site header.
+    this.stopHeaderObserver = observeHeaderHeight(this.host.nativeElement);
     // The chapter crossing the upper third of the viewport is the active tab.
     this.observer = new IntersectionObserver(entries => {
       for (const entry of entries) {
@@ -355,7 +345,7 @@ export class ServicesComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.observer?.disconnect();
-    this.headerObserver?.disconnect();
+    this.stopHeaderObserver?.();
   }
 
   goTo(event: Event, id: string): void {

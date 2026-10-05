@@ -435,11 +435,11 @@
 
   .tab {
     border-bottom: 1px solid #e0e0e0;
-    border-left: 3px solid transparent;
     top: 0;
 
     &.active {
-      border-left-color: var(--primary-green, #2d5f4c);
+      background: rgba(45, 95, 76, 0.08);
+      color: var(--primary-green, #2d5f4c);
       border-bottom-color: #e0e0e0;
     }
   }
