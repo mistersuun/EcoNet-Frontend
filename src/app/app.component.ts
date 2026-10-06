@@ -7,11 +7,12 @@ import { LoaderService } from './shared/services/loader.service';
 import { LoaderComponent } from './shared/components/loader.component';
 import { Subscription } from 'rxjs';
 import { filter, delay } from 'rxjs/operators';
+import { IconComponent } from './shared/components/icon.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, TranslocoPipe, LoaderComponent],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, TranslocoPipe, LoaderComponent, IconComponent],
   template: `
     <div class="app-container">
       <!-- Loader -->
@@ -86,11 +87,11 @@ import { filter, delay } from 'rxjs/operators';
               </p>
               <div class="footer-contact">
                 <a href="tel:+15149422670" class="contact-item">
-                  <span class="contact-icon">📞</span>
+                  <span class="contact-icon"><app-icon name="phone" [size]="16" /></span>
                   <span>(514) 942-2670</span>
                 </a>
                 <a href="mailto:econetentretienmenager@gmail.com" class="contact-item">
-                  <span class="contact-icon">📧</span>
+                  <span class="contact-icon"><app-icon name="mail" [size]="16" /></span>
                   <span>econetentretienmenager@gmail.com</span>
                 </a>
               </div>
@@ -409,7 +410,10 @@ import { filter, delay } from 'rxjs/operators';
     }
 
     .contact-icon {
-      font-size: 0.875rem;
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      opacity: 0.85;
     }
 
     .footer-section {
@@ -683,6 +687,7 @@ import { filter, delay } from 'rxjs/operators';
 
       .footer-section {
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 0; /* desktop offset that aligns columns with the logo */
         padding-bottom: var(--space-md);
       }
 

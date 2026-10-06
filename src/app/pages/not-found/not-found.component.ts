@@ -2,17 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { LoaderService } from '../../shared/services/loader.service';
+import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
   selector: 'app-not-found',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, IconComponent],
   template: `
     <div class="error-page">
       <div class="container">
         <div class="error-content">
           <div class="error-icon fade-in-up">
-            <span class="icon">🌿</span>
+            <span class="icon"><app-icon name="leaf" [size]="56" [stroke]="1.5" /></span>
             <span class="number">404</span>
           </div>
 
@@ -25,11 +26,11 @@ import { LoaderService } from '../../shared/services/loader.service';
 
           <div class="error-actions fade-in-up stagger-3">
             <a routerLink="/" class="btn btn-primary btn-lg">
-              <span>🏠</span>
+              <app-icon name="home" [size]="18" />
               Retour à l'accueil
             </a>
             <button (click)="goBack()" class="btn btn-secondary btn-lg">
-              <span>←</span>
+              <app-icon name="arrow-right" [size]="18" style="transform: rotate(180deg)" />
               Page précédente
             </button>
           </div>
@@ -72,7 +73,8 @@ import { LoaderService } from '../../shared/services/loader.service';
     }
 
     .error-icon .icon {
-      font-size: 4rem;
+      display: inline-flex;
+      color: var(--viridian);
       filter: drop-shadow(2px 4px 8px rgba(107, 144, 128, 0.3));
       animation: rotate 3s ease-in-out infinite;
     }
@@ -169,10 +171,6 @@ import { LoaderService } from '../../shared/services/loader.service';
     @media (max-width: 768px) {
       .error-page {
         padding: var(--space-2xl) 0;
-      }
-
-      .error-icon .icon {
-        font-size: 3rem;
       }
 
       .error-icon .number {

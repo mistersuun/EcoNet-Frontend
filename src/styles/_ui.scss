@@ -1,0 +1,135 @@
+/* =====================================================================
+   UI primitives for the Apple-style pages (home, services, pricing).
+   Prefixed `ui-` so they never collide with the older global classes.
+   Pair `.ui-reveal` with the [scrollFx] directive to fade elements in.
+   ===================================================================== */
+
+:root {
+  --ui-ink: #1d1d1f;
+  --ui-muted: #6e6e73;
+  --ui-green: #6b9080;
+  --ui-green-deep: #3f6b5a;
+  --ui-green-ink: #1f3a30;
+  --ui-mint: #eaf4f1;
+  --ui-surface: #f5f5f7;
+  --ui-line: rgba(0, 0, 0, 0.08);
+  --ui-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ui-wrap: 1120px;
+}
+
+/* ---------- layout ---------- */
+.ui-wrap { width: 100%; max-width: var(--ui-wrap); margin: 0 auto; padding: 0 24px; }
+.ui-section { padding: clamp(80px, 12vw, 160px) 0; background: #fff; color: var(--ui-ink); }
+.ui-section.alt { background: var(--ui-surface); }
+.ui-head { text-align: center; max-width: 720px; margin: 0 auto clamp(40px, 6vw, 72px); }
+
+/* ---------- type ---------- */
+.ui-eyebrow {
+  font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em;
+  color: var(--ui-green-deep); margin: 0 0 12px;
+}
+.ui-title {
+  font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 600; line-height: 1.05;
+  letter-spacing: -0.025em; margin: 0 0 20px; color: var(--ui-ink);
+}
+.ui-title .muted { display: block; color: var(--ui-muted); }
+.ui-lead { font-size: clamp(1.0625rem, 1.6vw, 1.25rem); line-height: 1.55; color: var(--ui-muted); margin: 0; }
+
+/* ---------- page hero ---------- */
+.ui-hero {
+  padding: clamp(140px, 18vh, 200px) 24px clamp(64px, 10vh, 112px);
+  text-align: center;
+  background: radial-gradient(120% 80% at 50% 0%, var(--ui-mint) 0%, #fff 70%);
+}
+.ui-hero-inner { max-width: 880px; margin: 0 auto; animation: ui-rise 1.1s var(--ui-ease) backwards; }
+.ui-hero-title {
+  font-size: clamp(2.75rem, 8vw, 5.5rem); font-weight: 600; line-height: 1;
+  letter-spacing: -0.035em; margin: 0 0 24px; color: var(--ui-ink);
+}
+.ui-hero-title .accent { display: block; color: var(--ui-green-deep); }
+.ui-hero-subtitle {
+  font-size: clamp(1.125rem, 2vw, 1.375rem); line-height: 1.5; color: var(--ui-muted);
+  max-width: 620px; margin: 0 auto;
+}
+@keyframes ui-rise { from { opacity: 0; transform: translateY(24px); } }
+
+/* ---------- buttons & links ---------- */
+.ui-actions { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.ui-actions.center { justify-content: center; }
+.ui-pill {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; padding: 0 28px; border-radius: 980px; border: 0; cursor: pointer;
+  font: inherit; font-size: 1.0625rem; font-weight: 500; text-decoration: none;
+  background: var(--ui-green-deep); color: #fff;
+  transition: transform 0.3s var(--ui-ease), background-color 0.3s var(--ui-ease);
+}
+.ui-pill:hover { background: var(--ui-green-ink); color: #fff; }
+.ui-pill:active { transform: scale(0.97); }
+.ui-pill.light { background: #fff; color: var(--ui-green-ink); }
+.ui-pill.light:hover { background: var(--ui-mint); }
+.ui-pill.ghost { background: transparent; color: var(--ui-green-deep); box-shadow: inset 0 0 0 1.5px currentColor; }
+.ui-pill.ghost:hover { background: var(--ui-mint); color: var(--ui-green-ink); }
+.ui-pill.sm { min-height: 40px; padding: 0 20px; font-size: 0.9375rem; }
+.ui-link {
+  display: inline-flex; align-items: center; gap: 2px;
+  font-size: 1.0625rem; font-weight: 500; color: var(--ui-green-deep); text-decoration: none;
+}
+.ui-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.ui-link app-icon { transition: transform 0.3s var(--ui-ease); }
+.ui-link:hover app-icon { transform: translateX(3px); }
+.ui-link.light { color: #fff; }
+.ui-pill:focus-visible, .ui-link:focus-visible {
+  outline: 3px solid var(--ui-green); outline-offset: 3px;
+}
+
+/* ---------- icon chip ---------- */
+.ui-chip {
+  /* A plain line icon in brand green — no tinted tile behind it. */
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  color: var(--ui-green-deep);
+}
+.ui-chip.lg app-icon svg { width: 32px; height: 32px; }
+.ui-chip.on-dark { color: #a4c3b2; }
+
+/* ---------- mask reveal: a photo opens from a small window to its full frame ---------- */
+/* Use with [scrollFx]; the wrapper sets size and radius, the image inside also drifts (parallax). */
+.ui-mask {
+  overflow: hidden;
+  clip-path: inset(calc((1 - var(--enter, 1)) * 16%) calc((1 - var(--enter, 1)) * 12%) round 32px);
+}
+.ui-mask img {
+  width: 100%; height: 118%; max-width: none; max-height: none; object-fit: cover; display: block;
+  transform: translate3d(0, calc((var(--progress, 0.5) - 0.5) * -14%), 0) scale(calc(1.25 - var(--enter, 1) * 0.25));
+  will-change: transform;
+}
+
+/* ---------- reveal ---------- */
+.ui-reveal {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity 0.9s var(--ui-ease) var(--delay, 0ms), transform 0.9s var(--ui-ease) var(--delay, 0ms);
+}
+.ui-reveal.is-visible { opacity: 1; transform: none; }
+
+/* ---------- closing call-to-action band ---------- */
+.ui-cta {
+  background: radial-gradient(100% 120% at 50% 100%, #2c5244 0%, var(--ui-green-ink) 60%);
+  color: #fff; text-align: center; padding: clamp(96px, 14vw, 180px) 0; overflow: hidden;
+}
+.ui-cta-inner { max-width: 760px; transform: scale(calc(0.95 + var(--enter, 1) * 0.05)); }
+.ui-cta-mark { color: #a4c3b2; margin-bottom: 24px; }
+.ui-cta-title {
+  font-size: clamp(2.25rem, 6vw, 4.5rem); font-weight: 600; line-height: 1.05;
+  letter-spacing: -0.03em; margin: 0 0 20px; color: #fff;
+}
+.ui-cta-subtitle { font-size: clamp(1.0625rem, 1.8vw, 1.3125rem); color: rgba(255, 255, 255, 0.75); margin: 0 0 40px; }
+
+@media (max-width: 600px) {
+  .ui-actions { gap: 20px; flex-direction: column; }
+  .ui-actions .ui-pill { width: 100%; max-width: 320px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-reveal, .ui-hero-inner { opacity: 1; transform: none; animation: none; transition: none; }
+  .ui-mask { clip-path: none; }
+  .ui-mask img { transform: none; height: 100%; }
+}

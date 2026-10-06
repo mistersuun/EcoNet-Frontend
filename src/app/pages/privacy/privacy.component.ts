@@ -280,14 +280,11 @@ import { ScrollAnimationService } from '../../services/scroll-animation.service'
       padding: var(--space-sm) var(--space-md);
       border-radius: var(--radius-md);
       transition: all var(--transition-base);
-      border-left: 3px solid transparent;
     }
 
     .toc-link:hover {
       color: var(--primary);
       background: rgba(107, 144, 128, 0.1);
-      border-left-color: var(--primary);
-      transform: translateX(4px);
     }
 
     /* Main Content */
@@ -346,11 +343,15 @@ import { ScrollAnimationService } from '../../services/scroll-animation.service'
     }
 
     .section-content li::before {
-      content: '✓';
+      content: '';
       position: absolute;
-      left: 0;
-      color: var(--primary);
-      font-weight: var(--font-weight-bold);
+      left: 4px;
+      top: 0.35em;
+      width: 5px;
+      height: 10px;
+      border-right: 2px solid var(--primary);
+      border-bottom: 2px solid var(--primary);
+      transform: rotate(45deg);
     }
 
     /* Contact Details */

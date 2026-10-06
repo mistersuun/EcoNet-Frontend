@@ -1,1482 +1,472 @@
-import { Component, OnInit, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestroy, PLATFORM_ID, ViewChild, inject, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { TranslocoPipe } from '@jsverse/transloco';
-import { MagneticButtonDirective } from '../../directives/magnetic-button.directive';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { map } from 'rxjs';
+import { IconComponent } from '../../shared/components/icon.component';
+import { ScrollFxDirective, ScrollFxService, observeHeaderHeight } from '../../shared/scroll-fx.directive';
+import { FREQUENCY_DISCOUNTS, SERVICE_PRICES } from '../../shared/pricing';
+
+const IMG = (id: string, w: number, h: number) =>
+  `https://images.unsplash.com/photo-${id}?w=${w}&h=${h}&fit=crop&auto=format&q=80`;
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, TranslocoPipe, MagneticButtonDirective],
+  imports: [RouterLink, TranslocoPipe, IconComponent, ScrollFxDirective],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <!-- Apple Store Hero Section -->
-    <section class="scroll-section hero-section wave-border-bottom-only" data-reveal>
-      <div class="container">
-        <div class="showcase-grid">
-          <div class="showcase-content">
-            <div class="hero-badge">{{ 'HOME.HERO.BADGE' | transloco }}</div>
-            <h1 class="hero-title">
-              {{ 'HOME.HERO.TITLE' | transloco }}<br>
-              <span class="accent-text">{{ 'HOME.HERO.TITLE_ACCENT' | transloco }}</span>
-            </h1>
-            <p class="hero-subtitle">
-              {{ 'HOME.HERO.SUBTITLE' | transloco }}
-            </p>
-            <div class="hero-actions">
-              <a routerLink="/booking" class="btn btn-primary btn-lg" magneticButton>
-                {{ 'HOME.HERO.CTA_BUTTON' | transloco }}
+    <!-- Hero copy: drifts up and fades as you leave it -->
+    <section class="hero" scrollFx>
+      <div class="hero-copy">
+        <p class="ui-eyebrow">{{ 'HOME.HERO.BADGE' | transloco }}</p>
+        <h1 class="hero-title">
+          {{ 'HOME.HERO.TITLE' | transloco }}
+          <span class="accent">{{ 'HOME.HERO.TITLE_ACCENT' | transloco }}</span>
+        </h1>
+        <p class="hero-subtitle">{{ 'HOME.HERO.SUBTITLE' | transloco }}</p>
+        <div class="ui-actions">
+          <a routerLink="/booking" class="ui-pill">{{ 'HOME.HERO.CTA_BUTTON' | transloco }}</a>
+          <a routerLink="/pricing" class="ui-link">
+            {{ 'HOME.HERO.SECONDARY' | transloco }} <app-icon name="chevron-right" [size]="16" [stroke]="2.25" />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Photo grows from an inset card to full bleed; two cards float up over it at different speeds -->
+    <section class="hero-media" scrollFx>
+      <div class="hero-media-sticky">
+        <div class="hero-media-frame">
+          <img [src]="img.hero" [alt]="'HOME.ALT_TEXTS.HERO_IMAGE' | transloco" fetchpriority="high">
+        </div>
+        <div class="float-card fc-1" aria-hidden="true">
+          <app-icon name="leaf" [size]="20" /> {{ 'HOME.HERO_CARDS.ECO' | transloco }}
+        </div>
+        <div class="float-card fc-2" aria-hidden="true">
+          <app-icon name="clock" [size]="20" /> {{ 'HOME.HERO_CARDS.RESPONSE' | transloco }}
+        </div>
+      </div>
+    </section>
+
+    <!-- Statement: words light up one by one -->
+    <section class="statement" scrollFx>
+      <div class="statement-sticky">
+        <p class="statement-text" [style.--n]="statementWords().length">
+          @for (word of statementWords(); track $index) {
+            <span [style.--i]="$index">{{ word }} </span>
+          }
+        </p>
+      </div>
+    </section>
+
+    <!-- Cities: two oversized rows sliding in opposite directions with the scroll -->
+    <section class="areas" scrollFx [attr.aria-label]="'HOME.AREAS_LABEL' | transloco">
+      @for (row of [0, 1]; track row) {
+        <div class="marquee" [class.reverse]="row === 1" aria-hidden="true">
+          @for (city of marqueeCities; track $index) {
+            <span class="city">{{ 'FOOTER.SERVICE_AREAS.' + city | transloco }}</span>
+            <app-icon name="leaf" class="sep" [size]="28" [stroke]="1.5" />
+          }
+        </div>
+      }
+      <ul class="sr-only">
+        @for (city of cities; track city) { <li>{{ 'FOOTER.SERVICE_AREAS.' + city | transloco }}</li> }
+      </ul>
+    </section>
+
+    <!-- Products: the photo opens through a growing mask -->
+    <section class="ui-section alt">
+      <div class="ui-wrap split">
+        <div class="split-media ui-mask" scrollFx>
+          <img [src]="img.products" [alt]="'HOME.ALT_TEXTS.PRODUCTS_IMAGE' | transloco" loading="lazy">
+        </div>
+        <div class="split-copy ui-reveal" scrollFx>
+          <p class="ui-eyebrow">{{ 'HOME.PRODUCTS.EYEBROW' | transloco }}</p>
+          <h2 class="ui-title">
+            {{ 'HOME.PRODUCTS.TITLE' | transloco }}
+            <span class="muted">{{ 'HOME.PRODUCTS.TITLE_ACCENT' | transloco }}</span>
+          </h2>
+          <p class="ui-lead">{{ 'HOME.PRODUCTS.DESCRIPTION' | transloco }}</p>
+          <ul class="feature-list">
+            <li><app-icon name="leaf" [size]="22" />{{ 'HOME.PRODUCTS.FEATURES.BIODEGRADABLE' | transloco }}</li>
+            <li><app-icon name="heart" [size]="22" />{{ 'HOME.PRODUCTS.FEATURES.NON_TOXIC' | transloco }}</li>
+            <li><app-icon name="droplet" [size]="22" />{{ 'HOME.PRODUCTS.FEATURES.ZERO_RESIDUE' | transloco }}</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services: section pins and vertical scroll moves the cards sideways -->
+    <section class="gallery" scrollFx #gallery [class.pinned]="pinned()"
+             [style.height]="pinned() ? 'calc(100vh + ' + overflow() + 'px)' : null">
+      <div class="gallery-sticky">
+        <header class="ui-wrap gallery-head">
+          <div>
+            <p class="ui-eyebrow">{{ 'HOME.GALLERY.EYEBROW' | transloco }}</p>
+            <h2 class="ui-title">{{ 'HOME.GALLERY.TITLE' | transloco }}</h2>
+          </div>
+          <span class="gallery-progress" aria-hidden="true"><span></span></span>
+        </header>
+        <div class="gallery-viewport">
+          <div class="gallery-track" #track [style.--shift]="overflow() + 'px'">
+            @for (card of services; track card.key) {
+              <a [routerLink]="card.link" class="g-card">
+                <img [src]="card.image" alt="" loading="lazy">
+                <div class="g-copy">
+                  <h3>{{ card.title | transloco }}</h3>
+                  <p>{{ card.description | transloco }}</p>
+                  <span class="g-price">
+                    @if (card.from) {
+                      {{ 'HOME.GALLERY.FROM' | transloco }} <strong>{{ card.from }}&nbsp;$</strong>
+                    } @else {
+                      {{ 'HOME.GALLERY.QUOTE' | transloco }}
+                    }
+                    <app-icon name="arrow-right" [size]="18" [stroke]="2" />
+                  </span>
+                </div>
               </a>
-            </div>
-          </div>
-          <div class="showcase-media">
-            <div class="image-container parallax-wrapper">
-              <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=600&fit=crop&auto=format&q=80"
-                   [alt]="'HOME.ALT_TEXTS.HERO_IMAGE' | transloco"
-                   class="showcase-image progressive-img parallax-image"
-                   data-parallax="0.15">
-            </div>
+            }
+            <a routerLink="/pricing" class="g-card g-dark">
+              <span class="g-big">−{{ weeklyDiscount }}&nbsp;%</span>
+              <div class="g-copy">
+                <h3>{{ 'HOME.SERVICES.RECURRING.TITLE' | transloco }}</h3>
+                <p>{{ 'HOME.SERVICES.RECURRING.DESCRIPTION' | transloco }}</p>
+                <span class="g-price">{{ 'HOME.SERVICES.LEARN_MORE' | transloco }} <app-icon name="arrow-right" [size]="18" [stroke]="2" /></span>
+              </div>
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Apple Store Product Showcase -->
-    <section class="scroll-section apple-showcase wave-border-both" data-reveal>
-      <div class="container">
-        <div class="showcase-grid">
-          <div class="showcase-media">
-            <div class="image-container parallax-wrapper">
-              <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=800&h=600&fit=crop&auto=format&q=80"
-                   [alt]="'HOME.ALT_TEXTS.PRODUCTS_IMAGE' | transloco"
-                   class="showcase-image progressive-img parallax-image"
-                   data-parallax="0.15">
-              <div class="image-badge">
-                <div class="float-badge">{{ 'HOME.PRODUCTS.BADGE' | transloco }}</div>
+    <!-- How it works: cards pin and stack; each one shrinks and dims as the next covers it -->
+    <section class="ui-section alt steps">
+      <div class="ui-wrap">
+        <header class="ui-head ui-reveal" scrollFx>
+          <p class="ui-eyebrow">{{ 'HOME.STEPS.EYEBROW' | transloco }}</p>
+          <h2 class="ui-title">{{ 'HOME.STEPS.TITLE' | transloco }}</h2>
+        </header>
+        <ol class="stack" scrollFx [style.--n]="steps.length">
+          @for (step of steps; track step.key; let i = $index) {
+            <li class="stack-card" [class]="'tone-' + i" [style.--i]="i">
+              <span class="stack-num">{{ i + 1 }}</span>
+              <div class="stack-copy">
+                <app-icon [name]="step.icon" [size]="36" [stroke]="1.5" />
+                <h3>{{ 'HOME.STEPS.' + step.key + '.TITLE' | transloco }}</h3>
+                <p>{{ 'HOME.STEPS.' + step.key + '.DESCRIPTION' | transloco }}</p>
               </div>
-            </div>
-          </div>
-          <div class="showcase-content">
-            <h2>{{ 'HOME.PRODUCTS.TITLE' | transloco }}<br><span class="accent-text">{{ 'HOME.PRODUCTS.TITLE_ACCENT' | transloco }}</span></h2>
-            <p>
-              {{ 'HOME.PRODUCTS.DESCRIPTION' | transloco }}
-            </p>
-            <div class="feature-points">
-              <div class="point">{{ 'HOME.PRODUCTS.FEATURES.CERT' | transloco }}</div>
-              <div class="point">{{ 'HOME.PRODUCTS.FEATURES.FORMULA' | transloco }}</div>
-              <div class="point">{{ 'HOME.PRODUCTS.FEATURES.ZERO_RESIDUE' | transloco }}</div>
-            </div>
-          </div>
-        </div>
+            </li>
+          }
+        </ol>
       </div>
     </section>
 
-    <!-- Layered Service Reveals -->
-    <section class="scroll-section layered-reveal wave-border-both" data-reveal>
-      <div class="container">
-        <div class="reveal-layer">
-          <h2 class="section-title text-center">{{ 'HOME.SERVICES.TITLE' | transloco }}</h2>
-        </div>
-
-        <div class="product-showcase">
-          <div class="reveal-layer">
-            <div class="product-card">
-              <div class="product-media">
-                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&auto=format&q=80"
-                     [alt]="'HOME.ALT_TEXTS.RESIDENTIAL_IMAGE' | transloco" class="progressive-img">
-              </div>
-              <div class="product-info">
-                <h3>{{ 'HOME.SERVICES.RESIDENTIAL.TITLE' | transloco }}</h3>
-                <p>{{ 'HOME.SERVICES.RESIDENTIAL.DESCRIPTION' | transloco }}</p>
-                <div class="product-features">
-                  <span class="feature">{{ 'HOME.SERVICES.RESIDENTIAL.FEATURES.HYPOALLERGENIC' | transloco }}</span>
-                  <span class="feature">{{ 'HOME.SERVICES.RESIDENTIAL.FEATURES.FLEXIBLE' | transloco }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="reveal-layer">
-            <div class="product-card">
-              <div class="product-media">
-                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop&auto=format&q=80"
-                     [alt]="'HOME.ALT_TEXTS.COMMERCIAL_IMAGE' | transloco" class="progressive-img">
-              </div>
-              <div class="product-info">
-                <h3>{{ 'HOME.SERVICES.COMMERCIAL.TITLE' | transloco }}</h3>
-                <p>{{ 'HOME.SERVICES.COMMERCIAL.DESCRIPTION' | transloco }}</p>
-                <div class="product-features">
-                  <span class="feature">{{ 'HOME.SERVICES.COMMERCIAL.FEATURES.FLEXIBLE_HOURS' | transloco }}</span>
-                  <span class="feature">{{ 'HOME.SERVICES.COMMERCIAL.FEATURES.ADAPTED_PROTOCOLS' | transloco }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Apple Store Interactive Experience -->
-    <section class="scroll-section apple-showcase wave-border-both" data-reveal>
-      <div class="container">
-        <div class="showcase-grid">
-          <div class="showcase-content">
-            <h2>{{ 'HOME.EXPERIENCE.TITLE' | transloco }}<br><span class="accent-text">{{ 'HOME.EXPERIENCE.TITLE_ACCENT' | transloco }}</span></h2>
-            <p>
-              {{ 'HOME.EXPERIENCE.DESCRIPTION' | transloco }}
-            </p>
-            <div class="experience-stats">
-              <div class="stat-row">
-                <div class="stat-item">
-                  <div class="stat-number">100+</div>
-                  <div class="stat-label">{{ 'HOME.EXPERIENCE.STATS.CLIENTS' | transloco }}</div>
-                </div>
-                <div class="stat-item">
-                  <div class="stat-number">24h</div>
-                  <div class="stat-label">{{ 'HOME.EXPERIENCE.STATS.REACTIVITY' | transloco }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="showcase-media">
-            <div class="testimonial-card">
-              <p class="testimonial-text">
-                "{{ 'HOME.EXPERIENCE.TESTIMONIAL.TEXT' | transloco }}"
-              </p>
-              <div class="testimonial-author">
-                <strong>{{ 'HOME.EXPERIENCE.TESTIMONIAL.AUTHOR_NAME' | transloco }}</strong>
-                <span>{{ 'HOME.EXPERIENCE.TESTIMONIAL.AUTHOR_TITLE' | transloco }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Final CTA with Wave Border -->
-    <section class="scroll-section cta-section wave-border-both" data-reveal>
-      <div class="container">
-        <div class="showcase-grid">
-          <div class="showcase-content text-center">
-            <h2 class="cta-title">{{ 'HOME.CTA.TITLE' | transloco }}</h2>
-            <p class="cta-subtitle">
-              {{ 'HOME.CTA.SUBTITLE' | transloco }}
-            </p>
-            <div class="cta-actions">
-              <a routerLink="/contact" class="btn btn-primary btn-lg">
-                {{ 'HOME.CTA.GET_QUOTE' | transloco }}
-              </a>
-              <a routerLink="/services" class="btn btn-secondary btn-lg">
-                {{ 'HOME.CTA.DISCOVER_SERVICES' | transloco }}
-              </a>
-            </div>
-          </div>
-          <div class="showcase-media">
-            <div class="cta-visual">
-              <div class="floating-elements">
-                <div class="element eco-badge">{{ 'HOME.CTA.FLOATING_BADGES.ECO' | transloco }}</div>
-                <div class="element service-badge">{{ 'HOME.CTA.FLOATING_BADGES.SERVICE' | transloco }}</div>
-                <div class="element local-badge">{{ 'HOME.CTA.FLOATING_BADGES.LOCAL' | transloco }}</div>
-              </div>
-            </div>
-          </div>
+    <section class="ui-cta" scrollFx>
+      <div class="ui-wrap ui-cta-inner">
+        <h2 class="ui-cta-title">{{ 'HOME.CTA.TITLE' | transloco }}</h2>
+        <p class="ui-cta-subtitle">{{ 'HOME.CTA.SUBTITLE' | transloco }}</p>
+        <div class="ui-actions center">
+          <a routerLink="/booking" class="ui-pill light">{{ 'HOME.CTA.GET_QUOTE' | transloco }}</a>
+          <a routerLink="/contact" class="ui-link light">
+            {{ 'HOME.CTA.DISCOVER_SERVICES' | transloco }} <app-icon name="chevron-right" [size]="16" [stroke]="2.25" />
+          </a>
         </div>
       </div>
     </section>
   `,
   styles: [`
-    /* Apple Store Inspired Design */
-    :host {
-      --viridian: #6b9080;
-      --cambridge-blue: #a4c3b2;
-      --mint-green: #cce3de;
-      --azure-web: #eaf4f4;
-      --mint-cream: #f6fff8;
-
-      --apple-ease: cubic-bezier(0.16, 1, 0.3, 1);
-      --apple-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-      display: block;
-      min-height: 100vh;
+    :host { display: block; color: var(--ui-ink); background: #fff; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
     }
 
-    /* Apple Store Hero Section */
-    .hero-section {
-      position: relative;
-      overflow: hidden;
-      padding: var(--space-5xl) 0;
-      contain: layout style paint;
+    /* ---------- hero ---------- */
+    .hero {
+      padding: clamp(150px, 20vh, 220px) 24px clamp(40px, 6vh, 72px);
+      text-align: center; background: #fff;
     }
-
-    .hero-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at 20% 80%, rgba(107, 144, 128, 0.1) 0%, transparent 70%);
-      pointer-events: none;
+    .hero-copy {
+      max-width: 900px; margin: 0 auto;
+      opacity: calc(1 - var(--exit, 0) * 1.6);
+      transform: translateY(calc(var(--exit, 0) * -80px));
+      animation: ui-rise 1.1s var(--ui-ease) backwards;
     }
-
-    .hero-badge {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      background: rgba(107, 144, 128, 0.9);
-      color: white;
-      border-radius: 1rem;
-      font-size: 0.875rem;
-      font-weight: 600;
-      margin-bottom: 2rem;
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 32px rgba(107, 144, 128, 0.2);
-      letter-spacing: 0.025em;
-    }
-
-    /* Performant Parallax - Apple Style */
-    .parallax-wrapper {
-      position: relative;
-      overflow: hidden;
-      border-radius: 2rem;
-      height: 100%;
-      width: 100%;
-    }
-
-    .parallax-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center center;
-      will-change: transform;
-      backface-visibility: hidden;
-      display: block;
-    }
-
-    .showcase-media .parallax-image {
-      border-radius: 2rem;
-    }
-
-    .image-container {
-      position: relative;
-      overflow: hidden;
-      border-radius: 1.5rem;
-      height: 400px;
-    }
-
-    .image-badge {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 2;
-    }
-
-    .float-badge {
-      background: rgba(255, 255, 255, 0.95);
-      color: var(--viridian);
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
-      font-weight: 600;
-      font-size: 0.875rem;
-      backdrop-filter: blur(15px);
-      box-shadow: 0 8px 30px rgba(107, 144, 128, 0.2);
-      border: 1px solid rgba(107, 144, 128, 0.1);
-    }
-
     .hero-title {
-      margin-bottom: var(--space-xl);
-      line-height: 1.1;
+      font-size: clamp(3rem, 8.5vw, 6.5rem); font-weight: 600; line-height: 0.98;
+      letter-spacing: -0.045em; margin: 0 0 28px; color: var(--ui-ink);
     }
-
-    .accent-text {
-      color: var(--viridian);
-      font-weight: 700;
-      position: relative;
-    }
-
-    .accent-text::after {
-      content: '';
-      position: absolute;
-      bottom: 0.1em;
-      left: 0;
-      right: 0;
-      height: 0.2em;
-      background: linear-gradient(90deg, transparent 0%, var(--cambridge-blue) 50%, transparent 100%);
-      opacity: 0.5;
-      border-radius: 0.1em;
-    }
-
+    .hero-title .accent { display: block; color: var(--ui-green-deep); }
     .hero-subtitle {
-      font-size: 1.125rem;
-      line-height: 1.7;
-      margin-bottom: var(--space-3xl);
-      max-width: 90%;
+      font-size: clamp(1.125rem, 2vw, 1.375rem); line-height: 1.5; color: var(--ui-muted);
+      max-width: 600px; margin: 0 auto 36px;
     }
+    .hero .ui-actions { justify-content: center; }
 
-    .hero-actions {
-      display: flex;
-      gap: var(--space-lg);
-      flex-wrap: wrap;
+    .hero-media { height: 180vh; position: relative; }
+    .hero-media-sticky {
+      position: sticky; top: 0; height: 100vh; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
     }
-
-    .hero-visual {
-      display: flex;
-      justify-content: center;
+    .hero-media-frame {
+      width: 100%; height: 100%;
+      clip-path: inset(calc((1 - var(--sticky, 0)) * 14vh) calc((1 - var(--sticky, 0)) * 12vw)
+                       round calc((1 - var(--sticky, 0)) * 36px));
+      will-change: clip-path;
     }
-
-    .hero-image-wrapper {
-      width: 100%;
-      max-width: 520px;
-      height: 420px;
-      border-radius: 2rem;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(107, 144, 128, 0.25);
+    .hero-media-frame img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transform: scale(calc(1.2 - var(--sticky, 0) * 0.2));
       will-change: transform;
-      transition: transform 0.4s var(--apple-spring), box-shadow 0.4s var(--apple-spring);
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(10px);
-      position: relative;
     }
-
-    .hero-image-wrapper::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(45deg, rgba(107, 144, 128, 0.1) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .hero-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .float-card {
+      position: absolute; display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 20px; border-radius: 18px;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px);
+      box-shadow: 0 20px 40px -24px rgba(16, 32, 26, 0.45);
+      font-size: 1rem; font-weight: 600; color: var(--ui-green-ink);
+      opacity: clamp(0, calc(var(--sticky, 0) * 2.5 - 0.2), 1);
       will-change: transform;
-      transition: transform 0.3s var(--apple-ease);
+    }
+    .float-card app-icon { color: var(--ui-green-deep); }
+    /* the two cards travel at different speeds, which reads as depth */
+    .fc-1 { left: 16vw; bottom: 18vh; transform: translateY(calc((1 - var(--sticky, 0)) * 34vh)); }
+    .fc-2 { right: 15vw; top: 24vh; transform: translateY(calc((1 - var(--sticky, 0)) * 60vh)); }
+
+    /* ---------- statement ---------- */
+    .statement { height: 200vh; position: relative; }
+    .statement-sticky {
+      position: sticky; top: 0; height: 100vh;
+      display: flex; align-items: center; justify-content: center; padding: 0 24px;
+    }
+    .statement-text {
+      max-width: 1000px; margin: 0; text-align: center; color: var(--ui-ink);
+      font-size: clamp(1.875rem, 5vw, 4rem); font-weight: 600; line-height: 1.12; letter-spacing: -0.03em;
+    }
+    .statement-text span {
+      opacity: clamp(0.12, calc((var(--sticky, 0) * 1.25 * var(--n) - var(--i))), 1);
+      transition: opacity 0.15s linear;
     }
 
-    /* Elegant Stats */
-    .stats-section {
-      padding: var(--space-4xl) 0 0;
-      border-top: 1px solid rgba(26, 26, 26, 0.08);
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: var(--space-3xl);
-    }
-
-    .stat-item {
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 2.5rem;
-      font-weight: var(--font-weight-bold);
-      color: var(--primary);
-      line-height: 1;
-      margin-bottom: var(--space-sm);
-    }
-
-    .stat-label {
-      color: var(--neutral-medium);
-      font-weight: var(--font-weight-medium);
-      font-size: 0.875rem;
-      letter-spacing: 0.02em;
-    }
-
-    /* Values Section */
-    .values-section {
-      background: var(--mint-cream);
-      position: relative;
-    }
-
-    .values-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at 70% 30%, rgba(164, 195, 178, 0.1) 0%, transparent 60%);
-      pointer-events: none;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: var(--space-4xl);
-    }
-
-    .section-title {
-      margin-bottom: var(--space-lg);
-    }
-
-    .section-subtitle {
-      font-size: 1.125rem;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .value-card {
-      text-align: center;
-      padding: 2.5rem 2rem;
+    /* ---------- cities marquee ---------- */
+    .areas { padding: clamp(40px, 8vw, 96px) 0; overflow: hidden; background: #fff; }
+    .marquee {
+      display: flex; align-items: center; gap: clamp(20px, 3vw, 48px); white-space: nowrap; width: max-content;
+      transform: translate3d(calc(var(--progress, 0.5) * -35%), 0, 0);
       will-change: transform;
-      transition: all 0.4s var(--apple-spring);
-      border-radius: 1.5rem;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(107, 144, 128, 0.1);
-      box-shadow: 0 8px 40px rgba(107, 144, 128, 0.12);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
     }
-
-    .value-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--viridian) 0%, var(--cambridge-blue) 100%);
+    .marquee.reverse { transform: translate3d(calc(-35% + var(--progress, 0.5) * 35%), 0, 0); margin-top: 8px; }
+    .city {
+      font-size: clamp(3.25rem, 10vw, 9rem); font-weight: 600; letter-spacing: -0.05em; line-height: 1.05;
+      color: var(--ui-ink);
     }
+    .marquee.reverse .city { color: transparent; -webkit-text-stroke: 1.5px var(--ui-green); }
+    .sep { color: var(--ui-green); }
 
-    .value-card.featured {
-      background: linear-gradient(135deg, var(--cambridge-blue) 0%, var(--mint-green) 100%);
-      transform: scale(1.05);
-      box-shadow: 0 16px 60px rgba(107, 144, 128, 0.25);
-      border: 2px solid var(--viridian);
-    }
+    /* ---------- products ---------- */
+    .split { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(40px, 7vw, 96px); align-items: center; }
+    .split-media { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 32px; }
+    .feature-list { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 18px; }
+    .feature-list li { display: flex; align-items: center; gap: 14px; font-size: 1.125rem; font-weight: 500; }
+    .feature-list app-icon { color: var(--ui-green-deep); }
 
-    .value-card.featured::before {
-      height: 6px;
-      background: linear-gradient(90deg, var(--viridian) 0%, white 100%);
-    }
-
-    .value-icon {
-      font-size: 3rem;
-      margin-bottom: var(--space-xl);
-      display: block;
-    }
-
-    .value-card h3 {
-      margin-bottom: var(--space-lg);
-      font-size: 1.375rem;
-    }
-
-    .value-card p {
-      line-height: 1.7;
-    }
-
-    /* Services Section */
-    .services-section {
-      background: linear-gradient(135deg, var(--azure-web) 0%, var(--mint-green) 100%);
-      position: relative;
-    }
-
-    .services-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><circle cx="30" cy="30" r="2" fill="%23a4c3b2" opacity="0.1"/></svg>') repeat;
-      opacity: 0.5;
-    }
-
-    .services-header {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: var(--space-3xl);
-      align-items: end;
-      margin-bottom: var(--space-4xl);
-    }
-
-    .services-intro h2 {
-      margin-bottom: var(--space-lg);
-    }
-
-    .services-intro p {
-      font-size: 1.125rem;
-      max-width: 500px;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: var(--space-2xl);
-    }
-
-    .service-item {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 1.5rem;
-      overflow: hidden;
-      will-change: transform;
-      transition: all 0.4s var(--apple-spring);
-      box-shadow: 0 8px 30px rgba(107, 144, 128, 0.15);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(107, 144, 128, 0.1);
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .service-item:hover {
-      transform: translateY(-12px) rotateY(2deg) scale(1.02);
-      box-shadow: 0 20px 60px rgba(107, 144, 128, 0.25);
-    }
-
-    .service-image {
-      height: 240px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .service-image img {
-      will-change: transform;
-      transition: transform 0.4s var(--apple-ease);
-    }
-
-    .service-content {
-      padding: var(--space-xl);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .service-content h3 {
-      margin-bottom: var(--space-sm);
-      font-size: 1.25rem;
-      text-align: center;
-    }
-
-    .service-content p {
-      font-size: 0.95rem;
-      text-align: center;
-    }
-
-    /* Testimonials */
-    .testimonials-section {
-      background: linear-gradient(135deg, var(--mint-cream) 0%, white 100%);
-      position: relative;
-    }
-
-    .testimonials-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(ellipse at 20% 80%, rgba(107, 144, 128, 0.06) 0%, transparent 70%);
-    }
-
-    .testimonials-header {
-      text-align: center;
-      margin-bottom: var(--space-4xl);
-    }
-
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: var(--space-3xl);
-    }
-
-    .testimonial-item {
-      text-align: center;
-      will-change: transform;
-      transition: all 0.4s var(--apple-spring);
-      padding: 2.5rem;
-      border-radius: 1.5rem;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(107, 144, 128, 0.1);
-      box-shadow: 0 8px 40px rgba(107, 144, 128, 0.12);
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .testimonial-item::before {
-      content: '"';
-      position: absolute;
-      top: 1rem;
-      right: 1.5rem;
-      font-size: 4rem;
-      color: var(--cambridge-blue);
-      opacity: 0.3;
-      font-family: serif;
-    }
-
-    .testimonial-quote {
-      font-size: 1.25rem;
-      line-height: 1.6;
-      font-style: italic;
-      color: var(--neutral-dark);
-      margin-bottom: var(--space-xl);
-      position: relative;
-    }
-
-    .testimonial-quote::before {
-      content: '"';
-      font-size: 4rem;
-      color: var(--accent);
-      position: absolute;
-      top: -20px;
-      left: -30px;
-      opacity: 0.3;
-    }
-
-    .author-name {
-      font-weight: var(--font-weight-semibold);
-      color: var(--neutral-dark);
-      margin-bottom: var(--space-xs);
-    }
-
-    .author-location {
-      font-size: 0.875rem;
-      color: var(--neutral-medium);
-    }
-
-    /* CTA Section */
-    .cta-section {
-      background: linear-gradient(135deg, var(--viridian) 0%, var(--cambridge-blue) 100%);
-      color: white;
-      position: relative;
+    /* ---------- horizontal services gallery ---------- */
+    .gallery { position: relative; background: #fff; }
+    .gallery-sticky { padding: clamp(80px, 10vw, 120px) 0 clamp(60px, 8vw, 96px); }
+    .gallery.pinned .gallery-sticky {
+      position: sticky; top: 0; height: 100vh; padding: var(--header-h, 100px) 0 0;
+      display: flex; flex-direction: column; justify-content: center; gap: clamp(24px, 4vh, 48px);
       overflow: hidden;
     }
-
-    .cta-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
-      pointer-events: none;
+    .gallery-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+    .gallery-head .ui-title { margin: 0; }
+    .gallery-progress {
+      flex: 0 0 160px; height: 2px; border-radius: 2px; background: var(--ui-line); overflow: hidden; margin-bottom: 14px;
     }
-
-    .cta-content {
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
+    .gallery-progress span {
+      display: block; height: 100%; background: var(--ui-green-deep);
+      transform-origin: left; transform: scaleX(var(--sticky, 0));
     }
-
-    .cta-title {
-      color: var(--pure-white);
-      margin-bottom: var(--space-lg);
+    .gallery:not(.pinned) .gallery-progress { display: none; }
+    .gallery-viewport { overflow: hidden; }
+    .gallery:not(.pinned) .gallery-viewport {
+      overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
     }
-
-    .cta-subtitle {
-      font-size: 1.125rem;
-      line-height: 1.7;
-      margin-bottom: var(--space-3xl);
-      color: rgba(255, 255, 255, 0.9);
+    .gallery-viewport::-webkit-scrollbar { display: none; }
+    .gallery-track {
+      display: flex; gap: 20px; width: max-content;
+      padding: 0 max(24px, calc((100vw - var(--ui-wrap)) / 2 + 24px));
     }
-
-    .cta-actions {
-      display: flex;
-      gap: var(--space-lg);
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .cta-section .btn-primary {
-      background: rgba(255, 255, 255, 0.95);
-      color: var(--viridian);
-      will-change: transform;
-      transition: all 0.4s var(--apple-spring);
-      backdrop-filter: blur(15px);
-      border: 2px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .cta-section .btn-primary:hover {
-      background: white;
-      transform: translateY(-4px) scale(1.05);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
-    }
-
-    .cta-section .btn-secondary {
-      background: transparent;
-      color: white;
-      border: 2px solid rgba(255, 255, 255, 0.5);
-      will-change: transform;
-      transition: all 0.4s var(--apple-spring);
-      backdrop-filter: blur(10px);
-    }
-
-    .cta-section .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.2);
-      border-color: white;
-      transform: translateY(-4px) scale(1.05);
-    }
-
-    /* Performance Enhancements */
-    * {
-      backface-visibility: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    .btn {
-      will-change: transform;
-      transform: translateZ(0);
-      transition: all 0.3s var(--apple-spring);
-    }
-
-    /* Apple Store Specific Styles */
-    .showcase-image {
-      width: 100%;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 1.5rem;
+    .gallery.pinned .gallery-track {
+      transform: translate3d(calc(var(--sticky, 0) * var(--shift, 0px) * -1), 0, 0);
       will-change: transform;
     }
+    .g-card {
+      position: relative; flex: 0 0 auto; width: clamp(280px, 30vw, 420px); height: min(62vh, 560px);
+      border-radius: 28px; overflow: hidden; text-decoration: none; color: #fff;
+      display: flex; flex-direction: column; justify-content: flex-end; scroll-snap-align: center;
+      background: var(--ui-green-ink);
+    }
+    .g-card img {
+      position: absolute; top: 0; left: -10%; width: 120%; max-width: none; height: 100%; object-fit: cover;
+      /* image drifts slower than its card: parallax inside the frame */
+      transform: translate3d(calc(var(--sticky, 0) * 14% - 7%), 0, 0);
+      transition: scale 1.2s var(--ui-ease);
+    }
+    .g-card:hover img { scale: 1.04; }
+    .g-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(8, 22, 17, 0.82) 100%);
+    }
+    .g-copy { position: relative; z-index: 1; padding: 28px; }
+    .g-copy h3 { font-size: 1.75rem; font-weight: 600; letter-spacing: -0.025em; margin: 0 0 8px; color: inherit; }
+    .g-copy p { margin: 0 0 18px; line-height: 1.5; color: rgba(255, 255, 255, 0.8); }
+    .g-price { display: inline-flex; align-items: center; gap: 8px; font-size: 0.9375rem; color: rgba(255, 255, 255, 0.85); }
+    .g-price strong { color: #fff; font-size: 1.125rem; }
+    .g-price app-icon { transition: transform 0.4s var(--ui-ease); }
+    .g-card:hover .g-price app-icon { transform: translateX(4px); }
+    .g-dark { background: var(--ui-green-deep); justify-content: space-between; }
+    .g-dark::after { display: none; }
+    .g-big {
+      position: relative; z-index: 1; padding: 28px;
+      font-size: clamp(4.5rem, 9vw, 7.5rem); font-weight: 600; letter-spacing: -0.06em; line-height: 0.9;
+    }
+    .g-card:focus-visible { outline: 3px solid var(--ui-green); outline-offset: 4px; }
 
-    .feature-points {
-      margin-top: var(--space-xl);
+    /* ---------- stacking steps ---------- */
+    .stack { list-style: none; margin: 0 auto; padding: 0; max-width: 960px; }
+    .stack-card {
+      position: sticky; top: calc(var(--header-h, 100px) + 24px + var(--i) * 18px);
+      display: grid; grid-template-columns: auto 1fr; gap: clamp(24px, 5vw, 72px); align-items: center;
+      min-height: min(54vh, 460px); padding: clamp(32px, 5vw, 64px);
+      margin-bottom: 14vh; border-radius: 32px; overflow: hidden;
+      transform-origin: center top;
+      /* shrink and dim once the next card starts covering this one */
+      --covered: clamp(0, calc(var(--sticky, 0) * var(--n) - var(--i) - 0.55), 1);
+      transform: scale(calc(1 - var(--covered) * 0.06));
+    }
+    .stack-card:last-child { margin-bottom: 0; --covered: 0; }
+    .stack-card::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: #0b1712; opacity: calc(var(--covered) * 0.18);
+    }
+    .tone-0 { background: #fff; color: var(--ui-ink); }
+    .tone-1 { background: var(--ui-mint); color: var(--ui-green-ink); }
+    .tone-2 { background: var(--ui-green-ink); color: #fff; }
+    .stack-num {
+      font-size: clamp(6rem, 16vw, 13rem); font-weight: 600; letter-spacing: -0.07em; line-height: 0.8;
+      color: var(--ui-green);
+    }
+    .tone-2 .stack-num { color: #a4c3b2; }
+    .stack-copy app-icon { color: var(--ui-green-deep); margin-bottom: 20px; }
+    .tone-2 .stack-copy app-icon { color: #a4c3b2; }
+    .stack-copy h3 {
+      font-size: clamp(1.75rem, 3.5vw, 2.75rem); font-weight: 600; letter-spacing: -0.03em;
+      margin: 0 0 12px; color: inherit;
+    }
+    .stack-copy p { font-size: clamp(1.0625rem, 1.6vw, 1.25rem); line-height: 1.5; margin: 0; opacity: 0.75; max-width: 440px; color: inherit; }
+
+    /* ---------- responsive ---------- */
+    @media (max-width: 900px) {
+      .split { grid-template-columns: 1fr; }
+      .split-media { aspect-ratio: 4 / 3; }
+      .gallery-head { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 600px) {
+      .hero-media { height: 140vh; }
+      .hero-media-sticky { height: 72vh; top: 14vh; }
+      .float-card { font-size: 0.875rem; padding: 10px 14px; }
+      .fc-1 { left: 20px; bottom: 6vh; }
+      .fc-2 { right: 20px; top: 8vh; }
+      .statement { height: 160vh; }
+      .g-card { width: 82vw; height: 440px; }
+      .stack-card { grid-template-columns: 1fr; gap: 8px; min-height: 0; margin-bottom: 8vh; }
+      .stack-num { font-size: 5.5rem; }
     }
 
-    .point {
-      display: block;
-      margin-bottom: var(--space-sm);
-      color: var(--viridian);
-      font-weight: 500;
-    }
-
-    .experience-stats {
-      margin-top: var(--space-2xl);
-    }
-
-    .stat-row {
-      display: flex;
-      gap: var(--space-xl);
-      margin-bottom: var(--space-lg);
-    }
-
-    .testimonial-card {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(20px);
-      border-radius: 1.5rem;
-      padding: var(--space-2xl);
-      border: 1px solid rgba(107, 144, 128, 0.1);
-      box-shadow: 0 12px 40px rgba(107, 144, 128, 0.15);
-      cursor: pointer;
-      transition: all 0.6s var(--apple-ease);
-    }
-
-    .testimonial-card:hover {
-      transform: scale(1.02) rotateY(2deg);
-      box-shadow: 0 20px 60px rgba(107, 144, 128, 0.25);
-    }
-
-    .testimonial-text {
-      font-size: 1.125rem;
-      line-height: 1.6;
-      font-style: italic;
-      color: var(--neutral-dark);
-      margin-bottom: var(--space-lg);
-    }
-
-    .testimonial-author {
-      text-align: left;
-    }
-
-    .testimonial-author strong {
-      display: block;
-      color: var(--viridian);
-      margin-bottom: var(--space-xs);
-    }
-
-    .testimonial-author span {
-      font-size: 0.875rem;
-      color: var(--neutral-medium);
-    }
-
-    .product-features {
-      margin-top: var(--space-lg);
-      display: flex;
-      gap: var(--space-sm);
-      flex-wrap: wrap;
-    }
-
-    .feature {
-      background: var(--cambridge-blue);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
-      font-size: 0.875rem;
-      font-weight: 500;
-    }
-
-    .cta-visual {
-      position: relative;
-      height: 400px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .floating-elements {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-
-    .element {
-      position: absolute;
-      padding: 1rem 2rem;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(15px);
-      border-radius: 50px;
-      font-weight: 600;
-      box-shadow: 0 8px 30px rgba(107, 144, 128, 0.15);
-      will-change: transform;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .eco-badge {
-      top: 20%;
-      left: 10%;
-      background: var(--cambridge-blue);
-      color: white;
-      animation-delay: 0s;
-    }
-
-    .service-badge {
-      top: 60%;
-      right: 20%;
-      background: var(--viridian);
-      color: white;
-      animation-delay: 2s;
-    }
-
-    .local-badge {
-      bottom: 30%;
-      left: 30%;
-      background: var(--mint-green);
-      color: var(--viridian);
-      animation-delay: 4s;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      25% { transform: translateY(-20px) rotate(1deg); }
-      50% { transform: translateY(-10px) rotate(-1deg); }
-      75% { transform: translateY(-15px) rotate(0.5deg); }
-    }
-
-    /* Reduced Motion Support */
     @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
-
-      .element {
-        animation: none;
-      }
-    }
-
-    /* Responsive Design */
-    @media (max-width: 1024px) {
-      .hero-content {
-        grid-template-columns: 1fr;
-        gap: var(--space-3xl);
-        text-align: center;
-      }
-
-      .hero-visual {
-        order: -1;
-      }
-
-      .services-header {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: var(--space-2xl);
-      }
-
-      .testimonials-grid {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      }
-    }
-
-    @media (max-width: 768px) {
-      /* MOBILE LAYOUT - FLEXBOX EVERYWHERE */
-
-      /* All sections - consistent spacing with wave border margins */
-      .scroll-section {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        padding: calc(var(--space-4xl) + 60px) var(--space-lg) calc(var(--space-4xl) + 60px) !important;
-        min-height: auto !important;
-      }
-
-      /* Hero Section - Account for fixed header */
-      .hero-section {
-        padding-top: calc(90px + var(--space-4xl) + 60px) !important;
-        padding-bottom: calc(var(--space-4xl) + 60px) !important;
-      }
-
-      /* Apple Showcase sections */
-      .apple-showcase {
-        padding: calc(var(--space-4xl) + 60px) var(--space-lg) !important;
-      }
-
-      /* Layered Reveal section */
-      .layered-reveal {
-        padding: calc(var(--space-4xl) + 60px) var(--space-lg) !important;
-      }
-
-      /* CTA Section */
-      .cta-section {
-        padding: calc(var(--space-4xl) + 60px) var(--space-lg) !important;
-      }
-
-      /* All showcase grids - stack vertically with flexbox */
-      .showcase-grid {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: var(--space-2xl) !important;
-        min-height: auto !important;
-        width: 100% !important;
-      }
-
-      .showcase-content,
-      .showcase-media {
-        width: 100% !important;
-        max-width: 100% !important;
-        text-align: center !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        transform: none !important;
-      }
-
-      .showcase-media {
-        order: -1 !important;
-      }
-
-      /* Clean mobile transforms */
-      .stat-item,
-      .testimonial-card,
-      .product-card {
-        transform: none !important;
-      }
-
-      /* Container - ensure proper flexbox and centering */
-      .container {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        width: 100% !important;
-      }
-
-      /* Typography */
-      .hero-badge {
-        font-size: 0.8rem;
-        padding: 0.5rem 1rem;
-        margin-bottom: var(--space-lg);
-      }
-
-      .hero-title {
-        font-size: 2rem !important;
-        line-height: 1.2 !important;
-        margin-bottom: var(--space-lg) !important;
-      }
-
-      .hero-subtitle {
-        font-size: 1rem !important;
-        margin-bottom: var(--space-2xl) !important;
-      }
-
-      .hero-actions {
-        justify-content: center;
-        gap: var(--space-md);
-      }
-
-      .hero-actions .btn {
-        width: auto;
-        min-width: 200px;
-      }
-
-      /* Images */
-      .parallax-wrapper,
-      .image-container {
-        height: 280px !important;
-        width: 100% !important;
-        border-radius: 1rem;
-      }
-
-      .parallax-image {
-        height: 100% !important;
-        transform: none !important;
-      }
-
-      .image-badge {
-        display: none !important;
-      }
-
-      .showcase-image {
-        width: 100% !important;
-        height: 280px !important;
-        object-fit: cover !important;
-        object-position: center !important;
-      }
-
-      /* Layered Reveal Section - Force Flexbox and Centering */
-      .layered-reveal {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-      }
-
-      .layered-reveal .container {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-      }
-
-      .reveal-layer {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        transform: none !important;
-        width: 100% !important;
-      }
-
-      /* Product Cards Section */
-      .section-title {
-        font-size: 2rem !important;
-        margin-bottom: var(--space-2xl) !important;
-        transform: none !important;
-        text-align: center !important;
-      }
-
-      .product-showcase {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: var(--space-2xl) !important;
-        margin-top: 0 !important;
-        width: 100% !important;
-      }
-
-      .product-card {
-        width: 100% !important;
-        transform: none !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-      }
-
-      .product-media {
-        height: 240px !important;
-        width: 100% !important;
-        overflow: hidden !important;
-      }
-
-      .product-media img {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-        object-position: center !important;
-      }
-
-      .product-info {
-        padding: var(--space-xl) !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        text-align: center !important;
-        width: 100% !important;
-      }
-
-      .product-info h3 {
-        font-size: 1.25rem !important;
-        text-align: center !important;
-      }
-
-      .product-info p {
-        text-align: center !important;
-      }
-
-      .product-features {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: var(--space-sm);
-        align-items: center !important;
-        width: 100% !important;
-      }
-
-      .feature {
-        text-align: center !important;
-      }
-
-      /* Stats Section - Centered */
-      .experience-stats {
-        margin-top: var(--space-2xl);
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        width: 100% !important;
-      }
-
-      .stat-row {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: wrap !important;
-        gap: var(--space-md);
-        justify-content: center !important;
-        align-items: center !important;
-        width: 100% !important;
-      }
-
-      .stat-item {
-        flex: 1;
-        min-width: 140px;
-        max-width: 140px;
-        height: 140px;
-        background: rgba(255, 255, 255, 0.9);
-        padding: var(--space-lg);
-        border-radius: var(--radius-lg);
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        text-align: center !important;
-      }
-
-      .stat-number {
-        font-size: 2rem !important;
-        text-align: center !important;
-      }
-
-      .stat-label {
-        text-align: center !important;
-      }
-
-      /* Testimonial - Centered and Fixed */
-      .testimonial-card {
-        padding: var(--space-2xl) !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        text-align: center !important;
-        transform: none !important;
-        width: 100% !important;
-      }
-
-      .testimonial-text {
-        font-size: 1rem !important;
-        line-height: 1.6 !important;
-        text-align: center !important;
-      }
-
-      .testimonial-author {
-        text-align: center !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-      }
-
-      .testimonial-author strong,
-      .testimonial-author span {
-        text-align: center !important;
-      }
-
-      /* CTA Section - Centered and Fixed */
-      .cta-title {
-        font-size: 2rem !important;
-        margin-bottom: var(--space-lg) !important;
-        text-align: center !important;
-        transform: none !important;
-      }
-
-      .cta-subtitle {
-        font-size: 1rem !important;
-        margin-bottom: var(--space-2xl) !important;
-        text-align: center !important;
-      }
-
-      .cta-actions {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: var(--space-md);
-        align-items: center !important;
-        justify-content: center !important;
-        width: 100% !important;
-      }
-
-      .cta-actions .btn {
-        min-width: 200px;
-        text-align: center !important;
-      }
-
-      /* Floating badges - simplified and centered */
-      .cta-visual {
-        height: auto !important;
-        min-height: 120px !important;
-        width: 100% !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        transform: none !important;
-      }
-
-      .floating-elements {
-        position: relative !important;
-        display: flex !important;
-        flex-wrap: wrap !important;
-        gap: var(--space-sm) !important;
-        align-items: center !important;
-        justify-content: center !important;
-        padding: var(--space-lg) 0 !important;
-        width: 100% !important;
-        transform: none !important;
-      }
-
-      .element {
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        right: auto !important;
-        bottom: auto !important;
-        animation: none !important;
-        transform: none !important;
-        font-size: 0.85rem;
-        padding: 0.6rem 1.25rem;
-      }
-
-      /* Hide decorative backgrounds */
-      .hero-section::before,
-      .apple-showcase::before,
-      .values-section::before,
-      .cta-section::before {
-        display: none !important;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero-title {
-        font-size: 1.5rem !important;
-      }
-
-      .section-title {
-        font-size: 1.5rem !important;
-      }
-
-      .cta-title {
-        font-size: 1.5rem !important;
-      }
-
-      .parallax-wrapper,
-      .image-container,
-      .showcase-image {
-        height: 200px !important;
-      }
-
-      .parallax-image {
-        height: 100% !important;
-      }
-
-      .product-media {
-        height: 180px !important;
-      }
-
-      .stat-number {
-        font-size: 1.75rem !important;
-      }
-    }
-
-    @media (max-width: 360px) {
-      .hero-title {
-        font-size: 1.375rem !important;
-      }
-
-      .hero-subtitle,
-      .cta-subtitle,
-      .product-info p {
-        font-size: 0.875rem !important;
-      }
-
-      .parallax-wrapper,
-      .image-container,
-      .showcase-image {
-        height: 180px !important;
-      }
-
-      .parallax-image {
-        height: 100% !important;
-      }
-
-      .product-media {
-        height: 160px !important;
-      }
-
-      .hero-actions .btn,
-      .cta-actions .btn {
-        max-width: 100% !important;
-        padding: var(--space-md) var(--space-lg) !important;
-      }
+      .hero-copy { opacity: 1; transform: none; animation: none; }
+      .hero-media { height: auto; }
+      .hero-media-sticky { position: static; height: 70vh; }
+      .float-card { opacity: 1; transform: none; }
+      .statement { height: auto; padding: 120px 0; }
+      .statement-sticky { position: static; height: auto; }
+      .marquee, .marquee.reverse { transform: none; flex-wrap: wrap; width: auto; justify-content: center; }
+      .stack-card { position: static; transform: none; margin-bottom: 20px; }
+      .stack-card::after { display: none; }
     }
   `]
 })
-export class HomeComponent implements OnInit, AfterViewInit {
-  constructor(
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+export class HomeComponent implements AfterViewInit, OnDestroy {
+  private transloco = inject(TranslocoService);
+  private fx = inject(ScrollFxService);
+  private host = inject(ElementRef<HTMLElement>);
+  private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  private cleanups: (() => void)[] = [];
 
-  ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      setTimeout(() => {
-        this.setupProgressiveImageLoading();
-      }, 100);
-    }
-  }
+  @ViewChild('track') private track?: ElementRef<HTMLElement>;
 
-  ngAfterViewInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      setTimeout(() => {
-        this.initializeInteractiveElements();
-      }, 300);
-    }
-  }
+  /** Pixels the service track overflows the viewport; the pinned section scrolls exactly that far. */
+  readonly overflow = signal(0);
+  /** Wide screens pin the gallery and drive it with vertical scroll; phones swipe it natively. */
+  readonly pinned = signal(false);
 
-  private setupProgressiveImageLoading(): void {
-    const images = document.querySelectorAll('.progressive-img');
-    images.forEach((img) => {
-      const imgElement = img as HTMLImageElement;
-      if (imgElement.complete) {
-        imgElement.classList.add('loaded');
-      } else {
-        imgElement.addEventListener('load', () => {
-          imgElement.classList.add('loaded');
-        });
-      }
-    });
-  }
+  readonly img = {
+    hero: IMG('1581578731548-c64695cc6952', 2000, 1200),
+    products: IMG('1527515637462-cff94eecc1ac', 900, 1100),
+  };
 
-  private initializeInteractiveElements(): void {
-    // Initialize scroll-triggered visibility (one-time reveals only)
-    this.setupScrollTriggers();
+  readonly cities = ['MONTREAL', 'LAVAL', 'LONGUEUIL', 'BROSSARD'];
+  readonly marqueeCities = [...this.cities, ...this.cities, ...this.cities];
 
-    // Initialize Apple-style performant parallax
-    this.setupPerformantParallax();
-  }
+  readonly services = [
+    { key: 'residential', link: '/services', from: SERVICE_PRICES.residential.from,
+      title: 'HOME.SERVICES.RESIDENTIAL.TITLE', description: 'HOME.SERVICES.RESIDENTIAL.DESCRIPTION',
+      image: IMG('1558618666-fcd25c85cd64', 900, 1200) },
+    { key: 'deep', link: '/services', from: SERVICE_PRICES.deep_cleaning.from,
+      title: 'HOME.GALLERY.DEEP.TITLE', description: 'HOME.GALLERY.DEEP.DESCRIPTION',
+      image: IMG('1556909114-f6e7ad7d3136', 900, 1200) },
+    { key: 'commercial', link: '/services', from: SERVICE_PRICES.commercial.from,
+      title: 'HOME.SERVICES.COMMERCIAL.TITLE', description: 'HOME.SERVICES.COMMERCIAL.DESCRIPTION',
+      image: IMG('1497366216548-37526070297c', 900, 1200) },
+    { key: 'construction', link: '/services', from: SERVICE_PRICES.post_construction.from,
+      title: 'HOME.SERVICES.POST_CONSTRUCTION.TITLE', description: 'HOME.SERVICES.POST_CONSTRUCTION.DESCRIPTION',
+      image: IMG('1504307651254-35680f356dfd', 900, 1200) },
+  ];
+  readonly weeklyDiscount = FREQUENCY_DISCOUNTS['weekly'] * 100;
 
-  private setupScrollTriggers(): void {
-    // Apple-style: trigger animations ONCE when elements enter viewport
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+  readonly steps = [
+    { key: 'BOOK', icon: 'calendar' },
+    { key: 'CONFIRM', icon: 'check-circle' },
+    { key: 'CLEAN', icon: 'sparkles' },
+  ];
 
-          // Unobserve after triggering (one-time reveal)
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.15,
-      rootMargin: '0px 0px -80px 0px'
-    });
+  readonly statementWords = toSignal(
+    this.transloco.selectTranslate<string>('HOME.STATEMENT').pipe(map(text => text.split(/\s+/))),
+    { initialValue: [] as string[] }
+  );
 
-    // Observe all showcase elements for one-time reveal
-    const showcaseElements = document.querySelectorAll('.showcase-content, .showcase-media, .reveal-layer, .product-card, .stat-item');
-    showcaseElements.forEach(element => {
-      observer.observe(element);
-    });
-  }
+  ngAfterViewInit(): void {
+    if (!this.isBrowser) return;
+    this.cleanups.push(observeHeaderHeight(this.host.nativeElement));
 
-  private setupPerformantParallax(): void {
-    // Skip on mobile for better performance
-    if (window.innerWidth <= 768) {
-      return;
-    }
-
-    const parallaxImages = document.querySelectorAll<HTMLElement>('.parallax-image');
-    if (parallaxImages.length === 0) return;
-
-    let ticking = false;
-    const activeElements = new Set<HTMLElement>();
-
-    // Use Intersection Observer to only animate visible elements
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const element = entry.target as HTMLElement;
-        if (entry.isIntersecting) {
-          activeElements.add(element);
-        } else {
-          activeElements.delete(element);
-        }
-      });
-    }, {
-      rootMargin: '200px 0px 200px 0px'
-    });
-
-    parallaxImages.forEach(img => observer.observe(img));
-
-    // Optimized scroll handler with requestAnimationFrame
-    const updateParallax = () => {
-      activeElements.forEach((element) => {
-        const wrapper = element.closest('.parallax-wrapper');
-        if (!wrapper) return;
-
-        const rect = wrapper.getBoundingClientRect();
-        const speed = parseFloat(element.dataset['parallax'] || '0.5');
-
-        // Apple-style: elements "rise up" as they enter viewport from bottom
-        // When element is below viewport center, it should be lower (positive Y)
-        // When element is above viewport center, it should be higher (negative Y)
-        const windowHeight = window.innerHeight;
-        const elementTop = rect.top;
-        const elementBottom = rect.bottom;
-
-        // Calculate how far the element is from viewport center (0 = center, negative = above, positive = below)
-        const distanceFromCenter = (elementTop + elementBottom) / 2 - windowHeight / 2;
-
-        // Apply parallax: as element comes up from bottom, it moves up slower (creating depth)
-        // Negative value because we want element to lag behind (appear lower when entering from bottom)
-        const offset = -distanceFromCenter * speed;
-
-        element.style.transform = `translate3d(0, ${offset}px, 0) scale(1.1)`;
-      });
-
-      ticking = false;
+    const wide = window.matchMedia('(min-width: 768px)');
+    const measure = () => {
+      this.pinned.set(wide.matches && !this.fx.reducedMotion);
+      const track = this.track?.nativeElement;
+      if (track) this.overflow.set(Math.max(0, track.scrollWidth - window.innerWidth));
     };
+    const ro = new ResizeObserver(measure);
+    if (this.track) ro.observe(this.track.nativeElement);
+    window.addEventListener('resize', measure, { passive: true });
+    measure();
+    this.cleanups.push(() => ro.disconnect(), () => window.removeEventListener('resize', measure));
+  }
 
-    // Throttled scroll listener
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(updateParallax);
-        ticking = true;
-      }
-    }, { passive: true });
-
-    // Initial parallax calculation
-    updateParallax();
+  ngOnDestroy(): void {
+    this.cleanups.forEach(fn => fn());
   }
 }
