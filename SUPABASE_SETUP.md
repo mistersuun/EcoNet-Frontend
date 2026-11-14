@@ -249,6 +249,17 @@ ALTER VIEW urgent_requests SET (security_invoker = true);
 3. **Authentication → Sign In / Providers → turn off "Allow new users to sign up".**
    The anon key is public (it ships in the website), so with sign-ups on, anyone can create an account.
 
+## Step 4c: Estimate Requests (Optional)
+
+The booking page's estimate panel has an optional "Recevoir cette estimation par courriel" block. To store those
+requests (they become leads in the EcoNet CRM):
+
+1. Run [`supabase/estimate-requests.sql`](supabase/estimate-requests.sql) in the SQL Editor. It is safe to re-run.
+   The public (anon) role can only INSERT, and only when the consent box was ticked (`consent = true` is enforced by a
+   check constraint and the RLS policy). Nothing can be read back through the public API. If you already ran
+   `secure-admin-access.sql`, admins can also read the table; if you run it afterwards, re-run this file once.
+2. Until the table exists, submitting the block shows an error message and the rest of the site is unaffected.
+
 ## Step 5: Verify Tables Created
 
 1. In Supabase dashboard, go to **Table Editor**

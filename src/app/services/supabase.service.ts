@@ -65,6 +65,22 @@ export interface BookingRequest {
   cancellation_reason?: string;
 }
 
+export interface EstimateRequest {
+  email: string;
+  first_name?: string;
+  phone?: string;
+  service?: string;
+  area?: string;
+  property_type?: string;
+  add_ons: string[];
+  frequency?: string;
+  /** null when the space is too large to price online (custom quote) */
+  total: number | null;
+  language: 'fr' | 'en';
+  /** Must be true: the database refuses the row otherwise */
+  consent: boolean;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -388,6 +404,35 @@ export class SupabaseService {
         success: false,
         error: error.message || 'Unknown error'
       };
+    }
+  }
+
+  /**
+   * Save an estimate request (the visitor asked to receive their estimate by email).
+   * Refuses to send anything without consent; the table's policy enforces the same rule.
+   */
+  async saveEstimateRequest(data: EstimateRequest): Promise<{ success: boolean; error?: string }> {
+    if (!data.consent) {
+      return { success: false, error: 'Consent required' };
+    }
+    if (!this.supabase) {
+      return { success: false, error: 'Supabase not configured' };
+    }
+    try {
+      const row = {
+        ...data,
+        user_agent: typeof navigator !== 'undefined' ? navigator.userAgent.slice(0, 200) : undefined
+      };
+      // No .select(): the public (anon) role can insert but not read rows back.
+      const { error } = await this.supabase.from('estimate_requests').insert([row]);
+      if (error) {
+        console.error('Error saving estimate request:', error);
+        return { success: false, error: error.message };
+      }
+      return { success: true };
+    } catch (error: any) {
+      console.error('Exception saving estimate request:', error);
+      return { success: false, error: error.message || 'Unknown error' };
     }
   }
 }

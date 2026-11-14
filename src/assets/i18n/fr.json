@@ -953,7 +953,21 @@
     },
     "SUCCESS_TITLE": "Réservation confirmée!",
     "SUCCESS_MESSAGE": "Votre réservation a été reçue avec succès. Nous vous contacterons sous peu pour confirmer les détails.",
-    "ERROR_MESSAGE": "Une erreur est survenue lors de l'envoi de votre réservation. Veuillez réessayer."
+    "ERROR_MESSAGE": "Une erreur est survenue lors de l'envoi de votre réservation. Veuillez réessayer.",
+    "CAPTURE": {
+      "TITLE": "Recevoir cette estimation par courriel",
+      "INTRO": "Laissez votre courriel : nous vous écrivons avec votre estimation et répondons à vos questions.",
+      "EMAIL": "Courriel",
+      "FIRST_NAME": "Prénom",
+      "PHONE": "Téléphone",
+      "CONSENT": "J’accepte d’être contacté par EcoNet au sujet de cette estimation",
+      "CONSENT_REQUIRED": "Cochez la case pour recevoir votre estimation.",
+      "SUBMIT": "Recevoir mon estimation",
+      "SENDING": "Envoi en cours…",
+      "SUCCESS_TITLE": "Merci, c’est reçu!",
+      "SUCCESS_TEXT": "Nous vous écrivons très bientôt avec votre estimation.",
+      "ERROR": "L’envoi n’a pas fonctionné. Réessayez dans un instant ou écrivez-nous depuis la page Contact."
+    }
   },
   "FOOTER": {
     "DESCRIPTION": "Service professionnel de nettoyage écologique pour votre maison et entreprise dans la région de Montréal.",
