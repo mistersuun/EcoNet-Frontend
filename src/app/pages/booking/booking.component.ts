@@ -446,7 +446,7 @@ function phoneNumber(control: AbstractControl): ValidationErrors | null {
                   <form [formGroup]="capture" (ngSubmit)="submitCapture()" novalidate>
                     <div class="field">
                       <label for="c-email">{{ 'BOOKING.CAPTURE.EMAIL' | transloco }}</label>
-                      <input id="c-email" type="email" formControlName="email" class="input" autocomplete="email" inputmode="email"
+                      <input id="c-email" type="email" formControlName="email" class="input" maxlength="255" autocomplete="email" inputmode="email"
                              [attr.aria-invalid]="captureErrors && capture.controls['email'].invalid ? 'true' : null"
                              [attr.aria-describedby]="captureErrors && capture.controls['email'].invalid ? 'c-email-err' : null">
                       @if (captureErrors && capture.controls['email'].invalid) {
@@ -455,7 +455,7 @@ function phoneNumber(control: AbstractControl): ValidationErrors | null {
                     </div>
                     <div class="field">
                       <label for="c-first">{{ 'BOOKING.CAPTURE.FIRST_NAME' | transloco }} <span class="opt">({{ 'BOOKING.STEP_2.OPTIONAL' | transloco }})</span></label>
-                      <input id="c-first" type="text" formControlName="firstName" class="input" autocomplete="given-name">
+                      <input id="c-first" type="text" formControlName="firstName" class="input" maxlength="100" autocomplete="given-name">
                     </div>
                     <div class="field">
                       <label for="c-phone">{{ 'BOOKING.CAPTURE.PHONE' | transloco }} <span class="opt">({{ 'BOOKING.STEP_2.OPTIONAL' | transloco }})</span></label>
@@ -871,8 +871,8 @@ export class BookingComponent implements OnInit {
     for (const addon of ADD_ONS) controls['addon_' + addon.id] = [false];
     this.form = this.fb.group(controls);
     this.capture = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      firstName: [''],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(255), Validators.pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)]],
+      firstName: ['', [Validators.maxLength(100)]],
       phone: ['', [phoneNumber]],
       consent: [false, Validators.requiredTrue],
     });

@@ -11,6 +11,11 @@
 --   * nobody can SELECT through the public API. Admins can read when the
 --     is_admin() function from secure-admin-access.sql exists.
 --   * the CRM reads this table over its own read-only Postgres connection.
+--     The default CRM user (postgres.<project-ref>) bypasses RLS. A dedicated
+--     read-only user does NOT: row level security applies to it and, with no
+--     matching policy, it reads zero rows without any error. Give it either
+--     BYPASSRLS (ALTER ROLE <reader> BYPASSRLS) or the policy at the end of
+--     this file (uncomment it and replace <reader_role>).
 -- =====================================================================
 
 CREATE TABLE IF NOT EXISTS estimate_requests (
@@ -54,3 +59,8 @@ BEGIN
   END IF;
 END
 $$;
+
+-- Dedicated read-only CRM user (optional). Uncomment and replace <reader_role>.
+-- GRANT SELECT ON estimate_requests TO <reader_role>;
+-- DROP POLICY IF EXISTS "CRM reader can read" ON estimate_requests;
+-- CREATE POLICY "CRM reader can read" ON estimate_requests FOR SELECT TO <reader_role> USING (true);
