@@ -5,6 +5,7 @@ import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validatio
 import { RouterLink } from '@angular/router';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { EmailService, BookingFormData } from '../../services/email.service';
+import { SupabaseService } from '../../services/supabase.service';
 import { SuccessModalComponent } from '../../shared/components/success-modal.component';
 import { IconComponent } from '../../shared/components/icon.component';
 import {
@@ -431,6 +432,60 @@ function phoneNumber(control: AbstractControl): ValidationErrors | null {
                 <p class="total"><span>{{ 'BOOKING.SUMMARY.TOTAL' | transloco }}</span><strong>{{ money(estimate.total) }}</strong></p>
               }
               <p class="disclaimer">{{ 'BOOKING.SUMMARY.DISCLAIMER' | transloco }}</p>
+
+              <!-- Optional: email this estimate (stored in Supabase, imported by the CRM) -->
+              <section class="capture" aria-labelledby="capture-title">
+                @if (captureState === 'sent') {
+                  <div class="capture-done" role="status">
+                    <strong>{{ 'BOOKING.CAPTURE.SUCCESS_TITLE' | transloco }}</strong>
+                    <p>{{ 'BOOKING.CAPTURE.SUCCESS_TEXT' | transloco }}</p>
+                  </div>
+                } @else {
+                  <h3 id="capture-title" class="capture-title">{{ 'BOOKING.CAPTURE.TITLE' | transloco }}</h3>
+                  <p class="capture-intro">{{ 'BOOKING.CAPTURE.INTRO' | transloco }}</p>
+                  <form [formGroup]="capture" (ngSubmit)="submitCapture()" novalidate>
+                    <div class="field">
+                      <label for="c-email">{{ 'BOOKING.CAPTURE.EMAIL' | transloco }}</label>
+                      <input id="c-email" type="email" formControlName="email" class="input" maxlength="255" autocomplete="email" inputmode="email"
+                             [attr.aria-invalid]="captureErrors && capture.controls['email'].invalid ? 'true' : null"
+                             [attr.aria-describedby]="captureErrors && capture.controls['email'].invalid ? 'c-email-err' : null">
+                      @if (captureErrors && capture.controls['email'].invalid) {
+                        <p id="c-email-err" class="field-error">{{ (capture.controls['email'].errors?.['required'] ? 'BOOKING.ERRORS.EMAIL' : 'BOOKING.ERRORS.EMAIL_FORMAT') | transloco }}</p>
+                      }
+                    </div>
+                    <div class="field">
+                      <label for="c-first">{{ 'BOOKING.CAPTURE.FIRST_NAME' | transloco }} <span class="opt">({{ 'BOOKING.STEP_2.OPTIONAL' | transloco }})</span></label>
+                      <input id="c-first" type="text" formControlName="firstName" class="input" maxlength="100" autocomplete="given-name">
+                    </div>
+                    <div class="field">
+                      <label for="c-phone">{{ 'BOOKING.CAPTURE.PHONE' | transloco }} <span class="opt">({{ 'BOOKING.STEP_2.OPTIONAL' | transloco }})</span></label>
+                      <input id="c-phone" type="tel" formControlName="phone" class="input" autocomplete="tel" inputmode="tel" placeholder="514 555-0123"
+                             [attr.aria-invalid]="captureErrors && capture.controls['phone'].invalid ? 'true' : null"
+                             [attr.aria-describedby]="captureErrors && capture.controls['phone'].invalid ? 'c-phone-err' : null">
+                      @if (captureErrors && capture.controls['phone'].invalid) {
+                        <p id="c-phone-err" class="field-error">{{ 'BOOKING.ERRORS.PHONE_FORMAT' | transloco }}</p>
+                      }
+                    </div>
+                    <div class="field consent">
+                      <label class="consent-label" for="c-consent">
+                        <input id="c-consent" type="checkbox" formControlName="consent"
+                               [attr.aria-invalid]="captureErrors && capture.controls['consent'].invalid ? 'true' : null"
+                               [attr.aria-describedby]="captureErrors && capture.controls['consent'].invalid ? 'c-consent-err' : null">
+                        <span>{{ 'BOOKING.CAPTURE.CONSENT' | transloco }}</span>
+                      </label>
+                      @if (captureErrors && capture.controls['consent'].invalid) {
+                        <p id="c-consent-err" class="field-error">{{ 'BOOKING.CAPTURE.CONSENT_REQUIRED' | transloco }}</p>
+                      }
+                    </div>
+                    @if (captureState === 'error') {
+                      <p class="field-error capture-error" role="alert">{{ 'BOOKING.CAPTURE.ERROR' | transloco }}</p>
+                    }
+                    <button type="submit" class="ui-pill primary capture-submit" [disabled]="captureState === 'sending'">
+                      {{ (captureState === 'sending' ? 'BOOKING.CAPTURE.SENDING' : 'BOOKING.CAPTURE.SUBMIT') | transloco }}
+                    </button>
+                  </form>
+                }
+              </section>
             }
           </aside>
         </div>
@@ -704,6 +759,20 @@ function phoneNumber(control: AbstractControl): ValidationErrors | null {
     .quote-box p { margin: 6px 0 0; color: var(--ui-muted); font-size: 0.9375rem; line-height: 1.45; }
     .disclaimer { margin: 16px 0 0; font-size: 0.8125rem; line-height: 1.45; color: var(--ui-muted); }
 
+    /* ---------- email this estimate ---------- */
+    .capture { margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--ui-line); }
+    .capture-title { font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 6px; }
+    .capture-intro { margin: 0 0 18px; font-size: 0.9375rem; line-height: 1.45; color: var(--ui-muted); }
+    .capture .field { margin-bottom: 16px; }
+    .consent-label { display: flex !important; align-items: flex-start; gap: 12px; font-weight: 400 !important; line-height: 1.4; cursor: pointer; }
+    .consent-label input { flex: 0 0 auto; width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--ui-green-deep); }
+    .consent-label input:focus-visible { outline: 3px solid var(--ui-green); outline-offset: 2px; }
+    .capture-error { margin: 0 0 14px; }
+    .capture-submit { width: 100%; }
+    .capture-done { padding: 16px; border-radius: 16px; background: #fff; }
+    .capture-done strong { font-size: 1.0625rem; letter-spacing: -0.01em; }
+    .capture-done p { margin: 6px 0 0; color: var(--ui-muted); font-size: 0.9375rem; line-height: 1.45; }
+
     .mobile-bar { display: none; }
 
     @media (max-width: 1000px) {
@@ -751,6 +820,7 @@ export class BookingComponent implements OnInit {
   private fb = inject(FormBuilder);
   private transloco = inject(TranslocoService);
   private emailService = inject(EmailService);
+  private supabase = inject(SupabaseService);
   private destroyRef = inject(DestroyRef);
   private host = inject(ElementRef<HTMLElement>);
   private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
@@ -771,6 +841,10 @@ export class BookingComponent implements OnInit {
   /** Steps the customer tried to leave, so their errors show */
   showErrors: boolean[] = STEPS.map(() => false);
   isSubmitting = false;
+  /** "Receive this estimate by email" block */
+  capture!: FormGroup;
+  captureState: 'idle' | 'sending' | 'sent' | 'error' = 'idle';
+  captureErrors = false;
   showSuccessModal = false;
   showErrorModal = false;
   private lang = 'fr';
@@ -796,6 +870,12 @@ export class BookingComponent implements OnInit {
     };
     for (const addon of ADD_ONS) controls['addon_' + addon.id] = [false];
     this.form = this.fb.group(controls);
+    this.capture = this.fb.group({
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(255), Validators.pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)]],
+      firstName: ['', [Validators.maxLength(100)]],
+      phone: ['', [phoneNumber]],
+      consent: [false, Validators.requiredTrue],
+    });
 
     this.updateEstimate();
     this.form.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.updateEstimate());
@@ -1000,6 +1080,41 @@ export class BookingComponent implements OnInit {
       summary?.focus({ preventScroll: true });
       summary?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
+  }
+
+  // ---------- email this estimate ----------
+
+  async submitCapture(): Promise<void> {
+    if (this.captureState === 'sending') return;
+    this.captureErrors = true;
+    // No insert without explicit consent (the database refuses it as well).
+    if (this.capture.invalid) {
+      this.capture.markAllAsTouched();
+      return;
+    }
+    const v = this.form.getRawValue();
+    const c = this.capture.getRawValue();
+    const e = this.estimate;
+    this.captureState = 'sending';
+    try {
+      const result = await this.supabase.saveEstimateRequest({
+        email: String(c.email).trim(),
+        first_name: String(c.firstName || '').trim() || undefined,
+        phone: String(c.phone || '').trim() || undefined,
+        service: v.service || undefined,
+        area: v.area || undefined,
+        property_type: v.propertyType || undefined,
+        add_ons: ADD_ONS.filter(a => v['addon_' + a.id]).map(a => a.id),
+        frequency: v.frequency || undefined,
+        total: e.quoteRequired ? null : e.total,
+        language: this.lang === 'en' ? 'en' : 'fr',
+        consent: c.consent === true,
+      });
+      this.captureState = result.success ? 'sent' : 'error';
+    } catch (error) {
+      console.error('Error saving estimate request:', error);
+      this.captureState = 'error';
+    }
   }
 
   // ---------- submit ----------

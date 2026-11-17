@@ -953,7 +953,21 @@
     },
     "SUCCESS_TITLE": "Booking Confirmed!",
     "SUCCESS_MESSAGE": "Your booking has been received successfully. We will contact you shortly to confirm the details.",
-    "ERROR_MESSAGE": "An error occurred while sending your booking. Please try again."
+    "ERROR_MESSAGE": "An error occurred while sending your booking. Please try again.",
+    "CAPTURE": {
+      "TITLE": "Email me this estimate",
+      "INTRO": "Leave your email: we will write to you with your estimate and answer any questions.",
+      "EMAIL": "Email",
+      "FIRST_NAME": "First name",
+      "PHONE": "Phone",
+      "CONSENT": "I agree to be contacted by EcoNet about this estimate",
+      "CONSENT_REQUIRED": "Tick the box to receive your estimate.",
+      "SUBMIT": "Email me my estimate",
+      "SENDING": "Sending…",
+      "SUCCESS_TITLE": "Thank you, we got it!",
+      "SUCCESS_TEXT": "We will email you very soon with your estimate.",
+      "ERROR": "Sending failed. Please try again in a moment or reach us from the Contact page."
+    }
   },
   "FOOTER": {
     "DESCRIPTION": "Professional eco-friendly cleaning service for your home and business in the Montreal area.",

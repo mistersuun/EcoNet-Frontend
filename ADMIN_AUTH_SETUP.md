@@ -34,6 +34,7 @@ The admin panel (`/admin`) is now protected with Supabase Authentication. Only a
 4. Ensure **Email** provider is enabled (it should be by default)
 5. **Turn off "Allow new users to sign up"** — admins are created by hand (Step 2), and the public anon key would otherwise let anyone register
 6. After creating your admin user, run [`supabase/secure-admin-access.sql`](supabase/secure-admin-access.sql) and add yourself to `admin_users`
+   (estimate requests: also run [`supabase/estimate-requests.sql`](supabase/estimate-requests.sql); it grants admins read access once `is_admin()` exists)
 7. Under **Auth** → **URL Configuration**:
    - Site URL: `http://localhost:4200` (for development)
    - Redirect URLs: `http://localhost:4200/**` (for development)
